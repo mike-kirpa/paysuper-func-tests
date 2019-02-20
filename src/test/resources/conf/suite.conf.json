@@ -6,8 +6,7 @@
   "capabilities": {
     "build": "testng-browserstack",
     "name": "suite_test",
-    "browserstack.debug": true,
-    "browserstack.selenium_version": "3.12.0"
+    "browserstack.debug": true
   },
 
   "environments": {
