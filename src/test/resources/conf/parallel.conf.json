@@ -17,6 +17,7 @@
       "browser": "firefox"
     },
     "safari": {
+      "os": "OS X",
       "browser": "safari"
     },
     "ie": {
