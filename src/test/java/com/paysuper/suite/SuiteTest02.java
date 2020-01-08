@@ -1,4 +1,4 @@
-package com.browserstack.suite;
+package com.paysuper.suite;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.browserstack.BrowserStackTestNGTest;
+import com.paysuper.BrowserStackTestNGTest;
 
 public class SuiteTest02 extends BrowserStackTestNGTest {
 

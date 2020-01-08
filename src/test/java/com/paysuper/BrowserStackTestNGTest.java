@@ -1,4 +1,4 @@
-package com.browserstack;
+package com.paysuper;
 
 import java.io.FileReader;
 import java.net.URL;

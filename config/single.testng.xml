@@ -5,7 +5,7 @@
         <parameter name="config" value="single.conf.json"/>
         <parameter name="environment" value="chrome"/>
         <classes>
-            <class name="com.browserstack.SingleTest"/>
+            <class name="com.paysuper.SingleTest"/>
         </classes>
     </test>
 </suite>

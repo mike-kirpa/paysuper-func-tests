@@ -1,4 +1,4 @@
-package com.browserstack;
+package com.paysuper;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

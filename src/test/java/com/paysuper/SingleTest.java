@@ -1,4 +1,4 @@
-package com.browserstack.suite;
+package com.paysuper;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -6,18 +6,16 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.browserstack.BrowserStackTestNGTest;
-
-public class SuiteTest01 extends BrowserStackTestNGTest {
+public class SingleTest extends BrowserStackTestNGTest {
 
     @Test
-    public void test_01() throws Exception {
+    public void test() throws Exception {
         driver.get("https://www.google.com/ncr");
         WebElement element = driver.findElement(By.name("q"));
-        element.sendKeys("BrowserStack Test 01");
+        element.sendKeys("BrowserStack");
         element.submit();
         Thread.sleep(5000);
 
-        Assert.assertEquals("BrowserStack Test 01 - Google Search", driver.getTitle());
+        Assert.assertEquals("BrowserStack - Google Search", driver.getTitle());
     }
 }
