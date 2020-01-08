@@ -1,10 +1,13 @@
 package com.paysuper;
 
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 
 import com.browserstack.local.Local;
 
@@ -21,14 +24,15 @@ public class BrowserStackTestNGTest {
     private Local l;
 
     @BeforeMethod(alwaysRun = true)
-    @org.testng.annotations.Parameters(value = { "config", "environment" })
+    @org.testng.annotations.Parameters(value = { "config", "environment", "zone"})
     @SuppressWarnings("unchecked")
-    public void setUp(String config_file, String environment) throws Exception {
+    public void setUp(String config_file, String environment, String zone) throws Exception {
         JSONParser parser = new JSONParser();
         JSONObject config = (JSONObject) parser.parse(new FileReader("src/test/resources/conf/" + config_file));
         JSONObject envs = (JSONObject) config.get("environments");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
+
 
         Map<String, String> envCapabilities = (Map<String, String>) envs.get(environment);
         Iterator it = envCapabilities.entrySet().iterator();
@@ -63,6 +67,8 @@ public class BrowserStackTestNGTest {
             options.put("key", accessKey);
             l.start(options);
         }
+
+
 
         driver = new RemoteWebDriver(
                 new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);

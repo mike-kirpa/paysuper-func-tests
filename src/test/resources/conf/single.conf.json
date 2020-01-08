@@ -12,6 +12,9 @@
   "environments": {
     "chrome": {
       "browser": "chrome"
+    },
+    "firefox": {
+      "browser": "firefox"
     }
   }
 }

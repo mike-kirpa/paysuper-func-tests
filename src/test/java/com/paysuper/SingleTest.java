@@ -1,21 +1,20 @@
 package com.paysuper;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.DashboardLoginPage;
 
 public class SingleTest extends BrowserStackTestNGTest {
 
     @Test
     public void test() throws Exception {
-        driver.get("https://www.google.com/ncr");
-        WebElement element = driver.findElement(By.name("q"));
+        driver.get("https://paysupermgmt.tst.protocol.one/");
+        DashboardLoginPage DashboardLoginPage = new DashboardLoginPage(driver);
+ /*       WebElement element = driver.findElement(By.name("q"));
         element.sendKeys("BrowserStack");
         element.submit();
         Thread.sleep(5000);
 
         Assert.assertEquals("BrowserStack - Google Search", driver.getTitle());
+*/
     }
 }
