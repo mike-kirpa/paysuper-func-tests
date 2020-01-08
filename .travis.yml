@@ -1,5 +1,9 @@
+language: java
+
 addons:
   browserstack:
     username: "BROWSERSTACK_USERNAME"
     access_key:
-      secure: "The secure string output of `travis encrypt`"
+      secure: "BROWSERSTACK_ACCESS_KEY"
+
+script: mvn test -P single
