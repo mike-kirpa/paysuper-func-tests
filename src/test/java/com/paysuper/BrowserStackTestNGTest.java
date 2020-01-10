@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import com.browserstack.local.Local;
 
+import helpers.GetProperties;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
@@ -69,7 +70,7 @@ public class BrowserStackTestNGTest {
         }
 
 
-
+        GetProperties getProperties = new GetProperties(zone);
         driver = new RemoteWebDriver(
                 new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
     }
