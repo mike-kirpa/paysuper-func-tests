@@ -1,4 +1,4 @@
-package helpers;
+package com.paysuper.appmanager.helpers;
 
 import org.openqa.selenium.By;
 

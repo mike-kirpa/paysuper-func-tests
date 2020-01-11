@@ -1,39 +1,39 @@
-package com.paysuper;
-
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
+package com.paysuper.appmanager;
 
 import com.browserstack.local.Local;
-
-import helpers.GetProperties;
+import com.paysuper.appmanager.helpers.GetProperties;
+import com.paysuper.appmanager.helpers.Http;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 
-public class BrowserStackTestNGTest {
+import java.io.FileReader;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+public class ApplicationManager {
     public WebDriver driver;
     private Local l;
+    public GetProperties getProperties;
+    public Http http;
 
-    @BeforeMethod(alwaysRun = true)
-    @org.testng.annotations.Parameters(value = { "config", "environment", "zone"})
-    @SuppressWarnings("unchecked")
-    public void setUp(String config_file, String environment, String zone) throws Exception {
+    public void stop() throws InterruptedException {
+        driver.quit();
+        if (l != null) {
+            l.stop();
+        }
+    }
+
+    public void init(String config_file, String environment, String zone) throws Exception {
         JSONParser parser = new JSONParser();
         JSONObject config = (JSONObject) parser.parse(new FileReader("src/test/resources/conf/" + config_file));
         JSONObject envs = (JSONObject) config.get("environments");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-
 
         Map<String, String> envCapabilities = (Map<String, String>) envs.get(environment);
         Iterator it = envCapabilities.entrySet().iterator();
@@ -68,18 +68,9 @@ public class BrowserStackTestNGTest {
             options.put("key", accessKey);
             l.start(options);
         }
-
-
-        GetProperties getProperties = new GetProperties(zone);
         driver = new RemoteWebDriver(
                 new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() throws Exception {
-        driver.quit();
-        if (l != null) {
-            l.stop();
-        }
+        getProperties = new GetProperties(zone);
+        http = new Http();
     }
 }

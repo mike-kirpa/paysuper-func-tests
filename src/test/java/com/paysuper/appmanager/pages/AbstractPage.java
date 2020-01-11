@@ -1,6 +1,6 @@
-package pages;
+package com.paysuper.appmanager.pages;
 
-import helpers.Locators;
+import com.paysuper.appmanager.helpers.Locators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,11 +11,11 @@ public class AbstractPage {
 
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
-        webDriverWait = new WebDriverWait(driver, 15);
+        webDriverWait = new WebDriverWait(this.driver, 15);
     }
 
     void waitForPageLoad(String Locatorname) {
-        WebDriverWait webDriverWait = new WebDriverWait(this.driver, 10);
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(Locators.get(Locatorname)));
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(Locators.get(Locatorname)));
     }
 }

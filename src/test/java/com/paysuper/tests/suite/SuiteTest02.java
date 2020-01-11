@@ -1,4 +1,4 @@
-package com.paysuper.suite;
+package com.paysuper.tests.suite;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -6,19 +6,19 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.paysuper.BrowserStackTestNGTest;
+import com.paysuper.tests.TestBase;
 
-public class SuiteTest02 extends BrowserStackTestNGTest {
+public class SuiteTest02 extends TestBase {
 
     @Test
     public void test_02() throws Exception {
-        driver.get("https://www.google.com/ncr");
+        app.driver.get("https://www.google.com/ncr");
         Thread.sleep(5000);
-        WebElement element = driver.findElement(By.name("q"));
+        WebElement element = app.driver.findElement(By.name("q"));
         element.sendKeys("BrowserStack Test 02");
         element.submit();
         Thread.sleep(5000);
 
-        Assert.assertEquals("BrowserStack Test 02 - Google Search", driver.getTitle());
+        Assert.assertEquals("BrowserStack Test 02 - Google Search", app.driver.getTitle());
     }
 }
