@@ -53,7 +53,7 @@ public class DemoSdkPage extends AbstractPage {
         driver.findElement(Locators.get("DemoSdkPage.BuyButton")).click();
     }
 
-    public DemoModalForm createSimpleOrder(String projectid, String amount, String currency){
+    public PayFormPage createSimpleOrder(String projectid, String amount, String currency){
         clickOnSimpleRadio();
         clearSimpleProjectField();
         enterSimpleProjectField(projectid);
@@ -62,7 +62,7 @@ public class DemoSdkPage extends AbstractPage {
         clearSimpleCurrencyField();
         enterSimpleCurrencyField(currency);
         clickOnBuyButton();
-        return new DemoModalForm(driver);
+        return new PayFormPage(driver);
     }
 
 }

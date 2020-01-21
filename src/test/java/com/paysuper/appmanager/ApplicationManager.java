@@ -2,7 +2,7 @@ package com.paysuper.appmanager;
 
 import com.browserstack.local.Local;
 import com.paysuper.appmanager.helpers.GetProperties;
-import com.paysuper.appmanager.helpers.Http;
+import com.paysuper.appmanager.helpers.RestAPI;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +19,7 @@ public class ApplicationManager {
     public WebDriver driver;
     private Local l;
     public GetProperties getProperties;
-    public Http http;
+    public RestAPI restAPI;
 
     public void stop() throws InterruptedException {
         driver.quit();
@@ -71,6 +71,6 @@ public class ApplicationManager {
         driver = new RemoteWebDriver(
                 new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
         getProperties = new GetProperties(zone);
-        http = new Http();
+        restAPI = new RestAPI();
     }
 }

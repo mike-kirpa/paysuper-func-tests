@@ -1,18 +1,18 @@
 package com.paysuper.tests;
 
+import com.paysuper.appmanager.pages.PayFormPage;
 import org.testng.annotations.Test;
-import com.paysuper.appmanager.pages.DemoSdkPage;
+
 
 public class SingleTest extends TestBase {
 
-    @Test
+    @Test()
     public void test() throws Exception {
-        app.http.post();
-//        app.driver.get(app.getProperties.value("DemoSdkUrl"));
-//        DemoSdkPage demoSdkPage = new DemoSdkPage(app.driver);
- //       demoSdkPage.createSimpleOrder(app.getProperties.value("projectid"), app.getProperties.value("amount"), app.getProperties.value("currency"));
-
-//        Assert.assertEquals("BrowserStack - Google Search", driver.getTitle());
-
+        String payment_form_url = app.restAPI.createOrder(
+                app.getProperties.value("projectid"),
+                Integer.valueOf(app.getProperties.value("amount")),
+                app.getProperties.value("currency")).jsonPath().get("payment_form_url");
+        app.driver.get(payment_form_url);
+        PayFormPage payFormPage =new PayFormPage(app.driver);
     }
 }
