@@ -1,8 +1,6 @@
 package com.paysuper.appmanager.helpers;
 
-import com.paysuper.appmanager.ApplicationManager;
 import io.restassured.RestAssured;
-import io.restassured.RestAssured.*;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
@@ -11,10 +9,9 @@ import static io.restassured.RestAssured.given;
 
 
 public class RestAPI {
-    protected final ApplicationManager app = new ApplicationManager();
 
-    public Response createOrder(String project, int amount, String currency) {
-        RestAssured.baseURI = app.getProperties.value("ApiUrlCheckout");
+    public Response createOrder(String project, int amount, String currency, String apiURL) {
+        RestAssured.baseURI = apiURL;
         RequestSpecification request = given();
         JSONObject requestParams = new JSONObject();
         requestParams.put("project", project);
