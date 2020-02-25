@@ -1,7 +1,6 @@
 package com.paysuper.tests.suite;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import com.paysuper.appmanager.pages.PayFormPage;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,14 +9,42 @@ import com.paysuper.tests.TestBase;
 
 public class OrderPaymentTest extends TestBase {
 
-    @Test
-    public void test_01() throws Exception {
-        app.driver.get("https://www.google.com/ncr");
-        WebElement element = app.driver.findElement(By.name("q"));
-        element.sendKeys("BrowserStack Test 01");
-        element.submit();
-        Thread.sleep(5000);
-
-        Assert.assertEquals("BrowserStack Test 01 - Google Search", app.driver.getTitle());
+    @Test()
+    public void SimpleOrderSuccessPayTest() {
+        String payment_form_url = app.restAPI.createSimpleOrder(
+                app.getProperties.value("ProjectId"),
+                Integer.parseInt(app.getProperties.value("Amount")),
+                app.getProperties.value("Currency"),
+                app.getProperties.value("ApiUrlCheckout")).jsonPath().get("payment_form_url");
+        app.driver.get(payment_form_url);
+        PayFormPage payFormPage =new PayFormPage(app.driver);
+        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+        payFormPage.inputEmail(app.getProperties.value("ValidEmail"));
+        payFormPage.clickPayButton();
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
     }
+
+    @Test()
+    public void ProductOrderSuccessPayTest() {
+        String payment_form_url = app.restAPI.createProductOrder(
+                app.getProperties.value("ProjectId"),
+                app.getProperties.value("Product"),
+                app.getProperties.value("ApiUrlCheckout")).jsonPath().get("payment_form_url");
+        app.driver.get(payment_form_url);
+        PayFormPage payFormPage =new PayFormPage(app.driver);
+        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+        payFormPage.inputEmail(app.getProperties.value("ValidEmail"));
+        payFormPage.clickPayButton();
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessProductPayText"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
+    }
+
+
 }

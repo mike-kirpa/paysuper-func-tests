@@ -14,7 +14,7 @@ public class AbstractPage {
         webDriverWait = new WebDriverWait(this.driver, 15);
     }
 
-    void waitForPageLoad(String LocatorName) {
+    void waitForElementLoad(String LocatorName) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(Locators.get(LocatorName)));
     }
@@ -22,4 +22,10 @@ public class AbstractPage {
     public boolean isElementPresent(String LocatorName){
         return driver.findElements(Locators.get(LocatorName)).size() > 0;
     }
+
+    public String getTextOfElement(String LocatorName){
+        return driver.findElement(Locators.get(LocatorName)).getText();
+    }
+
+
 }

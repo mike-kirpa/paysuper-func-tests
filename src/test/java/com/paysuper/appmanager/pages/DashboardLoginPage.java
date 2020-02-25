@@ -6,6 +6,6 @@ public class DashboardLoginPage extends AbstractPage {
 
     public DashboardLoginPage(WebDriver driver) {
         super(driver);
-        waitForPageLoad("DashboardLoginPage.SignInButton");
+        waitForElementLoad("DashboardLoginPage.SignInButton");
     }
 }

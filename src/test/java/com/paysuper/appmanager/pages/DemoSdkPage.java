@@ -7,7 +7,7 @@ public class DemoSdkPage extends AbstractPage {
 
     public DemoSdkPage(WebDriver driver) {
         super(driver);
-        waitForPageLoad("DemoSdkPage.BuyButton");
+        waitForElementLoad("DemoSdkPage.BuyButton");
     }
     public void clickOnSimpleRadio() {
         driver.findElement(Locators.get("DemoSdkPage.SimpleRadio")).click();

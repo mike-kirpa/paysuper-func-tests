@@ -3,12 +3,10 @@ package com.paysuper.appmanager.pages;
 import com.paysuper.appmanager.helpers.Locators;
 import org.openqa.selenium.WebDriver;
 
-import java.sql.SQLOutput;
-
 public class PayFormPage extends AbstractPage{
     public PayFormPage(WebDriver driver){
         super(driver);
-        waitForPageLoad("DemoFormPage.formLayout");
+        waitForElementLoad("DemoFormPage.formLayout");
     }
 
     public void selectCountry(){
@@ -22,4 +20,39 @@ public class PayFormPage extends AbstractPage{
         System.out.println(lang);
 
     }
+
+    public void inputBankCardNumber(String pan){
+        driver.findElement(Locators.get("DemoFormPage.BankCardNumberField")).sendKeys(pan);
+    }
+
+    public void inputBankCardExpired(String date){
+        driver.findElement(Locators.get("DemoFormPage.BankCardExpiredField")).sendKeys(date);
+    }
+
+    public void inputBankCardCVV(String cvv){
+        driver.findElement(Locators.get("DemoFormPage.BankCardCVVField")).sendKeys(cvv);
+    }
+
+    public void inputEmail(String email){
+        driver.findElement(Locators.get("DemoFormPage.EmailField")).sendKeys(email);
+    }
+
+    public void clickPayButton(){
+        driver.findElement(Locators.get("DemoFormPage.PayButton")).click();
+    }
+
+
+    public String getFormTitleAfterPay(){
+        waitForElementLoad("DemoFormPage.TitleAfterPay");
+        return getTextOfElement("DemoFormPage.TitleAfterPay");
+    }
+
+    public String getFormTextAfterPay(){
+        return getTextOfElement("DemoFormPage.TextAfterPay");
+    }
+
+    public String getFormEmailAfterPay(){
+        return getTextOfElement("DemoFormPage.EmailAfterPay");
+    }
+
 }

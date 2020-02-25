@@ -68,8 +68,10 @@ public class ApplicationManager {
             options.put("key", accessKey);
             l.start(options);
         }
+        capabilities.setCapability("resolution", "1920x1080");
         driver = new RemoteWebDriver(
                 new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
+        driver.manage().window().maximize();
         getProperties = new GetProperties(zone);
         restAPI = new RestAPI();
     }
