@@ -1,2 +1,2 @@
 language: java
-script: mvn test -P single
+script: mvn test -P suite -Dzone=tst
