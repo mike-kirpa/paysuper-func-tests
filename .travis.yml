@@ -1,5 +1,5 @@
 language:
-  java
+  - java
 script:
-  mvn test -P suite -Dzone=tst
-  mvn test -P suite -Dzone=prod
+  - mvn test -P suite -Dzone=tst
+  - mvn test -P suite -Dzone=prod
