@@ -9,7 +9,7 @@ import com.paysuper.tests.TestBase;
 
 public class OrderPaymentTest extends TestBase {
 
-    @Test()
+    @Test(description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp")
     public void SimpleOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createSimpleOrder(
                 app.getProperties.value("ProjectId"),
@@ -28,7 +28,7 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
     }
 
-    @Test()
+    @Test(description="success product payment https://protocolone.tpondemand.com/entity/193318-web-payform-uspeshnaya-pokupka-product")
     public void ProductOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createProductOrder(
                 app.getProperties.value("ProjectId"),
