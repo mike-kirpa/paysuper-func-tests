@@ -1,12 +1,19 @@
 package com.paysuper.appmanager.pages;
 
+import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PayFormPage extends AbstractPage{
-    public PayFormPage(WebDriver driver){
+    public PayFormPage(WebDriver driver, String lang){
         super(driver);
         waitForElementLoad("DemoFormPage.formLayout");
+        selectLanguage(lang);
     }
 
     public void selectCountry(){
@@ -15,10 +22,13 @@ public class PayFormPage extends AbstractPage{
         }
     }
 
-    public void selectLanguage(){
-        String lang = driver.findElement(Locators.get("DemoFormPage.languageSelectField")).getText();
-        System.out.println(lang);
-
+    public void selectLanguage(String lang){
+        WebElement hoverElement = driver.findElement(Locators.get("DemoFormPage.languageSelectField"));
+        if(hoverElement.getText() != lang){
+            Actions action = new Actions(driver);
+            action.moveToElement(hoverElement).perform();
+            driver.findElement(By.xpath("//div[contains(text(),'"+lang+"')]")).click();
+        };
     }
 
     public void inputBankCardNumber(String pan){

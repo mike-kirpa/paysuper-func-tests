@@ -4,9 +4,10 @@ import com.paysuper.appmanager.helpers.Locators;
 import org.openqa.selenium.WebDriver;
 
 public class DemoSdkPage extends AbstractPage {
-
-    public DemoSdkPage(WebDriver driver) {
+    String lang;
+    public DemoSdkPage(WebDriver driver, String lang) {
         super(driver);
+        this.lang = lang;
         waitForElementLoad("DemoSdkPage.BuyButton");
     }
     public void clickOnSimpleRadio() {
@@ -62,7 +63,7 @@ public class DemoSdkPage extends AbstractPage {
         clearSimpleCurrencyField();
         enterSimpleCurrencyField(currency);
         clickOnBuyButton();
-        return new PayFormPage(driver);
+        return new PayFormPage(driver, lang);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.paysuper.appmanager.helpers;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONArray;
@@ -14,7 +15,7 @@ import static io.restassured.RestAssured.given;
 
 public class RestAPI {
 
-    public Response createSimpleOrder(String project, Integer amount, String currency, String apiURL) {
+    public String createSimpleOrder(String project, Integer amount, String currency, String apiURL) {
         RestAssured.baseURI = apiURL;
         RequestSpecification request = given();
         JSONObject requestParams = new JSONObject();
@@ -24,10 +25,10 @@ public class RestAPI {
         requestParams.put("type", "simple");
         request.header("Content-Type", "application/json");
         request.body(requestParams.toJSONString());
-        return request.post("/order");
+        return request.post("/order").then().extract().path("payment_form_url");
     }
 
-    public Response createProductOrder(String project, String products, String apiURL) {
+    public String createProductOrder(String project, String products, String apiURL) {
         RestAssured.baseURI = apiURL;
         List<String> list = new ArrayList<String>();
         list.add(products);
@@ -43,6 +44,20 @@ public class RestAPI {
         request.header("Content-Type", "application/json");
         System.out.println(requestParams.toJSONString());
         request.body(requestParams.toJSONString());
-        return request.post("/order");
+        return request.post("/order").then().extract().path("payment_form_url");
+    }
+
+    public String createTokenOrder(String apiURL) {
+        String payload = "{\n    \"user\": {\n        \"id\": \"0000000000003\",\n        \"email\": {\n            \"value\": \"michael.kirpa+autotest001@gmail.com\",\n            \"verified\": true\n        },\n        \"phone\": {\n            \"value\": \"0123456\",\n            \"verified\": true\n        },\n        \"name\": {\n            \"value\": \"Человек Х -токен\"\n        },\n        \"ip\": {\n            \"value\": \"194.54.160.79\"\n        },\n        \"locale\": {\n            \"value\": \"de-DE\"\n        },\n        \"address\": {\n            \"country\": \"DE\",\n            \"city\": \"Odessa\",\n            \"state\": \"Odessa\",\n            \"postal_code\": \"a300\"\n        },\n        \"metadata\": {\n            \"status\": \"VIP\"\n        }\n    },\n    \"settings\": {\n        \"project_id\": \"5e5384781bfab620787d3b17\",\n        \"currency\": \"EUR\",\n        \"amount\": 100,\n        \"description\": \"Какое-то описание платежа\",\n        \"metadata\": {\n            \"balance\": \"999.99\"\n        },\n        \"type\": \"simple\"\n    }\n}";
+        return
+                given()
+                        .header("X-API-SIGNATURE", "T>e)PC<a;l5pn:G")
+                        .header("Content-Type", "application/json")
+                        .body(payload)
+                        .post(apiURL+"/tokens")
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .path("payment_form_url");
     }
 }
