@@ -47,11 +47,11 @@ public class RestAPI {
         return request.post("/order").then().extract().path("payment_form_url");
     }
 
-    public String createTokenOrder(String apiURL, String project) {
+    public String createTokenOrder(String apiURL, String project, String secret) {
         String payload = "{\n    \"user\": {\n        \"id\": \"0000000000003\",\n        \"email\": {\n            \"value\": \"michael.kirpa+autotest001@gmail.com\",\n            \"verified\": true\n        },\n        \"phone\": {\n            \"value\": \"0123456\",\n            \"verified\": true\n        },\n        \"name\": {\n            \"value\": \"Человек Х -токен\"\n        },\n        \"ip\": {\n            \"value\": \"194.54.160.79\"\n        },\n        \"locale\": {\n            \"value\": \"de-DE\"\n        },\n        \"address\": {\n            \"country\": \"DE\",\n            \"city\": \"Odessa\",\n            \"state\": \"Odessa\",\n            \"postal_code\": \"a300\"\n        },\n        \"metadata\": {\n            \"status\": \"VIP\"\n        }\n    },\n    \"settings\": {\n        \"project_id\": \""+project+"\",\n        \"currency\": \"EUR\",\n        \"amount\": 100,\n        \"description\": \"Какое-то описание платежа\",\n        \"metadata\": {\n            \"balance\": \"999.99\"\n        },\n        \"type\": \"simple\"\n    }\n}";
         return
                 given()
-                        .header("X-API-SIGNATURE", "T>e)PC<a;l5pn:G")
+                        .header("X-API-SIGNATURE", secret)
                         .header("Content-Type", "application/json")
                         .body(payload)
                         .post(apiURL+"/tokens")

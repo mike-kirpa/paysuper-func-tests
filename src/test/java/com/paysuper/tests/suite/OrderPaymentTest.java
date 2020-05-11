@@ -50,7 +50,8 @@ public class OrderPaymentTest extends TestBase {
     public void TokenOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createTokenOrder(
                 app.getProperties.value("ApiUrl"),
-                app.getProperties.value("ProjectId"));
+                app.getProperties.value("ProjectId"),
+                app.getProperties.value("Secret"));
         System.out.println(payment_form_url);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver, app.getProperties.value("DefaultLanguage"));
