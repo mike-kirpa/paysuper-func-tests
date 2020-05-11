@@ -49,7 +49,8 @@ public class OrderPaymentTest extends TestBase {
     @Test(enabled = true, description="success token payment https://protocolone.tpondemand.com/entity/193349-web-payform-uspeshnaya-pokupka-s-pomoshyu")
     public void TokenOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createTokenOrder(
-                app.getProperties.value("ApiUrl"));
+                app.getProperties.value("ApiUrl"),
+                app.getProperties.value("ProjectId"));
         System.out.println(payment_form_url);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver, app.getProperties.value("DefaultLanguage"));
