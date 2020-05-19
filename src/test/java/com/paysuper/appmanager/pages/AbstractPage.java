@@ -14,7 +14,7 @@ public class AbstractPage {
         webDriverWait = new WebDriverWait(this.driver, 15);
     }
 
-    void waitForElementLoad(String LocatorName) {
+    protected void waitForElementLoad(String LocatorName) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(Locators.get(LocatorName)));
     }

@@ -1,7 +1,8 @@
-package com.paysuper.appmanager.pages;
+package com.paysuper.appmanager.pages.payform;
 
 import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
+import com.paysuper.appmanager.pages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class PayFormPage extends AbstractPage{
+public class PayFormPage extends AbstractPage {
     public PayFormPage(WebDriver driver, String lang){
         super(driver);
         waitForElementLoad("DemoFormPage.formLayout");

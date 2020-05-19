@@ -1,6 +1,6 @@
 package com.paysuper.tests.suite;
 
-import com.paysuper.appmanager.pages.PayFormPage;
+import com.paysuper.appmanager.pages.payform.PayFormPage;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
