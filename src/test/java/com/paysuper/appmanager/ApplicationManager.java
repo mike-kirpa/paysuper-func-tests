@@ -1,19 +1,26 @@
 package com.paysuper.appmanager;
 
 import com.browserstack.local.Local;
+import com.paysuper.appmanager.helpers.File;
 import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.RestAPI;
+import com.paysuper.tests.TestBase;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.FileReader;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import static com.paysuper.appmanager.helpers.File.getResource;
 
 public class ApplicationManager {
     public WebDriver driver;
@@ -29,7 +36,7 @@ public class ApplicationManager {
     }
 
     public void init(String config_file, String environment, String zone, boolean localrun) throws Exception {
-        if (localrun == false) {
+        if (!localrun) {
             JSONParser parser = new JSONParser();
             JSONObject config = (JSONObject) parser.parse(new FileReader("src/test/resources/conf/" + config_file));
             JSONObject envs = (JSONObject) config.get("environments");
@@ -74,10 +81,10 @@ public class ApplicationManager {
             driver = new RemoteWebDriver(
                     new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
         }
-        if (localrun == true) {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setBrowserName("chrome");
-            driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+
+        if (localrun) {
+            System.setProperty("webdriver.chrome.driver", getResource("/webdrivers/chromedriver.exe"));
+            driver = new ChromeDriver();
         }
 
             driver.manage().window().maximize();
@@ -85,4 +92,6 @@ public class ApplicationManager {
             restAPI = new RestAPI();
 
     }
+
+
 }
