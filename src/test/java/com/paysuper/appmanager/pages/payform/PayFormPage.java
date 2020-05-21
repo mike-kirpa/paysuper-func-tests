@@ -25,10 +25,12 @@ public class PayFormPage extends AbstractPage {
 
     public void selectLanguage(String lang){
         WebElement hoverElement = driver.findElement(Locators.get("DemoFormPage.languageSelectField"));
+        System.out.println(hoverElement.getText());
         if(hoverElement.getText() != lang){
             Actions action = new Actions(driver);
             action.moveToElement(hoverElement).perform();
             driver.findElement(By.xpath("//div[contains(text(),'"+lang+"')]")).click();
+            hoverElement.click();
         };
     }
 
