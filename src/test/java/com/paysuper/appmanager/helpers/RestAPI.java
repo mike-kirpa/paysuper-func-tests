@@ -42,7 +42,6 @@ public class RestAPI {
         requestParams.put("products", array);
         requestParams.put("type", "product");
         request.header("Content-Type", "application/json");
-        System.out.println(requestParams.toJSONString());
         request.body(requestParams.toJSONString());
         return request.post("/order").then().extract().path("payment_form_url");
     }

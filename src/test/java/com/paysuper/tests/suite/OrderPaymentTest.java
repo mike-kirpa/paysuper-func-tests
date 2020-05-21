@@ -52,7 +52,6 @@ public class OrderPaymentTest extends TestBase {
                 app.getProperties.value("ApiUrl"),
                 app.getProperties.value("ProjectId"),
                 app.getProperties.value("Secret"));
-        System.out.println(payment_form_url);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver, app.getProperties.value("DefaultLanguage"));
         payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
