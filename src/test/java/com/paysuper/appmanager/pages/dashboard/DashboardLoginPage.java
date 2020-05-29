@@ -37,6 +37,7 @@ public class DashboardLoginPage extends AbstractPage {
         enterEmail(email);
         enterPassword(password);
         clickOnLogInButton();
+        driver.switchTo().defaultContent();
         return new DashboardMainPage(driver);
     }
 

@@ -1,6 +1,8 @@
 package com.paysuper.appmanager.pages;
 
 import com.paysuper.appmanager.helpers.Locators;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,7 +16,7 @@ public class AbstractPage {
         webDriverWait = new WebDriverWait(this.driver, 15);
     }
 
-    protected void waitForElementLoad(String LocatorName) {
+    public void waitForElementLoad(String LocatorName) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(Locators.get(LocatorName)));
     }
@@ -22,6 +24,16 @@ public class AbstractPage {
     public boolean isElementPresent(String LocatorName){
         return driver.findElements(Locators.get(LocatorName)).size() > 0;
     }
+
+    public boolean isElementPresent(By by) {
+        try {
+            driver.findElement(by);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
 
     public String getTextOfElement(String LocatorName){
         return driver.findElement(Locators.get(LocatorName)).getText();

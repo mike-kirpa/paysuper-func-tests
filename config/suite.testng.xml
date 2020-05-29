@@ -6,7 +6,7 @@
         <parameter name="environment" value="chrome"/>
         <classes>
             <class name="com.paysuper.tests.suite.OrderPaymentTest"/>
-            <class name="com.paysuper.tests.suite.DashboardLoginRegistration"/>
+            <class name="com.paysuper.tests.suite.DashboardPaySuper"/>
         </classes>
     </test>
 </suite>

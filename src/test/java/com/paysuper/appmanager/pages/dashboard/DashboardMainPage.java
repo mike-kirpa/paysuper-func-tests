@@ -6,6 +6,6 @@ import org.openqa.selenium.WebDriver;
 public class DashboardMainPage extends AbstractPage {
     public DashboardMainPage(WebDriver driver) {
         super(driver);
-        waitForElementLoad("DashboardLoginPage.MainPageWelcomeText");
+        waitForElementLoad("DashboardMainPage.WelcomeText");
     }
 }
