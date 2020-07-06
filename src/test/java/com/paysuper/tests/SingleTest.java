@@ -3,33 +3,32 @@ package com.paysuper.tests;
 import com.paysuper.appmanager.pages.analytics.AnalyticsLogin;
 import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
-import junit.framework.Assert;
+import com.paysuper.appmanager.pages.payform.PayFormPage;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
 public class SingleTest extends TestBase {
 
-    @Test(enabled = true, description="Dashboard Refund From Order List")
-    public void RefundFromOrderList() {
-        app.driver.get(app.getProperties.value("DashboardUrl"));
-        DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
-        dashboardLoginPage.login(app.getProperties.value("ValidEmail"), app.getProperties.value("Password"));
-        app.driver.get(app.getProperties.value("DashboardUrl") + "/transactions");
-        DashboardTransactionsPage dashboardTransactionsPage = new DashboardTransactionsPage(app.driver);
-        dashboardTransactionsPage.clickOnFilterButton();
-        dashboardTransactionsPage.clickOnStatusButton();
-        dashboardTransactionsPage.clickOnFilterListItem("Processed");
-        dashboardTransactionsPage.clickOnFilterButton();
-        String lastOrderUrl = dashboardTransactionsPage.clickRefundOnLastTransaction();
-        dashboardTransactionsPage.clickOnConfrimRefundButton();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        app.driver.navigate().refresh();
-        dashboardLoginPage.waitForElementLoad("DashboardTransactionsPage.HeaderText");
-        Assert.assertFalse(dashboardLoginPage.isElementPresent(By.xpath("//a[@href='" + lastOrderUrl + "']/*/div[contains(@class, 'refund')]")));
+    @Test(enabled = true, description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp")
+    public void SimpleOrderSuccessPayTest() {
+        String payment_form_url = app.restAPI.createSimpleOrder(
+                app.getProperties.value("ProjectId"),
+                Integer.parseInt(app.getProperties.value("Amount")),
+                app.getProperties.value("Currency"),
+                app.getProperties.value("ApiUrlCheckout"));
+        app.driver.get(payment_form_url);
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                app.getProperties.value("DefaultLanguage"),
+                app.getProperties.value("DefautCountry"));
+        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+        payFormPage.inputEmail(app.getProperties.value("ValidEmail"));
+        payFormPage.clickPayButton();
+        org.testng.Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
+        org.testng.Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
     }
 }

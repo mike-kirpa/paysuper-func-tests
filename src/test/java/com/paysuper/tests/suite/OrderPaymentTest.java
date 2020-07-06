@@ -17,7 +17,9 @@ public class OrderPaymentTest extends TestBase {
                 app.getProperties.value("Currency"),
                 app.getProperties.value("ApiUrlCheckout"));
         app.driver.get(payment_form_url);
-        PayFormPage payFormPage =new PayFormPage(app.driver, app.getProperties.value("DefaultLanguage"));
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                app.getProperties.value("DefaultLanguage"),
+                app.getProperties.value("DefautCountry"));
         payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
         payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
@@ -35,7 +37,9 @@ public class OrderPaymentTest extends TestBase {
                 app.getProperties.value("Product"),
                 app.getProperties.value("ApiUrlCheckout"));
         app.driver.get(payment_form_url);
-        PayFormPage payFormPage =new PayFormPage(app.driver, app.getProperties.value("DefaultLanguage"));
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                app.getProperties.value("DefaultLanguage"),
+                app.getProperties.value("DefautCountry"));
         payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
         payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
@@ -53,7 +57,9 @@ public class OrderPaymentTest extends TestBase {
                 app.getProperties.value("ProjectId"),
                 app.getProperties.value("Secret"));
         app.driver.get(payment_form_url);
-        PayFormPage payFormPage =new PayFormPage(app.driver, app.getProperties.value("DefaultLanguage"));
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                app.getProperties.value("DefaultLanguage"),
+                app.getProperties.value("DefautCountry"));
         payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
         payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
