@@ -8,7 +8,7 @@ import java.util.Properties;
 public class GetProperties {
     String filename;
     //файл, который хранит свойства нашего проекта
-    Properties properties = new Properties();
+    public Properties properties = new Properties();
 
     public GetProperties(String filename)  {
         File file = new File("src/test/resources/EnvironmentVariables/" + filename +".properties");

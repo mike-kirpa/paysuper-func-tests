@@ -1,11 +1,17 @@
 package com.paysuper.tests;
 
+
 import com.paysuper.appmanager.helpers.MailParser;
 import com.paysuper.appmanager.pages.PayFormPage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+import com.paysuper.appmanager.pages.analytics.AnalyticsLogin;
+import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
+import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
+import com.paysuper.appmanager.pages.payform.PayFormPage;
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import javax.mail.MessagingException;
 import java.io.IOException;
 
@@ -21,5 +27,6 @@ public class SingleTest extends TestBase {
         Element link = html.selectFirst("a:contains(Аккаунт Google)");
         String relHref = link.attr("href"); // == "/"
         System.out.println(relHref);
+
     }
 }

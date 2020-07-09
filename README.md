@@ -1,10 +1,3 @@
-# testng-browserstack
-
-[TestNG](http://testng.org) Integration with BrowserStack.
-
-Master branch contains **Selenium 3** samples, for **Selenium 4 - W3C protocol** please checkout [selenium-4](https://github.com/browserstack/testng-browserstack/tree/selenium-4) branch
-
-![BrowserStack Logo](https://d98b8t1nnulk5.cloudfront.net/production/images/layout/logo-header.png?1469004780)
 
 ## Setup
 
@@ -14,10 +7,9 @@ Master branch contains **Selenium 3** samples, for **Selenium 4 - W3C protocol**
 
 ## Running your tests
 
-- To run a single test, run `mvn test -P single`
-- To run local tests, run `mvn test -P local`
-- To run parallel tests, run `mvn test -P parallel`
-- To run the test suite, run `mvn test -P suite`
+* To run profile "suite" on tst env. in browserstack - mvn test -P suite -Dzone=tst -Dlocalrun=false
+* To run profile "suite" on prod env. in browserstack  - mvn test -P suite -Dzone=prod -Dlocalrun=false
+* To run profile "suite" on tst env. on local browser - mvn test -P suite -Dzone=tst -Dlocalrun=true
 
  Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 

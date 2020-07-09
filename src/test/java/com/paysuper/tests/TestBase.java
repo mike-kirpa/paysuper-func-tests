@@ -1,24 +1,22 @@
 package com.paysuper.tests;
 
 import com.paysuper.appmanager.ApplicationManager;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import io.restassured.RestAssured.*;
-import io.restassured.matcher.RestAssuredMatchers.*;
-import org.hamcrest.Matchers.*;
+import org.testng.annotations.*;
+
+import java.io.Serializable;
 
 public class TestBase {
 
     protected final ApplicationManager app = new ApplicationManager();
 
-    @BeforeMethod(alwaysRun = true)
-    @org.testng.annotations.Parameters(value = { "config", "environment", "zone"})
+    @BeforeClass(alwaysRun = true)
+    @org.testng.annotations.Parameters(value = { "config", "environment", "zone", "localrun"})
     @SuppressWarnings("unchecked")
-    public void setUp(String config_file, String environment, String zone) throws Exception {
-        app.init(config_file, environment, zone);
+    public void setUp(String config_file, String environment, String zone, boolean localrun) throws Exception {
+        app.init(config_file, environment, zone, localrun);
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void tearDown() throws Exception {
         app.stop();
     }

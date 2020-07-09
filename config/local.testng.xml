@@ -5,7 +5,7 @@
         <parameter name="config" value="local.conf.json"/>
         <parameter name="environment" value="chrome"/>
         <classes>
-            <class name="com.browserstack.LocalTest"/>
+            <class name="com.paysuper.tests.suite.OrderPaymentTest"/>
         </classes>
     </test>
 </suite>
