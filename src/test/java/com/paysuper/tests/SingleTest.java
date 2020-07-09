@@ -1,5 +1,10 @@
 package com.paysuper.tests;
 
+
+import com.paysuper.appmanager.helpers.MailParser;
+import com.paysuper.appmanager.pages.PayFormPage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import com.paysuper.appmanager.pages.analytics.AnalyticsLogin;
 import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
@@ -7,28 +12,21 @@ import com.paysuper.appmanager.pages.payform.PayFormPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import javax.mail.MessagingException;
+import java.io.IOException;
+
+import static com.paysuper.appmanager.helpers.MailParser.getMail;
 
 
 public class SingleTest extends TestBase {
 
-    @Test(enabled = true, description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp")
-    public void SimpleOrderSuccessPayTest() {
-        String payment_form_url = app.restAPI.createSimpleOrder(
-                app.getProperties.value("ProjectId"),
-                Integer.parseInt(app.getProperties.value("Amount")),
-                app.getProperties.value("Currency"),
-                app.getProperties.value("ApiUrlCheckout"));
-        app.driver.get(payment_form_url);
-        PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
-        payFormPage.inputEmail(app.getProperties.value("ValidEmail"));
-        payFormPage.clickPayButton();
-        org.testng.Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        org.testng.Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
-        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
+    @Test()
+    public void test() throws Exception {
+        String HTMLSTring = (String) MailParser.getMail();
+        org.jsoup.nodes.Document html = Jsoup.parse(HTMLSTring);
+        Element link = html.selectFirst("a:contains(Аккаунт Google)");
+        String relHref = link.attr("href"); // == "/"
+        System.out.println(relHref);
+
     }
 }
