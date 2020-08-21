@@ -1,5 +1,6 @@
 package com.paysuper.appmanager.pages.dashboard;
 
+import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.pages.AbstractPage;
 import org.openqa.selenium.WebDriver;
 
@@ -7,5 +8,10 @@ public class DashboardMainPage extends AbstractPage {
     public DashboardMainPage(WebDriver driver) {
         super(driver);
         waitForElementLoad("DashboardMainPage.WelcomeText");
+    }
+
+    public DashboardGeneralOnboardingPage clickOnActivateLiveModeButton(){
+        driver.findElement(Locators.get("DashboardMainPage.ActivateLiveModeButton")).click();
+        return new DashboardGeneralOnboardingPage(driver);
     }
 }

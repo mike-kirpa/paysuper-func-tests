@@ -1,11 +1,16 @@
 package com.paysuper.appmanager.pages;
 
+import com.paysuper.appmanager.helpers.DataGenerator;
 import com.paysuper.appmanager.helpers.Locators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class AbstractPage {
     protected WebDriver driver;
@@ -42,6 +47,20 @@ public class AbstractPage {
 
     public String getTextOfElement(String LocatorName){
         return driver.findElement(Locators.get(LocatorName)).getText();
+    }
+
+    public void dropDownSelect(By field, By options){
+        driver.findElement(field).click();
+        List<WebElement> myElements = driver.findElements(options);
+        int rnd = DataGenerator.getRandomNumberInRange(0,myElements.size()-1);
+        new Actions(driver).moveToElement(myElements.get(rnd)).perform();
+        myElements.get(rnd).click();
+    }
+
+    public void selectCheckbox(By checkboxes){
+        List<WebElement> myElements = driver.findElements(checkboxes);
+        int rnd = DataGenerator.getRandomNumberInRange(0,myElements.size()-1);
+        myElements.get(rnd).click();
     }
 
 

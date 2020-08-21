@@ -2,10 +2,7 @@ package com.paysuper.appmanager.pages.dashboard;
 
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.pages.AbstractPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DashboardLoginPage extends AbstractPage {
 
@@ -19,6 +16,11 @@ public class DashboardLoginPage extends AbstractPage {
         waitForElementLoad("DashboardLoginPage.Iframe");
         driver.switchTo().frame(driver.findElement(Locators.get("DashboardLoginPage.Iframe")));
         waitForElementLoad("DashboardLoginPage.LogInButton");
+    }
+
+    public DashboardRegistrationPage clickOnSignUpButton(){
+        driver.findElement(Locators.get("DashboardLoginPage.SingUpButton")).click();
+        return new DashboardRegistrationPage(driver);
     }
 
     public void clickOnLogInButton(){
