@@ -7,7 +7,12 @@ import org.openqa.selenium.WebDriver;
 public class DashboardMainPage extends AbstractPage {
     public DashboardMainPage(WebDriver driver) {
         super(driver);
-        waitForElementLoad("DashboardMainPage.WelcomeText");
+        waitForElementLoad("DashboardMainPage.FeedbackLink");
+    }
+
+    public DashboardTransactionsPage clickOnTransactionSearchLink(){
+        driver.findElement(Locators.get("DashboardMainPage.TransactionSearchLink")).click();
+        return new DashboardTransactionsPage(driver);
     }
 
     public DashboardGeneralOnboardingPage clickOnActivateLiveModeButton(){

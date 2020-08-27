@@ -2,6 +2,7 @@ package com.paysuper.tests.suite;
 
 import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
 
+import com.paysuper.appmanager.pages.dashboard.DashboardMainPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
 import junit.framework.Assert;
 import org.openqa.selenium.By;
@@ -19,12 +20,11 @@ public class DashboardPaySuper extends TestBase {
     }
 
     @Test(enabled = true, description="Dashboard Refund From Order List")
-    public void RefundFromOrderList() {
+    public void RefundFromOrderListTest() {
         app.driver.get(app.getProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
-        dashboardLoginPage.login(app.getProperties.value("ValidEmail"), app.getProperties.value("Password"));
-        app.driver.get(app.getProperties.value("DashboardUrl") + "/transactions");
-        DashboardTransactionsPage dashboardTransactionsPage = new DashboardTransactionsPage(app.driver);
+        DashboardMainPage dashboardMainPage = dashboardLoginPage.login(app.getProperties.value("ValidEmail"), app.getProperties.value("Password"));
+        DashboardTransactionsPage dashboardTransactionsPage = dashboardMainPage.clickOnTransactionSearchLink();
         dashboardTransactionsPage.clickOnFilterButton();
         dashboardTransactionsPage.clickOnStatusButton();
         dashboardTransactionsPage.clickOnFilterListItem("Processed");
