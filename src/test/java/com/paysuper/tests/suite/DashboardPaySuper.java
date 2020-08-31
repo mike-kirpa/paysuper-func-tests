@@ -12,11 +12,13 @@ import com.paysuper.tests.TestBase;
 
 public class DashboardPaySuper extends TestBase {
 
-    @Test(enabled = false, description="Dashboard Login")
+    @Test(enabled = true, description="Dashboard Login-Logout")
     public void LoginSuccess() {
         app.driver.get(app.getProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
-        dashboardLoginPage.login(app.getProperties.value("ValidEmail"), app.getProperties.value("Password"));
+        DashboardMainPage dashboardMainPage = dashboardLoginPage.login(app.getProperties.value("ValidEmail"), app.getProperties.value("Password"));
+        dashboardMainPage.clickOnProfileIcon();
+        dashboardMainPage.clickOnLogoutInProfileMenu();
     }
 
     @Test(enabled = true, description="Dashboard Refund From Order List")
