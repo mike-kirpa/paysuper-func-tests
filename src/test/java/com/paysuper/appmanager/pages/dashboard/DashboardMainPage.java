@@ -25,7 +25,7 @@ public class DashboardMainPage extends AbstractPage {
     }
 
     public DashboardLoginPage clickOnLogoutInProfileMenu(){
-        driver.findElement(Locators.get("DashboardMainPage.LogoutInProfileIcon")).click();
-        return new DashboardLoginPage(driver);
+            driver.findElement(Locators.get("DashboardMainPage.LogoutInProfileIcon")).click();
+            return new DashboardLoginPage(driver);
     }
 }

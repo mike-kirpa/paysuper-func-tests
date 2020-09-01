@@ -37,6 +37,8 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     public void enterTextInCountryField(String Country) throws InterruptedException {
         moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")).sendKeys(Country);
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryList",Country)));
+        driver.findElement(Locators.get("DashboardOnboardingPage.CountryList",Country)).click();
     }
 
     public void enterTextInCityField(String City){
@@ -53,6 +55,13 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.Address1Field")));
         driver.findElement(Locators.get("DashboardOnboardingPage.Address1Field")).sendKeys(Address1);
     }
+
+    public void clickOnAccountSubmitButton(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.AccountSubmitButton")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.AccountSubmitButton")).click();
+    }
+
+
 
     public void moToElement(WebElement element){
         Actions actions = new Actions(driver);

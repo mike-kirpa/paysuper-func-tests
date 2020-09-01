@@ -15,8 +15,7 @@ public class LocalTest extends TestBase {
 
     @Test()
     public void test() throws Exception {
-
-
+        
         String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         String generated_user_email = "autotest.protocolone+" + unixTime + "@gmail.com";
         String generated_user_pass = "Q" + unixTime;
