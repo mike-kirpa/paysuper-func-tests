@@ -2,8 +2,6 @@ package com.paysuper.tests;
 
 
 import com.paysuper.appmanager.pages.dashboard.*;
-import junit.framework.Assert;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 
@@ -40,7 +38,15 @@ public class SingleTest extends TestBase {
         dashboardGeneralOnboardingPage.enterTextInZipCodeField("12501");
         dashboardGeneralOnboardingPage.enterTextInAddress1Field("Address 1");
         dashboardGeneralOnboardingPage.clickOnAccountSubmitButton();
-        Thread.sleep(3000);
+        dashboardGeneralOnboardingPage.clickOn3rdStepContactsButton();
+        dashboardGeneralOnboardingPage.enterTextInNameRepresentativeField("Name");
+        dashboardGeneralOnboardingPage.enterTextInPositionRepresentativeField("Position");
+        dashboardGeneralOnboardingPage.enterTextInEmailRepresentativeField(generated_user_email);
+        dashboardGeneralOnboardingPage.enterTextInPhoneRepresentativeField("1234567");
+        dashboardGeneralOnboardingPage.enterTextInNameTechnicalField("Name");
+        dashboardGeneralOnboardingPage.enterTextInEmailTechnicalField(generated_user_email);
+        dashboardGeneralOnboardingPage.enterTextInPhoneTechnicalField("1234567");
+        dashboardGeneralOnboardingPage.clickOnSubmitContactsButton();
     }
     }
 

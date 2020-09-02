@@ -61,6 +61,51 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         driver.findElement(Locators.get("DashboardOnboardingPage.AccountSubmitButton")).click();
     }
 
+    public void clickOn3rdStepContactsButton(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.ContactsLink")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.ContactsLink")).click();
+    }
+
+
+    public void enterTextInNameRepresentativeField(String Name){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeNameField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeNameField")).sendKeys(Name);
+    }
+
+    public void enterTextInPositionRepresentativeField(String Position){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePositionField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePositionField")).sendKeys(Position);
+    }
+
+    public void enterTextInEmailRepresentativeField(String Email){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeEmailField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeEmailField")).sendKeys(Email);
+    }
+
+    public void enterTextInPhoneRepresentativeField(String Phone){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePhoneField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePhoneField")).sendKeys(Phone);
+    }
+
+    public void enterTextInNameTechnicalField(String Name){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalNameField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalNameField")).sendKeys(Name);
+    }
+
+    public void enterTextInEmailTechnicalField(String Email){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalEmailField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalEmailField")).sendKeys(Email);
+    }
+
+    public void enterTextInPhoneTechnicalField(String Phone){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalPhoneField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalPhoneField")).sendKeys(Phone);
+    }
+
+    public void clickOnSubmitContactsButton(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.ContactsSubmitButton")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.ContactsSubmitButton")).click();
+    }
 
 
     public void moToElement(WebElement element){
