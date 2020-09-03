@@ -22,12 +22,12 @@ public class AbstractPage {
     }
 
     public void waitForElementLoad(String LocatorName) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 15);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(Locators.get(LocatorName)));
     }
 
     public void waitForElementLoad(By by) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 15);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
