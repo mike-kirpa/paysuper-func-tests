@@ -23,7 +23,7 @@ public class DashboardPaySuper extends TestBase {
     }
 
     @Test(enabled = true, description="Dashboard Refund From Order List",
-            groups = {"tst", "stg"})
+            groups = {"tst", "stg", "prod"})
     public void RefundFromOrderListTest() {
         app.driver.get(app.getProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
