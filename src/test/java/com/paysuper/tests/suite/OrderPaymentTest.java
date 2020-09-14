@@ -9,7 +9,9 @@ import com.paysuper.tests.TestBase;
 
 public class OrderPaymentTest extends TestBase {
 
-    @Test(enabled = true, description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp")
+    @Test(enabled = true,
+            description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp",
+            groups = {"tst", "stg", "prod"})
     public void SimpleOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createSimpleOrder(
                 app.getProperties.value("ProjectId"),
@@ -30,7 +32,9 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
     }
 
-    @Test(enabled = true, description="success product payment https://protocolone.tpondemand.com/entity/193318-web-payform-uspeshnaya-pokupka-product")
+    @Test(enabled = true,
+            description="success product payment https://protocolone.tpondemand.com/entity/193318-web-payform-uspeshnaya-pokupka-product",
+            groups = {"tst", "stg", "prod"})
     public void ProductOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createProductOrder(
                 app.getProperties.value("ProjectId"),
@@ -50,7 +54,9 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
     }
 
-    @Test(enabled = true, description="success token payment https://protocolone.tpondemand.com/entity/193349-web-payform-uspeshnaya-pokupka-s-pomoshyu")
+    @Test(enabled = true,
+            description="success token payment https://protocolone.tpondemand.com/entity/193349-web-payform-uspeshnaya-pokupka-s-pomoshyu",
+            groups = {"tst", "stg", "prod"})
     public void TokenOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createTokenOrder(
                 app.getProperties.value("ApiUrl"),

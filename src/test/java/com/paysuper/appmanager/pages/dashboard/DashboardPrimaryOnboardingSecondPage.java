@@ -15,7 +15,7 @@ public class DashboardPrimaryOnboardingSecondPage extends AbstractPage {
     }
 
     public void selectCheckbox(){
-        selectCheckbox(Locators.get("DashboardPrimaryOnboardingSecondPage.Checkboxes"));
+        selectCheckbox(Locators.get("DashboardPrimaryOnboardingSecondPage.Checkboxes"), false);
     }
 
     private void clickOnNextButton(){

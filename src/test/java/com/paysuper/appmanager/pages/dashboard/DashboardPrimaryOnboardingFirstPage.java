@@ -30,7 +30,7 @@ public class DashboardPrimaryOnboardingFirstPage extends AbstractPage {
     }
 
     public void selectPosition(){
-        dropDownSelect(Locators.get("DashboardPrimaryOnboardingFirstPage.PositionField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"));
+        dropDownSelect(Locators.get("DashboardPrimaryOnboardingFirstPage.PositionField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"), false);
     }
 
     public DashboardPrimaryOnboardingSecondPage successFirstStepPrimaryOnboarding(String FisrtName, String LastName) throws InterruptedException {

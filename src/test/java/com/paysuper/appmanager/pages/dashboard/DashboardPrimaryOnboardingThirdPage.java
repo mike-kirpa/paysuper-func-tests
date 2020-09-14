@@ -18,23 +18,23 @@ public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
     }
 
     public void selectAnnualIncome(){
-        dropDownSelect(Locators.get("DashboardPrimaryOnboardingThridPage.AnnualIncomeField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"));
+        dropDownSelect(Locators.get("DashboardPrimaryOnboardingThridPage.AnnualIncomeField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"), false);
     }
 
     public void selectNumberOfEmployees(){
-        dropDownSelect(Locators.get("DashboardPrimaryOnboardingThridPage.NumberOfEmployeesField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"));
+        dropDownSelect(Locators.get("DashboardPrimaryOnboardingThridPage.NumberOfEmployeesField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"), false);
     }
 
     public void clickOnTypeOfBusiness(){
-        selectCheckbox(Locators.get("DashboardPrimaryOnboardingThridPage.TypeOfBusinessRadiobutton"));
+        selectCheckbox(Locators.get("DashboardPrimaryOnboardingThridPage.TypeOfBusinessRadiobutton"), false);
     }
 
     public void clickOnBusinessModel(){
-        selectCheckbox(Locators.get("DashboardPrimaryOnboardingThridPage.BusinessModelCheckboxes"));
+        selectCheckbox(Locators.get("DashboardPrimaryOnboardingThridPage.BusinessModelCheckboxes"), false);
     }
 
     public void clickOnSupportedPlatforms(){
-        selectCheckbox(Locators.get("DashboardPrimaryOnboardingThridPage.SupportedPlatformsCheckboxes"));
+        selectCheckbox(Locators.get("DashboardPrimaryOnboardingThridPage.SupportedPlatformsCheckboxes"), false);
     }
 
     public void clickOnDoneButton(){
@@ -43,7 +43,7 @@ public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
 
 
 
-    public DashboardVerifyEmailPage successThirdPagePrimaryOnboarding(String CompanyName, String WebsiteName){
+    public DashboardVerifyEmailPage successThirdPagePrimaryOnboarding(String CompanyName, String WebsiteName) throws InterruptedException {
         enterCompanyName(CompanyName);
         enterWebsiteName(WebsiteName);
         selectAnnualIncome();

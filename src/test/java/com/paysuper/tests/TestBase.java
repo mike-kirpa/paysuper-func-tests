@@ -1,11 +1,13 @@
 package com.paysuper.tests;
 
+import com.github.javafaker.Faker;
 import com.paysuper.appmanager.ApplicationManager;
 import org.testng.annotations.*;
 
 import java.io.Serializable;
 
 public class TestBase {
+    public Faker faker = new Faker();
 
     protected final ApplicationManager app = new ApplicationManager();
 

@@ -107,6 +107,63 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         driver.findElement(Locators.get("DashboardOnboardingPage.ContactsSubmitButton")).click();
     }
 
+    public void clickOn4rdStepBankingInfoButton(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoLink")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoLink")).click();
+    }
+
+    public void enterTextInSwiftField(String Swift){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SWIFTField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.SWIFTField")).sendKeys(Swift);
+    }
+
+    public void selectAccountCurrency(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.AccountCurrencyField")));
+        dropDownSelect(Locators.get("DashboardOnboardingPage.AccountCurrencyField"), Locators.get("DashboardOnboardingPage.SelectOptions"), true);
+    }
+
+    public void enterTextInIbanField(String Iban){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.IBANField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.IBANField")).sendKeys(Iban);
+    }
+
+
+    public void enterTextInBankNameField(String BankName){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankNameField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.BankNameField")).sendKeys(BankName);
+    }
+
+    public void enterTextInBankAddressField(String BankAddress){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankAddressField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.BankAddressField")).sendKeys(BankAddress);
+    }
+
+    public void clickOnSubmitBankingInfoButton(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton")).click();
+    }
+
+    public void clickOn5rdStepPaymentMethodsButton(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")).click();
+    }
+
+
+    public void selectTheMainSalesRegion(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect")));
+        dropDownSelect(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect"), Locators.get("DashboardOnboardingPage.SelectOptions"), true);
+    }
+
+    public void selectRiskLevel(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RiskLevelRadioButtons")));
+        selectCheckbox(Locators.get("DashboardOnboardingPage.RiskLevelRadioButtons"), true);
+    }
+
+    public void clickOnSubmitApplicationButton(){
+        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")).click();
+    }
+
 
     public void moToElement(WebElement element){
         Actions actions = new Actions(driver);

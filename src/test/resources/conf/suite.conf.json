@@ -6,7 +6,7 @@
   "capabilities": {
     "build": "testng-browserstack",
     "name": "suite_test",
-    "browserstack.debug": true
+    "browserstack.debug": false
   },
 
   "environments": {

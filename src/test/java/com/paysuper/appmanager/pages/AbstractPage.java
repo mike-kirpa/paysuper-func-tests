@@ -49,18 +49,28 @@ public class AbstractPage {
         return driver.findElement(Locators.get(LocatorName)).getText();
     }
 
-    public void dropDownSelect(By field, By options){
+    public void dropDownSelect(By field, By options, boolean DefaultElement){
         driver.findElement(field).click();
         List<WebElement> myElements = driver.findElements(options);
         int rnd = DataGenerator.getRandomNumberInRange(0,myElements.size()-1);
-        new Actions(driver).moveToElement(myElements.get(rnd)).perform();
-        myElements.get(rnd).click();
+        if(DefaultElement & rnd == 0) {
+            driver.findElement(field).click();
+        }
+        else {
+            new Actions(driver).moveToElement(myElements.get(rnd)).perform();
+            myElements.get(rnd).click();
+        }
     }
 
-    public void selectCheckbox(By checkboxes){
+    public void selectCheckbox(By checkboxes, boolean DefaultElement){
         List<WebElement> myElements = driver.findElements(checkboxes);
         int rnd = DataGenerator.getRandomNumberInRange(0,myElements.size()-1);
-        myElements.get(rnd).click();
+        if(DefaultElement & rnd == 0) {
+
+        } else {
+            new Actions(driver).moveToElement(myElements.get(rnd)).perform();
+            myElements.get(rnd).click();
+        }
     }
 
 

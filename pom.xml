@@ -69,7 +69,11 @@
             <artifactId>commons-email</artifactId>
             <version>1.5</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>xml-path</artifactId>
