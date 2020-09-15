@@ -28,7 +28,7 @@ public class RestAPI {
         return request.post("/order").then().extract().path("payment_form_url");
     }
 
-    public String createProductOrder(String project, String products, String apiURL) {
+    public String createProductOrder(String project, String products, String apiURL, String type) {
         RestAssured.baseURI = apiURL;
         List<String> list = new ArrayList<String>();
         list.add(products);
@@ -40,7 +40,7 @@ public class RestAPI {
         JSONObject requestParams = new JSONObject();
         requestParams.put("project", project);
         requestParams.put("products", array);
-        requestParams.put("type", "product");
+        requestParams.put("type", type);
         request.header("Content-Type", "application/json");
         request.body(requestParams.toJSONString());
         return request.post("/order").then().extract().path("payment_form_url");

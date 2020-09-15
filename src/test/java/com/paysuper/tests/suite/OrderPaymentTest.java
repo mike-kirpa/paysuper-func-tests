@@ -11,7 +11,7 @@ public class OrderPaymentTest extends TestBase {
 
     @Test(enabled = true,
             description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp",
-            groups = {"tst", "stg", "prod"})
+            groups = {"tst", "stg", "prod", "pay"})
     public void SimpleOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createSimpleOrder(
                 app.getProperties.value("ProjectId"),
@@ -34,12 +34,13 @@ public class OrderPaymentTest extends TestBase {
 
     @Test(enabled = true,
             description="success product payment https://protocolone.tpondemand.com/entity/193318-web-payform-uspeshnaya-pokupka-product",
-            groups = {"tst", "stg", "prod"})
+            groups = {"tst", "stg", "prod", "pay"})
     public void ProductOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createProductOrder(
                 app.getProperties.value("ProjectId"),
                 app.getProperties.value("Product"),
-                app.getProperties.value("ApiUrlCheckout"));
+                app.getProperties.value("ApiUrlCheckout"),
+                "product");
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
                 app.getProperties.value("DefaultLanguage"),
@@ -56,7 +57,7 @@ public class OrderPaymentTest extends TestBase {
 
     @Test(enabled = true,
             description="success token payment https://protocolone.tpondemand.com/entity/193349-web-payform-uspeshnaya-pokupka-s-pomoshyu",
-            groups = {"tst", "stg", "prod"})
+            groups = {"tst", "stg", "prod", "pay"})
     public void TokenOrderSuccessPayTest() {
         String payment_form_url = app.restAPI.createTokenOrder(
                 app.getProperties.value("ApiUrl"),
@@ -73,6 +74,27 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
+    }
+
+    @Test(enabled = true, groups = {"tst", "pay"})
+    public void ProductKeyOrderSuccessPayTest()  {
+        String payment_form_url = app.restAPI.createProductOrder(
+                app.getProperties.value("ProjectId"),
+                app.getProperties.value("ProductKey"),
+                app.getProperties.value("ApiUrlCheckout"),
+                "key");
+        app.driver.get(payment_form_url);
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                app.getProperties.value("DefaultLanguage"),
+                app.getProperties.value("DefautCountry"));
+        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+        payFormPage.inputEmail(app.getProperties.value("ValidEmail"));
+        payFormPage.clickPayButton();
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessProductKeyPayText"));
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
     }
 }
