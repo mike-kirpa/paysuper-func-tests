@@ -1,5 +1,6 @@
 package com.paysuper.tests.suite;
 
+import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.pages.dashboard.*;
 import org.testng.annotations.Test;
 
@@ -9,10 +10,11 @@ public class OnboardingTest extends TestBase {
 
     @Test(enabled = true, groups = {"tst", "stg", "onboarding"})
     public void test() throws Exception {
-
+        Email email = new Email();
         String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         String generated_user_email = "autotest.protocolone+" + unixTime + "@gmail.com";
         String generated_user_pass = "Q" + unixTime;
+        email.setEmailRecipient(generated_user_email);
         app.driver.get(app.getProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
         dashboardLoginPage.clickOnSignInButton();
@@ -24,11 +26,11 @@ public class OnboardingTest extends TestBase {
         DashboardPrimaryOnboardingThirdPage dashboardPrimaryOnboardingThirdPage
                 = dashboardPrimaryOnboardingSecondPage.successSecondPagePrimaryOnboarding();
         DashboardVerifyEmailPage dashboardVerifyEmailPage = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name(), faker.company().url());
-        Thread.sleep(5000);
+//        Thread.sleep(5000);
         DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(
                 app.getProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
-                generated_user_email);
+                email);
         DashboardGeneralOnboardingPage dashboardGeneralOnboardingPage = dashboardMainPage.clickOnActivateLiveModeButton();
         dashboardGeneralOnboardingPage.enterTextInLegalnameField(faker.funnyName().name().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInWebsiteFiled(faker.company().url());
@@ -53,7 +55,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.selectAccountCurrency();
         dashboardGeneralOnboardingPage.enterTextInIbanField("DE89370400440532013000");
         dashboardGeneralOnboardingPage.enterTextInBankNameField(faker.funnyName().name());
-        dashboardGeneralOnboardingPage.enterTextInBankAddressField(faker.address().fullAddress());
+        dashboardGeneralOnboardingPage.enterTextInBankAddressField(faker.address().fullAddress().replaceAll("'",""));
         dashboardGeneralOnboardingPage.clickOnSubmitBankingInfoButton();
         dashboardGeneralOnboardingPage.clickOn5rdStepPaymentMethodsButton();
         dashboardGeneralOnboardingPage.selectTheMainSalesRegion();

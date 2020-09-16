@@ -1,7 +1,9 @@
 package com.paysuper.appmanager.pages.dashboard;
 
 import com.paysuper.appmanager.helpers.MailParser;
+import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.pages.AbstractPage;
+import org.jsoup.nodes.Document;
 import org.openqa.selenium.WebDriver;
 
 public class DashboardVerifyEmailPage extends AbstractPage {
@@ -10,14 +12,11 @@ public class DashboardVerifyEmailPage extends AbstractPage {
         waitForElementLoad("DashboardVerifyEmailPage.Text");
     }
 
-    public DashboardMainPage VerifyEmail(String user_login_for_email, String autotest_email_pass, String generated_user_email) throws InterruptedException {
+    public DashboardMainPage VerifyEmail(String user_login_for_email, String autotest_email_pass, Email email) throws InterruptedException {
         Thread.sleep(3000);
-        String HTMLSTring = (String) MailParser.getMail(
-                user_login_for_email,
-                autotest_email_pass,
-                generated_user_email);
-        driver.get(HTMLSTring);
+        MailParser mailParser = new MailParser(user_login_for_email, autotest_email_pass, email);
+        mailParser.parseVerifyEmail();
+        driver.get(email.getVerifyHref());
         return new DashboardMainPage(driver);
     }
-
 }
