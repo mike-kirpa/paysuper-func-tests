@@ -1,5 +1,7 @@
 package com.paysuper.appmanager.helpers;
 
+import com.paysuper.appmanager.models.Email;
+import com.paysuper.appmanager.models.Order;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,17 +17,23 @@ import static io.restassured.RestAssured.given;
 
 public class RestAPI {
 
-    public String createSimpleOrder(String project, Integer amount, String currency, String apiURL) {
+
+
+    public String createSimpleOrder(String apiURL, Order order) {
+        Response response;
+
         RestAssured.baseURI = apiURL;
         RequestSpecification request = given();
         JSONObject requestParams = new JSONObject();
-        requestParams.put("project", project);
-        requestParams.put("amount", amount);
-        requestParams.put("currency", currency);
+        requestParams.put("project", order.getProjectId());
+        requestParams.put("amount", Double.parseDouble(order.getOrderAmount()));
+        requestParams.put("currency", order.getOrderCurrency());
         requestParams.put("type", "simple");
         request.header("Content-Type", "application/json");
         request.body(requestParams.toJSONString());
-        return request.post("/order").then().extract().path("payment_form_url");
+        response = request.post("/order");
+        order.setUUID((String) response.then().extract().path("id"));
+        return response.then().extract().path("payment_form_url");
     }
 
     public String createProductOrder(String project, String products, String apiURL, String type) {

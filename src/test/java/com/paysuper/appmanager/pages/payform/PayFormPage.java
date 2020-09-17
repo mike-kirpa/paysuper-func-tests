@@ -1,6 +1,5 @@
 package com.paysuper.appmanager.pages.payform;
 
-import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.pages.AbstractPage;
 import org.openqa.selenium.By;
@@ -8,25 +7,20 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.lang.ref.SoftReference;
 
 public class PayFormPage extends AbstractPage {
     public PayFormPage(WebDriver driver, String lang, String country){
         super(driver);
-        waitForElementLoad("DemoFormPage.formLayout");
+        waitForElementLoad("PayForm.formLayout");
         selectLanguage(lang);
-        if(isElementPresent("DemoFormPage.TextChangeCountry")){
+        if(isElementPresent("PayForm.TextChangeCountry")){
             changeCountry(country);
         }
     }
 
 
     public void selectLanguage(String lang){
-        WebElement hoverElement = driver.findElement(Locators.get("DemoFormPage.languageSelectField"));
+        WebElement hoverElement = driver.findElement(Locators.get("PayForm.languageSelectField"));
         if(!(hoverElement.getText().equals(lang))){
             Actions action = new Actions(driver);
             action.moveToElement(hoverElement).perform();
@@ -36,7 +30,7 @@ public class PayFormPage extends AbstractPage {
     }
 
     public void changeCountry(String country){
-        driver.findElement(Locators.get("DemoFormPage.FieldChangeCountry")).click();
+        driver.findElement(Locators.get("PayForm.FieldChangeCountry")).click();
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -57,7 +51,7 @@ public class PayFormPage extends AbstractPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        driver.findElement(Locators.get("DemoFormPage.ButtonChangeCountry")).click();
+        driver.findElement(Locators.get("PayForm.ButtonChangeCountry")).click();
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -66,37 +60,41 @@ public class PayFormPage extends AbstractPage {
     }
 
     public void inputBankCardNumber(String pan){
-        driver.findElement(Locators.get("DemoFormPage.BankCardNumberField")).sendKeys(pan);
+        driver.findElement(Locators.get("PayForm.BankCardNumberField")).sendKeys(pan);
     }
 
     public void inputBankCardExpired(String date){
-        driver.findElement(Locators.get("DemoFormPage.BankCardExpiredField")).sendKeys(date);
+        driver.findElement(Locators.get("PayForm.BankCardExpiredField")).sendKeys(date);
     }
 
     public void inputBankCardCVV(String cvv){
-        driver.findElement(Locators.get("DemoFormPage.BankCardCVVField")).sendKeys(cvv);
+        driver.findElement(Locators.get("PayForm.BankCardCVVField")).sendKeys(cvv);
     }
 
     public void inputEmail(String email){
-        driver.findElement(Locators.get("DemoFormPage.EmailField")).sendKeys(email);
+        driver.findElement(Locators.get("PayForm.EmailField")).sendKeys(email);
     }
 
     public void clickPayButton(){
-        driver.findElement(Locators.get("DemoFormPage.PayButton")).click();
+        driver.findElement(Locators.get("PayForm.PayButton")).click();
     }
 
 
     public String getFormTitleAfterPay(){
-        waitForElementLoad("DemoFormPage.TitleAfterPay");
-        return getTextOfElement("DemoFormPage.TitleAfterPay");
+        waitForElementLoad("PayForm.TitleAfterPay");
+        return getTextOfElement("PayForm.TitleAfterPay");
+    }
+
+    public String getTotalAmount(){
+        return driver.findElement(Locators.get("PayForm.TotalAmountFromPAyForm")).getText();
     }
 
     public String getFormTextAfterPay(){
-        return getTextOfElement("DemoFormPage.TextAfterPay");
+        return getTextOfElement("PayForm.TextAfterPay");
     }
 
     public String getFormEmailAfterPay(){
-        return getTextOfElement("DemoFormPage.EmailAfterPay");
+        return getTextOfElement("PayForm.EmailAfterPay");
     }
 
 }

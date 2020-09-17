@@ -10,7 +10,75 @@ package com.paysuper.appmanager.models;
 public class Email {
     private String VerifyHref;
     private String EmailRecipient;
+    private String TransactionDate;
+    private String Total;
+    private String TransactionID;
+    private String MerchantName;
+    private String WebCheckUrl;
 
+    @Override
+    public String toString() {
+        return "Email{" +
+                "VerifyHref='" + VerifyHref + '\'' +
+                ", EmailRecipient='" + EmailRecipient + '\'' +
+                ", TransactionDate='" + TransactionDate + '\'' +
+                ", Total='" + Total + '\'' +
+                ", TransactionID='" + TransactionID + '\'' +
+                ", MerchantName='" + MerchantName + '\'' +
+                ", WebCheckUrl='" + WebCheckUrl + '\'' +
+                ", PaymentPartner='" + PaymentPartner + '\'' +
+                '}';
+    }
+
+    public String getWebCheckUrl() {
+        return WebCheckUrl;
+    }
+
+    public void setWebCheckUrl(String webCheckUrl) {
+        WebCheckUrl = webCheckUrl;
+    }
+
+    public String getTransactionID() {
+        return TransactionID;
+    }
+
+    public void setTransactionID(String transactionID) {
+        TransactionID = transactionID;
+    }
+
+    public String getMerchantName() {
+        return MerchantName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        MerchantName = merchantName;
+    }
+
+    public String getPaymentPartner() {
+        return PaymentPartner;
+    }
+
+    public void setPaymentPartner(String paymentPartner) {
+        PaymentPartner = paymentPartner;
+    }
+
+    private String PaymentPartner;
+
+    public String getTotal() {
+        return Total;
+    }
+
+    public void setTotal(String total) {
+        Total = total;
+    }
+
+    public String getTransactionDate() {
+        return TransactionDate;
+    }
+
+    public void setTransactionDate(String transactionDate) {
+        TransactionDate = transactionDate;
+    }
 
     public String getVerifyHref() {
         return VerifyHref;

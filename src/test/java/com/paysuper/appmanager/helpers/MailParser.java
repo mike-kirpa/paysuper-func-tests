@@ -88,4 +88,21 @@ public class MailParser {
         Element link = html.selectFirst("a:contains(Verify My Email)");
         email.setVerifyHref(link.attr("href"));
     }
+
+    public void parsePurchaseCheck(){
+        String EmailSubject = "Your PaySuper purchase check";
+        org.jsoup.nodes.Document html = getMail(EmailSubject);
+        //Get "Total" from email and set in Email
+        email.setTotal(html.selectFirst("td:nth-child(2)>b").text());
+        //Get "Transaction Date" from email and set in Email
+        email.setTransactionDate(html.selectFirst("tr:nth-child(3) > td:nth-child(2) > table > tbody > tr > td:nth-child(2)").text());
+        //Get "Transaction ID" from email and set in Email
+        email.setTransactionID(html.selectFirst("tr:nth-child(4) > td:nth-child(2) > table > tbody > tr:nth-child(1) > td:nth-child(2)").text());
+        //Get "Merchant Name" from email and set in Email
+        email.setMerchantName(html.selectFirst("td:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(2)").text());
+        //Get "Payment Partner" from email and set in Email
+        email.setPaymentPartner(html.selectFirst("td:nth-child(2) > table > tbody > tr:nth-child(3) > td:nth-child(2)").text());
+        //Get "WebCheckUrl" from email and set in Email
+        email.setWebCheckUrl(html.selectFirst("a:contains(link)").attr("href"));
+    }
 }
