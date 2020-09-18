@@ -11,15 +11,24 @@ public class Order {
     private String OrderCurrency;
     private String OrderAmount;
     private String ProjectId;
-    private String TotalAmountFromPayForm;
-    private String CountryFromPayForm;
+    private String TotalAmount;
+    private String Country;
+    private String GrossRevenue;
 
-    public String getCountryFromPayForm() {
-        return CountryFromPayForm;
+    public String getGrossRevenue() {
+        return GrossRevenue;
     }
 
-    public void setCountryFromPayForm(String countryFromPayForm) {
-        CountryFromPayForm = countryFromPayForm;
+    public void setGrossRevenue(String grossRevenue) {
+        GrossRevenue = grossRevenue;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
     }
 
     public Order(){
@@ -32,12 +41,12 @@ public class Order {
         return today;
     }
 
-    public String getTotalAmountFromPayForm() {
-        return TotalAmountFromPayForm;
+    public String getTotalAmount() {
+        return TotalAmount;
     }
 
-    public void setTotalAmountFromPayForm(String totalAmountFromPayForm) {
-        TotalAmountFromPayForm = totalAmountFromPayForm;
+    public void setTotalAmount(String totalAmount) {
+        TotalAmount = totalAmount;
     }
 
     public String getProjectId() {

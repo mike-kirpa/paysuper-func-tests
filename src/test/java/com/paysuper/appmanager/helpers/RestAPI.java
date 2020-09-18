@@ -1,9 +1,7 @@
 package com.paysuper.appmanager.helpers;
 
-import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.models.Order;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONArray;
@@ -71,6 +69,6 @@ public class RestAPI {
     public void getOrderForPayForm(String apiURL, Order order){
         RestAssured.baseURI = apiURL;
          String country = get(apiURL + "/order/" + order.getUUID()).then().statusCode(200).extract().path("user_ip_data.country");
-        order.setCountryFromPayForm(country);
+        order.setCountry(country);
     }
 }

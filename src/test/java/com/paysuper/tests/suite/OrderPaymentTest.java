@@ -41,7 +41,7 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
-        order.setTotalAmountFromPayForm(payFormPage.getTotalAmount());
+        order.setTotalAmount(payFormPage.getTotalAmount());
         app.restAPI.getOrderForPayForm(app.getProperties.value("ApiUrlCheckout"),
                 order);
         payFormPage.clickPayButton();
@@ -54,10 +54,10 @@ public class OrderPaymentTest extends TestBase {
         Thread.sleep(4000);
         mailParser.parsePurchaseCheck();
         Assert.assertEquals(email.getTransactionID(), order.getUUID());
-        Assert.assertEquals(email.getTotal(), order.getTotalAmountFromPayForm());
+        Assert.assertEquals(email.getTotal(), order.getTotalAmount());
         Assert.assertEquals(email.getTransactionDate(), order.getToday());
         Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        if(order.getCountryFromPayForm().equals("UA") | order.getCountryFromPayForm().equals("RU")){
+        if(order.getCountry().equals("UA") | order.getCountry().equals("RU")){
             Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNameMalta"));
         }
         else
