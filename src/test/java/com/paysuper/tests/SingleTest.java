@@ -2,6 +2,7 @@ package com.paysuper.tests;
 
 
 
+import com.google.common.base.Verify;
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.helpers.MailParser;
 import com.paysuper.appmanager.models.Email;
@@ -13,6 +14,9 @@ import org.testng.annotations.Test;
 
 public class SingleTest extends TestBase {
 
+    @Test(enabled = false)
+    public void Test(){
+    }
 
 
     @Test(enabled = true,
@@ -23,7 +27,6 @@ public class SingleTest extends TestBase {
         Order order = new Order();
         String payment_form_url;
         String unixTime;
-
 
         order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
         order.setOrderAmount(app.getProperties.value("OrderAmount"));
@@ -45,6 +48,8 @@ public class SingleTest extends TestBase {
         payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
         order.setTotalAmountFromPayForm(payFormPage.getTotalAmount());
+        app.restAPI.getOrderForPayForm(app.getProperties.value("ApiUrlCheckout"),
+                order);
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
@@ -58,7 +63,11 @@ public class SingleTest extends TestBase {
         Assert.assertEquals(email.getTotal(), order.getTotalAmountFromPayForm());
         Assert.assertEquals(email.getTransactionDate(), order.getToday());
         Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+        if(order.getCountryFromPayForm().equals("UA") | order.getCountryFromPayForm().equals("RU")){
+            Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNameMalta"));
+        }
+        else
+            Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
     }
     }
 

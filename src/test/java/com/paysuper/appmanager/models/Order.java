@@ -12,7 +12,15 @@ public class Order {
     private String OrderAmount;
     private String ProjectId;
     private String TotalAmountFromPayForm;
+    private String CountryFromPayForm;
 
+    public String getCountryFromPayForm() {
+        return CountryFromPayForm;
+    }
+
+    public void setCountryFromPayForm(String countryFromPayForm) {
+        CountryFromPayForm = countryFromPayForm;
+    }
 
     public Order(){
         SimpleDateFormat simpleDateFormat =

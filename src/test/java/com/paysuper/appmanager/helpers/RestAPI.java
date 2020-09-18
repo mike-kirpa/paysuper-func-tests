@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
 
 
 public class RestAPI {
@@ -66,5 +66,11 @@ public class RestAPI {
                         .statusCode(200)
                         .extract()
                         .path("payment_form_url");
+    }
+
+    public void getOrderForPayForm(String apiURL, Order order){
+        RestAssured.baseURI = apiURL;
+         String country = get(apiURL + "/order/" + order.getUUID()).then().statusCode(200).extract().path("user_ip_data.country");
+        order.setCountryFromPayForm(country);
     }
 }

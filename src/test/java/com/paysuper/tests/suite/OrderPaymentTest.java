@@ -22,7 +22,6 @@ public class OrderPaymentTest extends TestBase {
         String payment_form_url;
         String unixTime;
 
-
         order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
         order.setOrderAmount(app.getProperties.value("OrderAmount"));
         order.setProjectId(app.getProperties.value("ProjectId"));
@@ -37,11 +36,14 @@ public class OrderPaymentTest extends TestBase {
         PayFormPage payFormPage =new PayFormPage(app.driver,
                 app.getProperties.value("DefaultLanguage"),
                 app.getProperties.value("DefautCountry"));
-        Assert.assertEquals(app.driver.findElement(Locators.get("PayForm.OrderSummaryValue")).getText(), order.getOrderAmount());
+        Assert.assertEquals(app.driver.findElement(Locators.get("PayForm.OrderSummaryValue")).getText(), "€" + order.getOrderAmount());
         payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
         payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
+        order.setTotalAmountFromPayForm(payFormPage.getTotalAmount());
+        app.restAPI.getOrderForPayForm(app.getProperties.value("ApiUrlCheckout"),
+                order);
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
@@ -52,6 +54,14 @@ public class OrderPaymentTest extends TestBase {
         Thread.sleep(4000);
         mailParser.parsePurchaseCheck();
         Assert.assertEquals(email.getTransactionID(), order.getUUID());
+        Assert.assertEquals(email.getTotal(), order.getTotalAmountFromPayForm());
+        Assert.assertEquals(email.getTransactionDate(), order.getToday());
+        Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
+        if(order.getCountryFromPayForm().equals("UA") | order.getCountryFromPayForm().equals("RU")){
+            Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNameMalta"));
+        }
+        else
+            Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
     }
 
     @Test(enabled = true,
