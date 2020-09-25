@@ -66,7 +66,11 @@ public class PayFormPage extends AbstractPage {
     }
 
     public void inputBankCardNumber(String pan){
-        driver.findElement(Locators.get("DemoFormPage.BankCardNumberField")).sendKeys(pan);
+        Boolean textIsEqual;
+        do {
+            driver.findElement(Locators.get("DemoFormPage.BankCardNumberField")).sendKeys(pan);
+            textIsEqual = driver.findElement(Locators.get("DemoFormPage.BankCardNumberField")).getText().equals(pan);
+        } while (textIsEqual);
     }
 
     public void inputBankCardExpired(String date){
