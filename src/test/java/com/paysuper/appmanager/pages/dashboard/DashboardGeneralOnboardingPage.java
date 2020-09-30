@@ -144,12 +144,14 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void clickOn5rdStepPaymentMethodsButton(){
+        waitForElementLoad("DashboardOnboardingPage.PaymentMethodsLink");
         moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")));
         driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")).click();
     }
 
 
     public void selectTheMainSalesRegion(){
+        waitForElementLoad("DashboardOnboardingPage.TheMainSalesRegionSelect");
         moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect")));
         dropDownSelect(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect"), Locators.get("DashboardOnboardingPage.SelectOptions"), true);
     }
