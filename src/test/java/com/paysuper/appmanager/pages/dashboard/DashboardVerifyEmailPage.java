@@ -13,7 +13,6 @@ public class DashboardVerifyEmailPage extends AbstractPage {
     }
 
     public DashboardMainPage VerifyEmail(String user_login_for_email, String autotest_email_pass, Email email) throws InterruptedException {
-        Thread.sleep(3000);
         MailParser mailParser = new MailParser(user_login_for_email, autotest_email_pass, email);
         mailParser.parseVerifyEmail();
         driver.get(email.getVerifyHref());

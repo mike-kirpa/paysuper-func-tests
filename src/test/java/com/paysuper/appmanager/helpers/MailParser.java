@@ -41,7 +41,9 @@ public class MailParser {
         Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "imaps");
 
+
         try {
+            Thread.sleep(5000);
             Session session = Session.getDefaultInstance(props, null);
             // session.setDebug(true);
             store = session.getStore("imaps");

@@ -51,7 +51,6 @@ public class OrderPaymentTest extends TestBase {
         MailParser mailParser = new MailParser(app.getProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
                 email);
-        Thread.sleep(4000);
         mailParser.parsePurchaseCheck();
         Assert.assertEquals(email.getTransactionID(), order.getUUID());
         Assert.assertEquals(email.getTotal(), order.getTotalAmount());

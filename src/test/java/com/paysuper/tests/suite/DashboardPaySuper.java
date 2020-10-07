@@ -64,7 +64,6 @@ public class DashboardPaySuper extends TestBase {
         MailParser mailParser = new MailParser(app.getProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
                 email);
-        Thread.sleep(4000);
         mailParser.parseRefundedCheck();
         org.testng.Assert.assertEquals(email.getTransactionID(), order.getUUID());
         org.testng.Assert.assertEquals(email.getTotal(), order.getGrossRevenue());
