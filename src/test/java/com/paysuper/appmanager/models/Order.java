@@ -14,6 +14,24 @@ public class Order {
     private String TotalAmount;
     private String Country;
     private String GrossRevenue;
+    private String Secret;
+    private String product;
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getSecret() {
+        return Secret;
+    }
+
+    public void setSecret(String secret) {
+        Secret = secret;
+    }
 
     public String getGrossRevenue() {
         return GrossRevenue;

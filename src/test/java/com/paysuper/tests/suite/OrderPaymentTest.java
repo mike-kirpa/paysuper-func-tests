@@ -67,11 +67,22 @@ public class OrderPaymentTest extends TestBase {
             description="success product payment https://protocolone.tpondemand.com/entity/193318-web-payform-uspeshnaya-pokupka-product",
             groups = {"tst", "stg", "prod", "pay"})
     public void ProductOrderSuccessPayTest() {
-        String payment_form_url = app.restAPI.createProductOrder(
-                app.getProperties.value("ProjectId"),
-                app.getProperties.value("Product"),
+        Email email = new Email();
+        Order order = new Order();
+        String payment_form_url;
+        String unixTime;
+
+        order.setProjectId(app.getProperties.value("ProjectId"));
+        order.setProduct(app.getProperties.value("Product"));
+
+
+        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
+
+        payment_form_url = app.restAPI.createProductOrder(
                 app.getProperties.value("ApiUrlCheckout"),
-                "product");
+                "product",
+                order);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
                 app.getProperties.value("DefaultLanguage"),
@@ -79,22 +90,32 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
         payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
-        payFormPage.inputEmail(app.getProperties.value("ValidEmail"));
+        payFormPage.inputEmail(email.getEmailRecipient());
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessProductPayText"));
-        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
     @Test(enabled = true,
             description="success token payment https://protocolone.tpondemand.com/entity/193349-web-payform-uspeshnaya-pokupka-s-pomoshyu",
             groups = {"tst", "stg", "prod", "pay"})
     public void TokenOrderSuccessPayTest() {
-        String payment_form_url = app.restAPI.createTokenOrder(
+        Email email = new Email();
+        Order order = new Order();
+        String payment_form_url;
+        String unixTime;
+
+        order.setProjectId(app.getProperties.value("ProjectId"));
+        order.setSecret(app.getProperties.value("Secret"));
+
+        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
+
+        payment_form_url = app.restAPI.createTokenOrder(
                 app.getProperties.value("ApiUrl"),
-                app.getProperties.value("ProjectId"),
-                app.getProperties.value("Secret"),
-                app.getProperties.value("ValidEmail"));
+                order,
+                email);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
                 app.getProperties.value("DefaultLanguage"),
@@ -105,16 +126,27 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
-        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
-    @Test(enabled = true, groups = {"tst", "pay"})
+    @Test(enabled = true, groups = {"tst", "stg", "prod", "pay"})
     public void ProductKeyOrderSuccessPayTest()  {
-        String payment_form_url = app.restAPI.createProductOrder(
-                app.getProperties.value("ProjectId"),
-                app.getProperties.value("ProductKey"),
+        Email email = new Email();
+        Order order = new Order();
+        String payment_form_url;
+        String unixTime;
+
+        order.setProjectId(app.getProperties.value("ProjectId"));
+        order.setProduct(app.getProperties.value("ProductKey"));
+
+
+        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
+
+        payment_form_url = app.restAPI.createProductOrder(
                 app.getProperties.value("ApiUrlCheckout"),
-                "key");
+                "key",
+                order);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
                 app.getProperties.value("DefaultLanguage"),
@@ -122,10 +154,10 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
         payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
-        payFormPage.inputEmail(app.getProperties.value("ValidEmail"));
+        payFormPage.inputEmail(email.getEmailRecipient());
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessProductKeyPayText"));
-        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), app.getProperties.value("ValidEmail"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 }

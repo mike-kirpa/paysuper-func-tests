@@ -25,7 +25,7 @@ public class OnboardingTest extends TestBase {
                 = dashboardPrimaryOnboardingFirstPage.successFirstStepPrimaryOnboarding(faker.name().firstName().replaceAll("'",""), faker.name().lastName().replaceAll("'",""));
         DashboardPrimaryOnboardingThirdPage dashboardPrimaryOnboardingThirdPage
                 = dashboardPrimaryOnboardingSecondPage.successSecondPagePrimaryOnboarding();
-        DashboardVerifyEmailPage dashboardVerifyEmailPage = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name(), faker.company().url());
+        DashboardVerifyEmailPage dashboardVerifyEmailPage = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
 //        Thread.sleep(5000);
         DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(
                 app.getProperties.value("user_login_for_email"),

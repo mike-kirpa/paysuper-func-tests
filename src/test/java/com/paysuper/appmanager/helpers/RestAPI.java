@@ -1,5 +1,6 @@
 package com.paysuper.appmanager.helpers;
 
+import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.models.Order;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -34,17 +35,18 @@ public class RestAPI {
         return response.then().extract().path("payment_form_url");
     }
 
-    public String createProductOrder(String project, String products, String apiURL, String type) {
+    public String createProductOrder(String apiURL, String type, Order order)
+    {
         RestAssured.baseURI = apiURL;
         List<String> list = new ArrayList<String>();
-        list.add(products);
+        list.add(order.getProduct());
         JSONArray array = new JSONArray();
         for (int i = 0; i < list.size(); i++) {
             array.add(list.get(i));
         }
         RequestSpecification request = given();
         JSONObject requestParams = new JSONObject();
-        requestParams.put("project", project);
+        requestParams.put("project", order.getProjectId());
         requestParams.put("products", array);
         requestParams.put("type", type);
         request.header("Content-Type", "application/json");
@@ -52,11 +54,12 @@ public class RestAPI {
         return request.post("/order").then().extract().path("payment_form_url");
     }
 
-    public String createTokenOrder(String apiURL, String project, String secret, String email) {
-        String payload = "{\n    \"user\": {\n        \"id\": \"0000000000003\",\n        \"email\": {\n            \"value\": \"" + email + "\",\n            \"verified\": true\n        },\n        \"phone\": {\n            \"value\": \"0123456\",\n            \"verified\": true\n        },\n        \"name\": {\n            \"value\": \"Человек Х -токен\"\n        },\n        \"ip\": {\n            \"value\": \"194.54.160.79\"\n        },\n        \"locale\": {\n            \"value\": \"de-DE\"\n        },\n        \"address\": {\n            \"country\": \"DE\",\n            \"city\": \"Odessa\",\n            \"state\": \"Odessa\",\n            \"postal_code\": \"a300\"\n        },\n        \"metadata\": {\n            \"status\": \"VIP\"\n        }\n    },\n    \"settings\": {\n        \"project_id\": \""+project+"\",\n        \"currency\": \"EUR\",\n        \"amount\": 100,\n        \"description\": \"Какое-то описание платежа\",\n        \"metadata\": {\n            \"balance\": \"999.99\"\n        },\n        \"type\": \"simple\"\n    }\n}";
+    public String createTokenOrder(String apiURL, Order order, Email email) {
+
+        String payload = "{\n    \"user\": {\n        \"id\": \"0000000000003\",\n        \"email\": {\n            \"value\": \"" + email.getEmailRecipient() + "\",\n            \"verified\": true\n        },\n        \"phone\": {\n            \"value\": \"0123456\",\n            \"verified\": true\n        },\n        \"name\": {\n            \"value\": \"Человек Х -токен\"\n        },\n        \"ip\": {\n            \"value\": \"194.54.160.79\"\n        },\n        \"locale\": {\n            \"value\": \"de-DE\"\n        },\n        \"address\": {\n            \"country\": \"DE\",\n            \"city\": \"Odessa\",\n            \"state\": \"Odessa\",\n            \"postal_code\": \"a300\"\n        },\n        \"metadata\": {\n            \"status\": \"VIP\"\n        }\n    },\n    \"settings\": {\n        \"project_id\": \""+order.getProjectId()+"\",\n        \"currency\": \"EUR\",\n        \"amount\": 100,\n        \"description\": \"Какое-то описание платежа\",\n        \"metadata\": {\n            \"balance\": \"999.99\"\n        },\n        \"type\": \"simple\"\n    }\n}";
         return
                 given()
-                        .header("X-API-SIGNATURE", secret)
+                        .header("X-API-SIGNATURE", order.getSecret())
                         .header("Content-Type", "application/json")
                         .body(payload)
                         .post(apiURL+"/tokens")
