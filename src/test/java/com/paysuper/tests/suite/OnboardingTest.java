@@ -39,14 +39,14 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.enterTextInCountryField("Czech Republic");
         dashboardGeneralOnboardingPage.enterTextInCityField("Prague");
         dashboardGeneralOnboardingPage.enterTextInZipCodeField("12501");
-        dashboardGeneralOnboardingPage.enterTextInAddress1Field(faker.address().fullAddress());
+        dashboardGeneralOnboardingPage.enterTextInAddress1Field(faker.address().fullAddress().replaceAll("'",""));
         dashboardGeneralOnboardingPage.clickOnAccountSubmitButton();
         dashboardGeneralOnboardingPage.clickOn3rdStepContactsButton();
-        dashboardGeneralOnboardingPage.enterTextInNameRepresentativeField(faker.name().firstName());
+        dashboardGeneralOnboardingPage.enterTextInNameRepresentativeField(faker.name().firstName().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInPositionRepresentativeField(faker.job().position());
         dashboardGeneralOnboardingPage.enterTextInEmailRepresentativeField(generated_user_email);
         dashboardGeneralOnboardingPage.enterTextInPhoneRepresentativeField(faker.regexify("[0-9]{10}"));
-        dashboardGeneralOnboardingPage.enterTextInNameTechnicalField(faker.name().firstName());
+        dashboardGeneralOnboardingPage.enterTextInNameTechnicalField(faker.name().firstName().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInEmailTechnicalField(generated_user_email);
         dashboardGeneralOnboardingPage.enterTextInPhoneTechnicalField(faker.regexify("[0-9]{10}"));
         dashboardGeneralOnboardingPage.clickOnSubmitContactsButton();
@@ -54,7 +54,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.enterTextInSwiftField("COBADEFF");
         dashboardGeneralOnboardingPage.selectAccountCurrency();
         dashboardGeneralOnboardingPage.enterTextInIbanField("DE89370400440532013000");
-        dashboardGeneralOnboardingPage.enterTextInBankNameField(faker.funnyName().name());
+        dashboardGeneralOnboardingPage.enterTextInBankNameField(faker.funnyName().name().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInBankAddressField(faker.address().fullAddress().replaceAll("'",""));
         dashboardGeneralOnboardingPage.clickOnSubmitBankingInfoButton();
         dashboardGeneralOnboardingPage.clickOn5rdStepPaymentMethodsButton();
