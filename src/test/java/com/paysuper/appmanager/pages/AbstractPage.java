@@ -73,5 +73,16 @@ public class AbstractPage {
         }
     }
 
+    public void sendAndCheck(WebElement element, String text){
+        Boolean textIsEqual;
+        int count = 0;
+        do {
+            element.clear();
+            element.sendKeys(text);
+            textIsEqual = element.getAttribute("value").equals(text);
+            count++;
+        } while (!textIsEqual && count < 5);
+    }
+
 
 }
