@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class Order {
     private String today;
-    private String pattern = "MMM dd, yyyy";
+    private String pattern = "MMM d, yyyy";
     private String UUID;
     private String OrderCurrency;
     private String OrderAmount;
