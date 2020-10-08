@@ -14,6 +14,7 @@ import java.util.Random;
 public class DashboardPrimaryOnboardingFirstPage extends AbstractPage {
     public DashboardPrimaryOnboardingFirstPage(WebDriver driver) {
         super(driver);
+        driver.switchTo().defaultContent();
         waitForElementLoad("DashboardPrimaryOnboardingFirstPage.StepCounterText");
     }
 
