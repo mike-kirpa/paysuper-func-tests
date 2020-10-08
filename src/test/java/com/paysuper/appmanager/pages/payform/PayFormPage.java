@@ -60,17 +60,17 @@ public class PayFormPage extends AbstractPage {
     }
 
     public void inputBankCardNumber(String pan){
-        WebElement element = driver.findElement(Locators.get("DemoFormPage.BankCardNumberField"));
+        WebElement element = driver.findElement(Locators.get("PayForm.BankCardNumberField"));
         sendAndCheck(element, pan);
     }
 
     public void inputBankCardExpired(String date){
-        WebElement element = driver.findElement(Locators.get("DemoFormPage.BankCardExpiredField"));
+        WebElement element = driver.findElement(Locators.get("PayForm.BankCardExpiredField"));
         sendAndCheck(element, date);
     }
 
     public void inputBankCardCVV(String cvv){
-        WebElement element = driver.findElement(Locators.get("DemoFormPage.BankCardCVVField"));
+        WebElement element = driver.findElement(Locators.get("PayForm.BankCardCVVField"));
         sendAndCheck(element, cvv);
     }
 
@@ -79,8 +79,8 @@ public class PayFormPage extends AbstractPage {
     }
 
     public void clickPayButton(){
-        driver.findElement(Locators.get("DemoFormPage.PayButton")).click();
-        waitForElementLoad("DemoFormPage.formLayout");
+        driver.findElement(Locators.get("PayForm.PayButton")).click();
+        waitForElementLoad("PayForm.formLayout");
     }
 
 
