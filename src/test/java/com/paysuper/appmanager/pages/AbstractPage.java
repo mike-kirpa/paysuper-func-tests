@@ -2,10 +2,7 @@ package com.paysuper.appmanager.pages;
 
 import com.paysuper.appmanager.helpers.DataGenerator;
 import com.paysuper.appmanager.helpers.Locators;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -68,7 +65,8 @@ public class AbstractPage {
         if(DefaultElement & rnd == 0) {
 
         } else {
-            new Actions(driver).moveToElement(myElements.get(rnd)).perform();
+//            new Actions(driver).moveToElement(myElements.get(rnd)).perform();
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", myElements.get(rnd));
             myElements.get(rnd).click();
         }
     }
