@@ -1,6 +1,8 @@
 package com.paysuper.appmanager.pages.dashboard;
 
 import com.paysuper.appmanager.helpers.Locators;
+import com.paysuper.appmanager.models.Email;
+import com.paysuper.appmanager.models.Order;
 import com.paysuper.appmanager.pages.AbstractPage;
 import junit.framework.Assert;
 import org.openqa.selenium.By;
@@ -16,7 +18,8 @@ public class DashboardTransactionsPage extends AbstractPage {
 
     public String clickRefundOnLastTransaction(){
         WebElement svgObject = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
-        String lastOrderUrl = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionUrl")).getAttribute("pathname");
+        WebElement lastOrder = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
+        String lastOrderUrl = lastOrder.getAttribute("pathname");
         Actions builder = new Actions(driver);
         builder.moveToElement(svgObject).build().perform();
         builder.click(svgObject).build().perform();
@@ -42,6 +45,15 @@ public class DashboardTransactionsPage extends AbstractPage {
         driver.findElement(By.xpath("//div[contains(text(), '" + filter + "')]")).click();
     }
 
+    public OrderPage openOrderPageByLink(String link){
+        driver.get(link);
+        return new OrderPage(driver);
+    }
+
+    public OrderPage clickOnFirstOrderIntable(){
+        driver.findElement(Locators.get("DashboardTransactionsPage.FirstOrderInTable")).click();
+        return new OrderPage(driver);
+    }
 
 
 }
