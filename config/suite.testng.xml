@@ -10,4 +10,14 @@
             <class name="com.paysuper.tests.suite.OnboardingTest"/>
         </classes>
     </test>
+
+    <test name="PoolTestFireFox" thread-count="3" parallel="classes">
+        <parameter name="config" value="suite.conf.json"/>
+        <parameter name="environment" value="firefox"/>
+        <classes>
+            <class name="com.paysuper.tests.suite.OrderPaymentTest"/>
+            <class name="com.paysuper.tests.suite.DashboardPaySuper"/>
+            <class name="com.paysuper.tests.suite.OnboardingTest"/>
+        </classes>
+    </test>
 </suite>
