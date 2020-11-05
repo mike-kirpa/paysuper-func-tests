@@ -3,6 +3,7 @@ package com.paysuper.appmanager;
 import com.browserstack.local.Local;
 import com.paysuper.appmanager.helpers.File;
 import com.paysuper.appmanager.helpers.GetProperties;
+import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.helpers.RestAPI;
 import com.paysuper.tests.TestBase;
 import org.json.simple.JSONObject;
@@ -27,6 +28,12 @@ public class ApplicationManager {
     private Local l;
     public GetProperties getProperties;
     public RestAPI restAPI;
+    public Locators locators;
+    private static String zone;
+
+    public static String getZone(){
+        return zone;
+    }
 
     public void stop() throws InterruptedException {
         driver.quit();
@@ -41,6 +48,7 @@ public class ApplicationManager {
     }
 
     public void init(String config_file, String environment, String zone, boolean localrun) throws Exception {
+        ApplicationManager.zone = zone;
         if (!localrun) {
             JSONParser parser = new JSONParser();
             JSONObject config = (JSONObject) parser.parse(new FileReader("src/test/resources/conf/" + config_file));
@@ -95,6 +103,8 @@ public class ApplicationManager {
             driver.manage().window().maximize();
             getProperties = new GetProperties(zone);
             restAPI = new RestAPI();
+            locators = new Locators(zone);
+
 
     }
 

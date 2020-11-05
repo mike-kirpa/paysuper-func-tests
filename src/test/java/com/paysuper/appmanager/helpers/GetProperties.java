@@ -11,8 +11,9 @@ public class GetProperties {
     public Properties properties = new Properties();
 
     public GetProperties(String filename)  {
-        File file = new File("src/test/resources/EnvironmentVariables/" + filename +".properties");
         this.filename = filename;
+        File file = new File("src/test/resources/EnvironmentVariables/" + filename +".properties");
+
         try {
             properties.load(new FileReader(file));
         } catch (IOException e) {
