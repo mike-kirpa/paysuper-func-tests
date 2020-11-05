@@ -34,6 +34,11 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         driver.findElement(Locators.get("DashboardOnboardingPage.RegistrationNumberField")).sendKeys(RegistrationNumber);
     }
 
+    public void enterTextInVatNumberField(String VatNumber){
+        driver.findElement(Locators.get("DashboardOnboardingPage.VatNumberField")).sendKeys(VatNumber);
+    }
+
+
     public void enterTextInCountryField(String Country) throws InterruptedException {
         moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")).sendKeys(Country);

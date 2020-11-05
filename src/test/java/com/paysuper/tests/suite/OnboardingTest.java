@@ -8,7 +8,7 @@ import com.paysuper.tests.TestBase;
 
 public class OnboardingTest extends TestBase {
 
-    @Test(enabled = true, groups = {"tst", "stg", "onboarding"})
+    @Test(enabled = true, groups = {"tst", "onboarding"})
     public void test() throws Exception {
         Email email = new Email();
         String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
@@ -36,6 +36,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.enterTextInWebsiteFiled(faker.company().url());
         dashboardGeneralOnboardingPage.enterTextInOperatingName(faker.funnyName().name().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInRegistrationNumberField(faker.regexify("[0-9]{10}"));
+        dashboardGeneralOnboardingPage.enterTextInVatNumberField(faker.regexify("[0-9]{10}"));
         dashboardGeneralOnboardingPage.enterTextInCountryField("Czech Republic");
         dashboardGeneralOnboardingPage.enterTextInCityField("Prague");
         dashboardGeneralOnboardingPage.enterTextInZipCodeField("12501");
