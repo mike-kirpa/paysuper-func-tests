@@ -8,7 +8,7 @@ import com.paysuper.tests.TestBase;
 
 public class OnboardingTest extends TestBase {
 
-    @Test(enabled = true, groups = {"tst", "stg", "onboarding"})
+    @Test(enabled = true, groups = { "stg", "onboarding"})
     public void test() throws Exception {
         Email email = new Email();
         String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
