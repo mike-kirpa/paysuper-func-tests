@@ -40,7 +40,7 @@ public class DashboardPaySuper extends TestBase {
         dashboardTransactionsPage.clickOnFilterListItem("Processed");
         dashboardTransactionsPage.clickOnFilterButton();
         String lastOrderUrl = dashboardTransactionsPage.clickRefundOnLastTransaction();
-        System.out.println(lastOrderUrl);
+//        System.out.println(lastOrderUrl);
         dashboardTransactionsPage.clickOnConfrimRefundButton();
         Thread.sleep(2000);
 //        app.driver.navigate().refresh();
