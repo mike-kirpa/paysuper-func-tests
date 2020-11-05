@@ -27,7 +27,7 @@ public class DashboardTransactionsPage extends AbstractPage {
     }
     public void clickOnConfrimRefundButton(){
         driver.findElement(Locators.get("DashboardTransactionsPage.ConfirmRefundButton")).click();
-        waitForElementLoad("DashboardTransactionsPage.ConfirmAlert");
+//        waitForElementLoad("DashboardTransactionsPage.ConfirmAlert");
     }
 
     public void clickOnFilterButton(){
