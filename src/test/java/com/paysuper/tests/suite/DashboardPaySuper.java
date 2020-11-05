@@ -8,8 +8,8 @@ import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardMainPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
 import com.paysuper.appmanager.pages.dashboard.OrderPage;
-import junit.framework.Assert;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.paysuper.tests.TestBase;
