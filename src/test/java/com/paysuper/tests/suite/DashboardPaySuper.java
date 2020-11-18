@@ -42,9 +42,8 @@ public class DashboardPaySuper extends TestBase {
         String lastOrderUrl = dashboardTransactionsPage.clickRefundOnLastTransaction();
 //        System.out.println(lastOrderUrl);
         dashboardTransactionsPage.clickOnConfrimRefundButton();
-        Thread.sleep(2000);
-//        app.driver.navigate().refresh();
-//        dashboardLoginPage.waitForElementLoad("DashboardTransactionsPage.HeaderText");
+        app.driver.navigate().refresh();
+        dashboardLoginPage.waitForElementLoad("DashboardTransactionsPage.HeaderText");
         Assert.assertFalse(dashboardLoginPage.isElementPresent(By.xpath("//a[@href='" + lastOrderUrl + "']/*/div[contains(@class, 'refund')]")));
 
         OrderPage OrderPage = dashboardTransactionsPage.openOrderPageByLink(app.getProperties.value("DashboardUrl") + lastOrderUrl);
