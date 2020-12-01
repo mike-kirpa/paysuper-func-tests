@@ -34,140 +34,152 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         driver.findElement(Locators.get("DashboardOnboardingPage.RegistrationNumberField")).sendKeys(RegistrationNumber);
     }
 
+
+    public void enterTextInVatField(String RegistrationNumber){
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.VatField")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.VatField")).sendKeys(RegistrationNumber);
+    }
+
+
+
     public void enterTextInCountryField(String Country) throws InterruptedException {
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")).sendKeys(Country);
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryList",Country)));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryList",Country)));
         driver.findElement(Locators.get("DashboardOnboardingPage.CountryList",Country)).click();
     }
 
     public void enterTextInCityField(String City){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CityField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CityField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.CityField")).sendKeys(City);
     }
 
     public void enterTextInZipCodeField(String ZipCode){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.ZipCodeField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.ZipCodeField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.ZipCodeField")).sendKeys(ZipCode);
     }
 
     public void enterTextInAddress1Field(String Address1){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.Address1Field")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.Address1Field")));
         driver.findElement(Locators.get("DashboardOnboardingPage.Address1Field")).sendKeys(Address1);
     }
 
     public void clickOnAccountSubmitButton(){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.AccountSubmitButton")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.AccountSubmitButton")));
         driver.findElement(Locators.get("DashboardOnboardingPage.AccountSubmitButton")).click();
+        waitForElementNotPresence(Locators.get("DashboardOnboardingPage.AccountSubmitButton"));
     }
 
     public void clickOn3rdStepContactsButton(){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.ContactsLink")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.ContactsLink")));
         driver.findElement(Locators.get("DashboardOnboardingPage.ContactsLink")).click();
+        waitForElementLoad(Locators.get("DashboardOnboardingPage.ContactsTitle"));
     }
 
-
-    public void enterTextInNameRepresentativeField(String Name){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeNameField")));
+    public void enterTextInNameRepresentativeField(String Name)  {
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeNameField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeNameField")).sendKeys(Name);
     }
 
     public void enterTextInPositionRepresentativeField(String Position){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePositionField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePositionField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePositionField")).sendKeys(Position);
     }
 
     public void enterTextInEmailRepresentativeField(String Email){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeEmailField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeEmailField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeEmailField")).sendKeys(Email);
     }
 
     public void enterTextInPhoneRepresentativeField(String Phone){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePhoneField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePhoneField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativePhoneField")).sendKeys(Phone);
     }
 
     public void enterTextInNameTechnicalField(String Name){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalNameField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalNameField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalNameField")).sendKeys(Name);
     }
 
     public void enterTextInEmailTechnicalField(String Email){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalEmailField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalEmailField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalEmailField")).sendKeys(Email);
     }
 
     public void enterTextInPhoneTechnicalField(String Phone){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalPhoneField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalPhoneField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.TechnicalPhoneField")).sendKeys(Phone);
     }
 
     public void clickOnSubmitContactsButton(){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.ContactsSubmitButton")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.ContactsSubmitButton")));
         driver.findElement(Locators.get("DashboardOnboardingPage.ContactsSubmitButton")).click();
+        waitForElementNotPresence(Locators.get("DashboardOnboardingPage.ContactsSubmitButton"));
     }
 
     public void clickOn4rdStepBankingInfoButton(){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoLink")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoLink")));
         driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoLink")).click();
     }
 
     public void enterTextInSwiftField(String Swift){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SWIFTField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SWIFTField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.SWIFTField")).sendKeys(Swift);
     }
 
     public void selectAccountCurrency(){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.AccountCurrencyField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.AccountCurrencyField")));
         dropDownSelect(Locators.get("DashboardOnboardingPage.AccountCurrencyField"), Locators.get("DashboardOnboardingPage.SelectOptions"), true);
     }
 
     public void enterTextInIbanField(String Iban){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.IBANField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.IBANField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.IBANField")).sendKeys(Iban);
     }
 
 
     public void enterTextInBankNameField(String BankName){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankNameField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankNameField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.BankNameField")).sendKeys(BankName);
     }
 
     public void enterTextInBankAddressField(String BankAddress){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankAddressField")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankAddressField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.BankAddressField")).sendKeys(BankAddress);
     }
 
     public void clickOnSubmitBankingInfoButton(){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton")));
         driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton")).click();
+        waitForElementNotPresence(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton"));
     }
 
     public void clickOn5rdStepPaymentMethodsButton(){
         waitForElementLoad("DashboardOnboardingPage.PaymentMethodsLink");
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")));
         driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")).click();
     }
 
 
     public void selectTheMainSalesRegion(){
         waitForElementLoad("DashboardOnboardingPage.TheMainSalesRegionSelect");
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect")));
         dropDownSelect(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect"), Locators.get("DashboardOnboardingPage.SelectOptions"), true);
     }
 
     public void selectRiskLevel(){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RiskLevelRadioButtons")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RiskLevelRadioButtons")));
         selectCheckbox(Locators.get("DashboardOnboardingPage.RiskLevelRadioButtons"), true);
     }
 
     public void clickOnSubmitApplicationButton(){
-        moToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
         driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")).click();
     }
 
 
-    public void moToElement(WebElement element){
+    public void moveToElement(WebElement element){
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         Actions actions = new Actions(driver);
         actions.moveToElement(element);
         actions.perform();

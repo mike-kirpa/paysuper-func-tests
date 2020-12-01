@@ -28,7 +28,7 @@ public class MailParser {
     this.user_login_for_email = user_login_for_email;
     this.user_pass_for_email = user_pass_for_email;
     this.email = email;
-    EmailRecipient = this.email.getEmailRecipient();
+    EmailRecipient = email.getEmailRecipient();
     }
 
     public Document getMail(String EmailSubject){
@@ -85,8 +85,7 @@ public class MailParser {
     }
 
     public void parseVerifyEmail(){
-        String EmailSubject = "PaySuper E-mail Verification";
-        org.jsoup.nodes.Document html = getMail(EmailSubject);
+        org.jsoup.nodes.Document html = getMail(email.getSubject());
         Element link = html.selectFirst("a:contains(Verify My Email)");
         email.setVerifyHref(link.attr("href"));
     }

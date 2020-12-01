@@ -6,10 +6,7 @@ import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.helpers.MailParser;
 import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.models.Order;
-import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
-import com.paysuper.appmanager.pages.dashboard.DashboardMainPage;
-import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
-import com.paysuper.appmanager.pages.dashboard.OrderPage;
+import com.paysuper.appmanager.pages.dashboard.*;
 import com.paysuper.appmanager.pages.payform.PayFormPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -17,152 +14,60 @@ import org.testng.annotations.Test;
 
 
 public class SingleTest extends TestBase {
-    @Test(enabled = true,
-            description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp",
-            groups = {"tst", "stg", "prod", "pay"})
-    public void SimpleOrderSuccessPayTest() throws InterruptedException {
+    @Test(enabled = true, groups = { "tst", "stg", "onboarding"})
+    public void test() throws Exception {
         Email email = new Email();
-        Order order = new Order();
-        String payment_form_url;
-        String unixTime;
-
-        order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
-        order.setOrderAmount(app.getProperties.value("OrderAmount"));
-        order.setProjectId(app.getProperties.value("ProjectId"));
-
-        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
-        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
-
-        payment_form_url = app.restAPI.createSimpleOrder(
-                app.getProperties.value("ApiUrlCheckout"),
-                order);
-        app.driver.get(payment_form_url);
-        PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
-        org.testng.Assert.assertEquals(app.driver.findElement(Locators.get("PayForm.OrderSummaryValue")).getText(), "€" + order.getOrderAmount());
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
-        payFormPage.inputEmail(email.getEmailRecipient());
-        order.setTotalAmount(payFormPage.getTotalAmount());
-        app.restAPI.getOrderForPayForm(app.getProperties.value("ApiUrlCheckout"),
-                order);
-        payFormPage.clickPayButton();
-        org.testng.Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        org.testng.Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
-        org.testng.Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
-        MailParser mailParser = new MailParser(app.getProperties.value("user_login_for_email"),
+        String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        String generated_user_email = "autotest.protocolone+" + unixTime + "@gmail.com";
+        String generated_user_pass = "Q" + unixTime;
+        email.setEmailRecipient(generated_user_email);
+        email.setSubject(app.getProperties.value("EmailVerificationSubject"));
+        app.driver.get(app.getProperties.value("DashboardUrl"));
+        DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
+        dashboardLoginPage.clickOnSignInButton();
+        DashboardRegistrationPage dashboardRegistrationPage = dashboardLoginPage.clickOnSignUpButton();
+        DashboardPrimaryOnboardingFirstPage dashboardPrimaryOnboardingFirstPage
+                = dashboardRegistrationPage.successRegistration(generated_user_email, generated_user_pass);
+        DashboardPrimaryOnboardingSecondPage dashboardPrimaryOnboardingSecondPage
+                = dashboardPrimaryOnboardingFirstPage.successFirstStepPrimaryOnboarding(faker.name().firstName().replaceAll("'",""), faker.name().lastName().replaceAll("'",""));
+        DashboardPrimaryOnboardingThirdPage dashboardPrimaryOnboardingThirdPage
+                = dashboardPrimaryOnboardingSecondPage.successSecondPagePrimaryOnboarding();
+        DashboardVerifyEmailPage dashboardVerifyEmailPage
+                = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
+        DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(
+                app.getProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
                 email);
-        mailParser.parsePurchaseCheck();
-        org.testng.Assert.assertEquals(email.getTransactionID(), order.getUUID());
-        org.testng.Assert.assertEquals(email.getTotal(), order.getTotalAmount());
-        org.testng.Assert.assertEquals(email.getTransactionDate(), order.getToday());
-        org.testng.Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        if(order.getCountry().equals("UA") | order.getCountry().equals("RU")){
-            org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNameMalta"));
-        }
-        else
-            org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
-    }
-
-    @Test(enabled = true,
-            description="success product payment https://protocolone.tpondemand.com/entity/193318-web-payform-uspeshnaya-pokupka-product",
-            groups = {"tst", "stg", "prod", "pay"})
-    public void ProductOrderSuccessPayTest() {
-        Email email = new Email();
-        Order order = new Order();
-        String payment_form_url;
-        String unixTime;
-
-        order.setProjectId(app.getProperties.value("ProjectId"));
-        order.setProduct(app.getProperties.value("Product"));
-
-
-        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
-        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
-
-        payment_form_url = app.restAPI.createProductOrder(
-                app.getProperties.value("ApiUrlCheckout"),
-                "product",
-                order);
-        app.driver.get(payment_form_url);
-        PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
-        payFormPage.inputEmail(email.getEmailRecipient());
-        payFormPage.clickPayButton();
-        org.testng.Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        org.testng.Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessProductPayText"));
-        org.testng.Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
-    }
-
-    @Test(enabled = true,
-            description="success token payment https://protocolone.tpondemand.com/entity/193349-web-payform-uspeshnaya-pokupka-s-pomoshyu",
-            groups = {"tst", "stg", "prod", "pay"})
-    public void TokenOrderSuccessPayTest() {
-        Email email = new Email();
-        Order order = new Order();
-        String payment_form_url;
-        String unixTime;
-
-        order.setProjectId(app.getProperties.value("ProjectId"));
-        order.setSecret(app.getProperties.value("Secret"));
-
-        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
-        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
-
-        payment_form_url = app.restAPI.createTokenOrder(
-                app.getProperties.value("ApiUrl"),
-                order,
-                email);
-        app.driver.get(payment_form_url);
-        PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
-        payFormPage.clickPayButton();
-        org.testng.Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        org.testng.Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
-        org.testng.Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
-    }
-
-    @Test(enabled = true, groups = {"tst", "stg", "prod", "pay"})
-    public void ProductKeyOrderSuccessPayTest()  {
-        Email email = new Email();
-        Order order = new Order();
-        String payment_form_url;
-        String unixTime;
-
-        order.setProjectId(app.getProperties.value("ProjectId"));
-        order.setProduct(app.getProperties.value("ProductKey"));
-
-
-        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
-        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
-
-        payment_form_url = app.restAPI.createProductOrder(
-                app.getProperties.value("ApiUrlCheckout"),
-                "key",
-                order);
-        app.driver.get(payment_form_url);
-        PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
-        payFormPage.inputEmail(email.getEmailRecipient());
-        payFormPage.clickPayButton();
-        org.testng.Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        org.testng.Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessProductKeyPayText"));
-        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
+        DashboardGeneralOnboardingPage dashboardGeneralOnboardingPage = dashboardMainPage.clickOnActivateLiveModeButton();
+        dashboardGeneralOnboardingPage.enterTextInLegalnameField(faker.funnyName().name().replaceAll("'",""));
+        dashboardGeneralOnboardingPage.enterTextInWebsiteFiled(faker.company().url());
+        dashboardGeneralOnboardingPage.enterTextInOperatingName(faker.funnyName().name().replaceAll("'",""));
+        dashboardGeneralOnboardingPage.enterTextInRegistrationNumberField(faker.regexify("[0-9]{10}"));
+        dashboardGeneralOnboardingPage.enterTextInVatField(faker.regexify("[0-9]{10}"));
+        dashboardGeneralOnboardingPage.enterTextInCountryField("Czech Republic");
+        dashboardGeneralOnboardingPage.enterTextInCityField("Prague");
+        dashboardGeneralOnboardingPage.enterTextInZipCodeField("12501");
+        dashboardGeneralOnboardingPage.enterTextInAddress1Field(faker.address().fullAddress().replaceAll("'",""));
+        dashboardGeneralOnboardingPage.clickOnAccountSubmitButton();
+        dashboardGeneralOnboardingPage.clickOn3rdStepContactsButton();
+        dashboardGeneralOnboardingPage.enterTextInNameRepresentativeField(faker.name().firstName().replaceAll("'",""));
+        dashboardGeneralOnboardingPage.enterTextInPositionRepresentativeField(faker.job().position());
+        dashboardGeneralOnboardingPage.enterTextInEmailRepresentativeField(generated_user_email);
+        dashboardGeneralOnboardingPage.enterTextInPhoneRepresentativeField(faker.regexify("[0-9]{10}"));
+        dashboardGeneralOnboardingPage.enterTextInNameTechnicalField(faker.name().firstName().replaceAll("'",""));
+        dashboardGeneralOnboardingPage.enterTextInEmailTechnicalField(generated_user_email);
+        dashboardGeneralOnboardingPage.enterTextInPhoneTechnicalField(faker.regexify("[0-9]{10}"));
+        dashboardGeneralOnboardingPage.clickOnSubmitContactsButton();
+        dashboardGeneralOnboardingPage.clickOn4rdStepBankingInfoButton();
+        dashboardGeneralOnboardingPage.enterTextInSwiftField("COBADEFF");
+        dashboardGeneralOnboardingPage.selectAccountCurrency();
+        dashboardGeneralOnboardingPage.enterTextInIbanField("DE89370400440532013000");
+        dashboardGeneralOnboardingPage.enterTextInBankNameField(faker.funnyName().name().replaceAll("'",""));
+        dashboardGeneralOnboardingPage.enterTextInBankAddressField(faker.address().fullAddress().replaceAll("'",""));
+        dashboardGeneralOnboardingPage.clickOnSubmitBankingInfoButton();
+        dashboardGeneralOnboardingPage.clickOn5rdStepPaymentMethodsButton();
+        dashboardGeneralOnboardingPage.selectTheMainSalesRegion();
+        dashboardGeneralOnboardingPage.clickOnSubmitApplicationButton();
     }
     }
 

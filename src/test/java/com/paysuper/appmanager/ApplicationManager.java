@@ -35,11 +35,6 @@ public class ApplicationManager {
         }
     }
 
-    //Overload
-    public void init(String config_file, String environment, String zone) throws Exception {
-        init(config_file, environment, zone, true);
-    }
-
     public void init(String config_file, String environment, String zone, boolean localrun) throws Exception {
         if (!localrun) {
             JSONParser parser = new JSONParser();

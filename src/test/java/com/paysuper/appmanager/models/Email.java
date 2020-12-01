@@ -15,6 +15,15 @@ public class Email {
     private String TransactionID;
     private String MerchantName;
     private String WebCheckUrl;
+    private String Subject;
+
+    public String getSubject() {
+        return Subject;
+    }
+
+    public void setSubject(String subject) {
+        Subject = subject;
+    }
 
     @Override
     public String toString() {

@@ -31,6 +31,11 @@ public class AbstractPage {
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
+    public void waitForElementNotPresence(By by) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 15);
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
 
     public void waitForClickAbleElement(By by) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 15);
