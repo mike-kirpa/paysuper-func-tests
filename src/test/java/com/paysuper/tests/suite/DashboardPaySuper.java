@@ -8,8 +8,8 @@ import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardMainPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
 import com.paysuper.appmanager.pages.dashboard.OrderPage;
-import junit.framework.Assert;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.paysuper.tests.TestBase;
@@ -46,8 +46,8 @@ public class DashboardPaySuper extends TestBase {
         System.out.println(lastOrderUrl);
         dashboardTransactionsPage.clickOnConfrimRefundButton();
         Thread.sleep(2000);
-//        app.driver.navigate().refresh();
-//        dashboardLoginPage.waitForElementLoad("DashboardTransactionsPage.HeaderText");
+        app.driver.navigate().refresh();
+        dashboardLoginPage.waitForElementLoad("DashboardTransactionsPage.HeaderText");
         Assert.assertFalse(dashboardLoginPage.isElementPresent(By.xpath("//a[@href='" + lastOrderUrl + "']/*/div[contains(@class, 'refund')]")));
 
         OrderPage OrderPage = dashboardTransactionsPage.openOrderPageByLink(app.getProperties.value("DashboardUrl") + lastOrderUrl);
