@@ -31,6 +31,9 @@ public class DashboardPaySuper extends TestBase {
     public void RefundFromOrderListTest() throws InterruptedException {
         Email email = new Email();
         Order order = new Order();
+
+        email.setSubject(app.getProperties.value("EmailRefundSubject"));
+
         app.driver.get(app.getProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
         DashboardMainPage dashboardMainPage = dashboardLoginPage.login(app.getProperties.value("ValidEmail"), app.getProperties.value("Password"));
