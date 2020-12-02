@@ -8,13 +8,14 @@ import com.paysuper.tests.TestBase;
 
 public class OnboardingTest extends TestBase {
 
-    @Test(enabled = true, groups = { "stg", "onboarding"})
+    @Test(enabled = true, groups = { "tst", "stg", "onboarding"})
     public void test() throws Exception {
         Email email = new Email();
         String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         String generated_user_email = "autotest.protocolone+" + unixTime + "@gmail.com";
         String generated_user_pass = "Q" + unixTime;
         email.setEmailRecipient(generated_user_email);
+        email.setSubject(app.getProperties.value("EmailVerificationSubject"));
         app.driver.get(app.getProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
         dashboardLoginPage.clickOnSignInButton();
@@ -25,8 +26,8 @@ public class OnboardingTest extends TestBase {
                 = dashboardPrimaryOnboardingFirstPage.successFirstStepPrimaryOnboarding(faker.name().firstName().replaceAll("'",""), faker.name().lastName().replaceAll("'",""));
         DashboardPrimaryOnboardingThirdPage dashboardPrimaryOnboardingThirdPage
                 = dashboardPrimaryOnboardingSecondPage.successSecondPagePrimaryOnboarding();
-        DashboardVerifyEmailPage dashboardVerifyEmailPage = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
-//        Thread.sleep(5000);
+        DashboardVerifyEmailPage dashboardVerifyEmailPage
+                = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
         DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(
                 app.getProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
@@ -36,6 +37,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.enterTextInWebsiteFiled(faker.company().url());
         dashboardGeneralOnboardingPage.enterTextInOperatingName(faker.funnyName().name().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInRegistrationNumberField(faker.regexify("[0-9]{10}"));
+        dashboardGeneralOnboardingPage.enterTextInVatField(faker.regexify("[0-9]{10}"));
         dashboardGeneralOnboardingPage.enterTextInCountryField("Czech Republic");
         dashboardGeneralOnboardingPage.enterTextInCityField("Prague");
         dashboardGeneralOnboardingPage.enterTextInZipCodeField("12501");
@@ -59,7 +61,6 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.clickOnSubmitBankingInfoButton();
         dashboardGeneralOnboardingPage.clickOn5rdStepPaymentMethodsButton();
         dashboardGeneralOnboardingPage.selectTheMainSalesRegion();
-        dashboardGeneralOnboardingPage.selectRiskLevel();
         dashboardGeneralOnboardingPage.clickOnSubmitApplicationButton();
     }
 }
