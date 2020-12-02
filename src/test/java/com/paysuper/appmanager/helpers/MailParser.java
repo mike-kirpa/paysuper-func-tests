@@ -91,8 +91,7 @@ public class MailParser {
     }
 
     public void parsePurchaseCheck(){
-        String EmailSubject = "Your PaySuper purchase check";
-        org.jsoup.nodes.Document html = getMail(EmailSubject);
+        org.jsoup.nodes.Document html = getMail(email.getSubject());
         //Get "Total" from email and set in Email
         email.setTotal(html.selectFirst("td:nth-child(2)>b").text());
         //Get "Transaction Date" from email and set in Email

@@ -25,6 +25,7 @@ public class OrderPaymentTest extends TestBase {
         order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
         order.setOrderAmount(app.getProperties.value("OrderAmount"));
         order.setProjectId(app.getProperties.value("ProjectId"));
+        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
@@ -74,6 +75,7 @@ public class OrderPaymentTest extends TestBase {
 
         order.setProjectId(app.getProperties.value("ProjectId"));
         order.setProduct(app.getProperties.value("Product"));
+        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
 
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
@@ -108,6 +110,7 @@ public class OrderPaymentTest extends TestBase {
 
         order.setProjectId(app.getProperties.value("ProjectId"));
         order.setSecret(app.getProperties.value("Secret"));
+        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
@@ -138,6 +141,7 @@ public class OrderPaymentTest extends TestBase {
 
         order.setProjectId(app.getProperties.value("ProjectId"));
         order.setProduct(app.getProperties.value("ProductKey"));
+        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
 
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
