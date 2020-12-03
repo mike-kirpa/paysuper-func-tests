@@ -1,5 +1,6 @@
 package com.paysuper.appmanager.pages.dashboard;
 
+import com.paysuper.appmanager.helpers.DataGenerator;
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.models.Order;
@@ -10,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.List;
+
 public class DashboardTransactionsPage extends AbstractPage {
     public DashboardTransactionsPage(WebDriver driver) {
         super(driver);
@@ -17,6 +20,7 @@ public class DashboardTransactionsPage extends AbstractPage {
     }
 
     public String clickRefundOnLastTransaction(){
+        waitForClickAbleElement(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
         WebElement svgObject = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
         WebElement lastOrder = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
         String lastOrderUrl = lastOrder.getAttribute("pathname");
@@ -26,8 +30,9 @@ public class DashboardTransactionsPage extends AbstractPage {
         return lastOrderUrl;
     }
     public void clickOnConfrimRefundButton(){
+        waitForClickAbleElement(Locators.get("DashboardTransactionsPage.ConfirmRefundButton"));
         driver.findElement(Locators.get("DashboardTransactionsPage.ConfirmRefundButton")).click();
-//        waitForElementLoad("DashboardTransactionsPage.ConfirmAlert");
+        waitForElementLoad("DashboardTransactionsPage.ConfirmAlert");
     }
 
     public void clickOnFilterButton(){
