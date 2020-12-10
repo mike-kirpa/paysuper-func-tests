@@ -42,7 +42,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
 
 
 
-    public void enterTextInCountryField(String Country) throws InterruptedException {
+    public void enterTextInCountryField(String Country){
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")).sendKeys(Country);
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryList",Country)));
@@ -179,9 +179,9 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
 
 
     public void moveToElement(WebElement element){
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element);
-        actions.perform();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(element);
+//        actions.perform();
     }
 }

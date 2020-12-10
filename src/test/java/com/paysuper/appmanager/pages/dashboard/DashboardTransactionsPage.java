@@ -21,12 +21,12 @@ public class DashboardTransactionsPage extends AbstractPage {
 
     public String clickRefundOnLastTransaction(){
         waitForClickAbleElement(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
-        WebElement svgObject = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
-        WebElement lastOrder = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
-        String lastOrderUrl = lastOrder.getAttribute("pathname");
+        List<WebElement> svgObject = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
+        List<WebElement> lastOrder = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
+        String lastOrderUrl = lastOrder.get(3).getAttribute("pathname");
         Actions builder = new Actions(driver);
-        builder.moveToElement(svgObject).build().perform();
-        builder.click(svgObject).build().perform();
+        builder.moveToElement(svgObject.get(3)).build().perform();
+        builder.click(svgObject.get(3)).build().perform();
         return lastOrderUrl;
     }
     public void clickOnConfrimRefundButton(){
