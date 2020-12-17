@@ -20,6 +20,11 @@ public class DashboardMainPage extends AbstractPage {
         return new DashboardGeneralOnboardingPage(driver);
     }
 
+    public void clickOnStepCounterButton(){
+        waitForElementLoad(Locators.get("DashboardMainPage.StepCounterButton"));
+        driver.findElement(Locators.get("DashboardMainPage.StepCounterButton")).click();
+    }
+
     public void clickOnProfileIcon(){
         driver.findElement(Locators.get("DashboardMainPage.ProfileIcon")).click();
     }

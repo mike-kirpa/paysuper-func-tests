@@ -32,7 +32,12 @@ public class OnboardingTest extends TestBase {
                 app.getProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
                 email);
-        DashboardGeneralOnboardingPage dashboardGeneralOnboardingPage = dashboardMainPage.clickOnActivateLiveModeButton();
+        dashboardMainPage.clickOnStepCounterButton();
+        ProjectPage projectPage = new ProjectPage(app.driver);
+        projectPage.createNewProject(unixTime);
+        dashboardMainPage = projectPage.clickOnHomeLogo();
+        dashboardMainPage.clickOnStepCounterButton();
+        DashboardGeneralOnboardingPage dashboardGeneralOnboardingPage = new DashboardGeneralOnboardingPage(app.driver);
         dashboardGeneralOnboardingPage.enterTextInLegalnameField(faker.funnyName().name().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInWebsiteFiled(faker.company().url());
         dashboardGeneralOnboardingPage.enterTextInOperatingName(faker.funnyName().name().replaceAll("'",""));

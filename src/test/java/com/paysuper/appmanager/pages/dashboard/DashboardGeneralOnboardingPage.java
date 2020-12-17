@@ -14,9 +14,9 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void enterTextInLegalnameField(String LegalName){
+        waitForClickAbleElement(Locators.get("DashboardOnboardingPage.LegalNameField"));
         driver.findElement(Locators.get("DashboardOnboardingPage.LegalNameField")).sendKeys(LegalName);
     }
-
 
     public void enterTextInWebsiteFiled(String Website){
         if(driver.findElement(Locators.get("DashboardOnboardingPage.WebsiteField")).getAttribute("value").isEmpty()) {
@@ -44,6 +44,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
 
     public void enterTextInCountryField(String Country){
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")));
+        waitForClickAbleElement(Locators.get("DashboardOnboardingPage.CountryField"));
         driver.findElement(Locators.get("DashboardOnboardingPage.CountryField")).sendKeys(Country);
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CountryList",Country)));
         driver.findElement(Locators.get("DashboardOnboardingPage.CountryList",Country)).click();
@@ -77,6 +78,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void enterTextInNameRepresentativeField(String Name)  {
+        waitForElementLoad(Locators.get("DashboardOnboardingPage.RepresentativeNameField"));
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeNameField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.RepresentativeNameField")).sendKeys(Name);
     }
@@ -118,6 +120,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void clickOn4rdStepBankingInfoButton(){
+        waitForElementLoad(Locators.get("DashboardOnboardingPage.BankingInfoLink"));
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoLink")));
         driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoLink")).click();
     }
@@ -175,6 +178,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     public void clickOnSubmitApplicationButton(){
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
         driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")).click();
+        waitForElementNotPresence(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons"));
     }
 
 
