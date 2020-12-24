@@ -10,6 +10,7 @@ import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.FileReader;
@@ -23,7 +24,7 @@ import java.util.Map;
 import static com.paysuper.appmanager.helpers.File.getResource;
 
 public class ApplicationManager {
-    public WebDriver driver;
+    public RemoteWebDriver driver;
     private Local l;
     public GetProperties getProperties;
     public RestAPI restAPI;
@@ -80,6 +81,7 @@ public class ApplicationManager {
             capabilities.setCapability("browserstack.geoLocation", "DE");
             driver = new RemoteWebDriver(
                     new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
+            driver.setFileDetector(new LocalFileDetector());
         }
 
         if (localrun) {

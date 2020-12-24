@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 public class AbstractPage {
-    protected WebDriver driver;
+    protected static WebDriver driver;
     protected WebDriverWait webDriverWait;
 
     public AbstractPage(WebDriver driver) {
@@ -46,7 +46,11 @@ public class AbstractPage {
         return driver.findElements(Locators.get(LocatorName)).size() > 0;
     }
 
-    public boolean isElementPresent(By by) {
+    public static boolean isElementNotPresent(String LocatorName){
+        return driver.findElements(Locators.get(LocatorName)).size() == 0;
+    }
+
+    public static boolean isElementPresent(By by) {
         try {
             driver.findElement(by);
             return true;

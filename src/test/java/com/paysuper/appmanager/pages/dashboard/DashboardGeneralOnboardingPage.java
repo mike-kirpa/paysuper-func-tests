@@ -6,8 +6,18 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.LocalFileDetector;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class DashboardGeneralOnboardingPage extends AbstractPage {
+
+    private final String FileName = "File.jpg";
+    private String currentNameOfTheStep;
+
     public DashboardGeneralOnboardingPage(WebDriver driver) {
         super(driver);
         waitForElementLoad("DashboardOnboardingPage.CompanyInfoText");
@@ -179,6 +189,40 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
         driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")).click();
         waitForElementNotPresence(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons"));
+    }
+
+
+    public void clickOn6thStepCompanyDocumentsButton(){
+        waitForElementLoad("DashboardOnboardingPage.CompanyDocumentsLink");
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.CompanyDocumentsLink")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.CompanyDocumentsLink")).click();
+    }
+    public void sendFilePath(){
+        File f = new File("src/test/resources/UploadFiles/" + FileName);
+        String path = f.getAbsolutePath();
+        waitForElementLoad("DashboardOnboardingPage.FileInputSilentFiled");
+        driver.findElement(Locators.get("DashboardOnboardingPage.FileInputSilentFiled")).sendKeys(path);
+    }
+
+    public void typeFileTextInField(String FileFieldText){
+        waitForElementLoad(Locators.get(String.format("DashboardOnboardingPage.FileTextFiled"), FileName));
+        moveToElement(driver.findElement(Locators.get(String.format("DashboardOnboardingPage.FileTextFiled"), FileName)));
+        driver.findElement(Locators.get(String.format("DashboardOnboardingPage.FileTextFiled"), FileName)).sendKeys(FileFieldText);
+    }
+
+    public void clickOnSubmitDocumentsButton(){
+        waitForClickAbleElement(Locators.get("DashboardOnboardingPage.SubmitDocumentsButton"));
+        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SubmitDocumentsButton")));
+        driver.findElement(Locators.get("DashboardOnboardingPage.SubmitDocumentsButton")).click();
+        waitForElementNotPresence(Locators.get("DashboardOnboardingPage.SubmitDocumentsButton"));
+    }
+
+    public static boolean isIncompletetStepNotPresense(){
+        return !isElementPresent(Locators.get("DashboardOnboardingPage.IncompleteStepStatusText"));
+    }
+
+    public String getCurrentNameOfTheStep(){
+        return driver.findElement(Locators.get("DashboardOnboardingPage.CurrentNameOfStepText")).getText();
     }
 
 
