@@ -217,7 +217,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         waitForElementNotPresence(Locators.get("DashboardOnboardingPage.SubmitDocumentsButton"));
     }
 
-    public static boolean isIncompletetStepNotPresense(){
+    public  boolean isIncompletetStepNotPresense(){
         return !isElementPresent(Locators.get("DashboardOnboardingPage.IncompleteStepStatusText"));
     }
 
