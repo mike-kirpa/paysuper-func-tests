@@ -79,7 +79,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.typeFileTextInField(faker.regexify("[a-z]{10}"));
         dashboardGeneralOnboardingPage.clickOnSubmitDocumentsButton();
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
-        Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep(),
+        Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
                 app.getProperties.value("7Step"),
                 "Current name of step not equal:" + app.getProperties.value("7Step"));
     }
