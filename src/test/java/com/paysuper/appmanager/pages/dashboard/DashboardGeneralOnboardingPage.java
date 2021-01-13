@@ -228,9 +228,9 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
 
 
     public void moveToElement(WebElement element){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-//        Actions actions = new Actions(driver);
-//        actions.moveToElement(element);
-//        actions.perform();
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element);
+        actions.perform();
     }
 }
