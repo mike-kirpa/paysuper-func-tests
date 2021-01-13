@@ -187,6 +187,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
 
     public void clickOnSubmitApplicationButton(){
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
+        waitForClickAbleElement((Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
         driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")).click();
         waitForElementNotPresence(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons"));
     }

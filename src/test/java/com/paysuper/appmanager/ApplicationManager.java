@@ -28,6 +28,7 @@ public class ApplicationManager {
     private Local l;
     public GetProperties getProperties;
     public RestAPI restAPI;
+    public String zone;
 
     public void stop() throws InterruptedException {
         driver.quit();
@@ -37,6 +38,7 @@ public class ApplicationManager {
     }
 
     public void init(String config_file, String environment, String zone, boolean localrun) throws Exception {
+        this.zone = zone;
         if (!localrun) {
             JSONParser parser = new JSONParser();
             JSONObject config = (JSONObject) parser.parse(new FileReader("src/test/resources/conf/" + config_file));
@@ -88,7 +90,6 @@ public class ApplicationManager {
             System.setProperty("webdriver.chrome.driver", getResource("/webdrivers/chromedriver.exe"));
             driver = new ChromeDriver();
         }
-
             driver.manage().window().maximize();
             getProperties = new GetProperties(zone);
             restAPI = new RestAPI();
