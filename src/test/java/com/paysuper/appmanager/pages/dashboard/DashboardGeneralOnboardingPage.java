@@ -2,6 +2,7 @@ package com.paysuper.appmanager.pages.dashboard;
 
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.pages.AbstractPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,7 @@ import java.io.File;
 
 public class DashboardGeneralOnboardingPage extends AbstractPage {
 
-    private final String FileName = "File.jpg";
+    private final String FileName = "File.JPG";
     private String currentNameOfTheStep;
 
     public DashboardGeneralOnboardingPage(WebDriver driver) {
@@ -186,10 +187,12 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void clickOnSubmitApplicationButton(){
-        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
-        waitForClickAbleElement((Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")));
-        driver.findElement(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons")).click();
-        waitForElementNotPresence(Locators.get("DashboardOnboardingPage.SubmitApplicationButtons"));
+        By by = Locators.get("DashboardOnboardingPage.SubmitApplicationButtons");
+        WebElement element = driver.findElement(by);
+        moveToElement(element);
+        waitForClickAbleElement(by);
+        element.click();
+        waitForElementNotPresence(by);
     }
 
 
