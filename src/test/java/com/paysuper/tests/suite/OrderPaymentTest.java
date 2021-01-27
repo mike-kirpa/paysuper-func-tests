@@ -2,8 +2,10 @@ package com.paysuper.tests.suite;
 
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.helpers.MailParser;
+import com.paysuper.appmanager.helpers.MockApi;
 import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.models.Order;
+import com.paysuper.appmanager.models.Webhook;
 import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardMainPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
@@ -22,6 +24,10 @@ public class OrderPaymentTest extends TestBase {
             description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp",
             groups = {"tst", "stg", "prod", "pay"})
     public void SimpleOrderSuccessPayTest() throws InterruptedException {
+        Webhook actualWebhook = new Webhook("null");
+        Webhook expectedWebhook = new Webhook("order.processed");
+        MockApi mockApi = new MockApi();
+
         Email email = new Email();
         Order order = new Order();
         String payment_form_url;
@@ -67,6 +73,12 @@ public class OrderPaymentTest extends TestBase {
         }
         else
             Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+
+        //Webhook assert
+
+        expectedWebhook.setObject_id(order.getUUID());
+        mockApi.checkAndCleatEvent(actualWebhook);
+        Assert.assertEquals(expectedWebhook, actualWebhook, "Actual webhook's data not equal expected");
     }
 
     @Test(enabled = true,

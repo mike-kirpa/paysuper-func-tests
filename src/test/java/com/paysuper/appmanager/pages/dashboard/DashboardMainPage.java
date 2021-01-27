@@ -33,4 +33,10 @@ public class DashboardMainPage extends AbstractPage {
             driver.findElement(Locators.get("DashboardMainPage.LogoutInProfileIcon")).click();
             return new DashboardLoginPage(driver);
     }
+
+    public ProjectPage clickOnProjectLink(){
+        waitForClickAbleElement(Locators.get("DashboardMainPage.ProjectLink"));
+        driver.findElement(Locators.get("DashboardMainPage.ProjectLink")).click();
+        return new ProjectPage(driver);
+    }
 }

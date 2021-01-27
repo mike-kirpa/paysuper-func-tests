@@ -186,11 +186,12 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         selectCheckbox(Locators.get("DashboardOnboardingPage.RiskLevelRadioButtons"), true);
     }
 
-    public void clickOnSubmitApplicationButton(){
+    public void clickOnSubmitApplicationButton() throws InterruptedException {
         By by = Locators.get("DashboardOnboardingPage.SubmitApplicationButtons");
         WebElement element = driver.findElement(by);
         moveToElement(element);
         waitForClickAbleElement(by);
+        Thread.sleep(500);
         element.click();
         waitForElementNotPresence(by);
     }
