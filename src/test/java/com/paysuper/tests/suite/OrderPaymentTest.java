@@ -186,8 +186,8 @@ public class OrderPaymentTest extends TestBase {
         dashboardTransactionsPage.clickOnStatusButton();
         dashboardTransactionsPage.clickOnFilterListItem("Processed");
         dashboardTransactionsPage.clickOnFilterButton();
+        Thread.sleep(1000);
         String lastOrderUrl = dashboardTransactionsPage.clickRefundOnLastTransaction();
-        System.out.println(lastOrderUrl);
         dashboardTransactionsPage.clickOnConfrimRefundButton();
         Thread.sleep(2000);
         app.driver.navigate().refresh();
@@ -216,11 +216,7 @@ public class OrderPaymentTest extends TestBase {
         org.testng.Assert.assertEquals(email.getTotal(), order.getGrossRevenue());
         org.testng.Assert.assertEquals(email.getTransactionDate(), order.getToday());
         org.testng.Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        if(order.getCountry().contains("Ukraine") | order.getCountry().contains("Russia ")){
-            org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNameMalta"));
-        }
-        else
-            org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+        org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
 
     }
 }

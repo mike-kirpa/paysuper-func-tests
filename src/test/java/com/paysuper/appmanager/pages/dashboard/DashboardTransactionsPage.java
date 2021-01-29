@@ -26,7 +26,8 @@ public class DashboardTransactionsPage extends AbstractPage {
         String lastOrderUrl = lastOrder.get(3).getAttribute("pathname");
         Actions builder = new Actions(driver);
         builder.moveToElement(svgObject.get(3)).build().perform();
-        builder.click(svgObject.get(3)).build().perform();
+//        builder.click(svgObject.get(0)).build().perform();
+        svgObject.get(3).click();
         return lastOrderUrl;
     }
     public void clickOnConfrimRefundButton(){
@@ -56,6 +57,7 @@ public class DashboardTransactionsPage extends AbstractPage {
     }
 
     public OrderPage clickOnFirstOrderIntable(){
+        waitForElementLoad(Locators.get("DashboardTransactionsPage.FirstOrderInTable"));
         driver.findElement(Locators.get("DashboardTransactionsPage.FirstOrderInTable")).click();
         return new OrderPage(driver);
     }
