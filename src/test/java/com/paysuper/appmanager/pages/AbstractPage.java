@@ -68,6 +68,7 @@ public class AbstractPage {
         driver.findElement(field).click();
         List<WebElement> myElements = driver.findElements(options);
         int rnd = DataGenerator.getRandomNumberInRange(0,myElements.size()-1);
+        String SelectedElement = myElements.get(rnd).getText();
         if(DefaultElement & rnd == 0) {
             driver.findElement(field).click();
         }
@@ -75,6 +76,7 @@ public class AbstractPage {
             new Actions(driver).moveToElement(myElements.get(rnd)).perform();
             myElements.get(rnd).click();
         }
+        waitForElementLoad(Locators.get("DashboardOnboardingPage.SelectedRegionSelect", SelectedElement));
     }
 
     public void selectCheckbox(By checkboxes, boolean DefaultElement){
