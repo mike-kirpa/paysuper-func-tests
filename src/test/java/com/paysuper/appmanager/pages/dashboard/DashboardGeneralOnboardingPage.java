@@ -143,7 +143,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
 
     public void selectAccountCurrency(){
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.AccountCurrencyField")));
-        dropDownSelect(Locators.get("DashboardOnboardingPage.AccountCurrencyField"), Locators.get("DashboardOnboardingPage.SelectOptions"), true);
+        dropDownSelect(Locators.get("DashboardOnboardingPage.AccountCurrencyField"), Locators.get("DashboardOnboardingPage.SelectOptions"), true, 1);
     }
 
     public void enterTextInIbanField(String Iban){
@@ -178,7 +178,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     public void selectTheMainSalesRegion(){
         waitForElementLoad("DashboardOnboardingPage.TheMainSalesRegionSelect");
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect")));
-        dropDownSelect(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect"), Locators.get("DashboardOnboardingPage.SelectOptions"), true);
+        dropDownSelect(Locators.get("DashboardOnboardingPage.TheMainSalesRegionSelect"), Locators.get("DashboardOnboardingPage.SelectOptions"), true, 0);
     }
 
     public void selectRiskLevel(){

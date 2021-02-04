@@ -72,15 +72,15 @@ public class AbstractPage {
         return driver.findElement(Locators.get(LocatorName)).getText();
     }
 
-    public void dropDownSelect(By field, By options, boolean DefaultElement){
+    public void dropDownSelect(By field, By options, boolean isDefaultElement, int DefaultElementNumber){
         driver.findElement(field).click();
         List<WebElement> myElements = driver.findElements(options);
         int rnd = DataGenerator.getRandomNumberInRange(0,myElements.size()-1);
         String SelectedElement = myElements.get(rnd).getText();
-        if(DefaultElement & rnd == 0) {
+        if(isDefaultElement && rnd == DefaultElementNumber) {
             driver.findElement(field).click();
         }
-        else {
+            else{
             new Actions(driver).moveToElement(myElements.get(rnd)).perform();
             myElements.get(rnd).click();
         }

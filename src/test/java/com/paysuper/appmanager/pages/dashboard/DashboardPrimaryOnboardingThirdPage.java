@@ -18,11 +18,11 @@ public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
     }
 
     public void selectAnnualIncome(){
-        dropDownSelect(Locators.get("DashboardPrimaryOnboardingThridPage.AnnualIncomeField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"), false);
+        dropDownSelect(Locators.get("DashboardPrimaryOnboardingThridPage.AnnualIncomeField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"), false, 0);
     }
 
     public void selectNumberOfEmployees(){
-        dropDownSelect(Locators.get("DashboardPrimaryOnboardingThridPage.NumberOfEmployeesField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"), false);
+        dropDownSelect(Locators.get("DashboardPrimaryOnboardingThridPage.NumberOfEmployeesField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"), false, 0);
     }
 
     public void clickOnTypeOfBusiness(){
