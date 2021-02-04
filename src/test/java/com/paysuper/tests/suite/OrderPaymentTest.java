@@ -62,11 +62,7 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(email.getTotal(), order.getTotalAmount());
         Assert.assertEquals(email.getTransactionDate(), order.getToday());
         Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        if(order.getCountry().equals("UA") | order.getCountry().equals("RU")){
-            Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNameMalta"));
-        }
-        else
-            Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+        Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
     }
 
     @Test(enabled = true,

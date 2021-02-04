@@ -35,11 +35,19 @@ public class AbstractPage {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 15);
         webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
-
+    public void waitForElementNotPresence(WebElement element) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 15);
+        webDriverWait.until(ExpectedConditions.invisibilityOf(element));
+    }
 
     public void waitForClickAbleElement(By by) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 15);
         webDriverWait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    public void waitForClickAbleElement(WebElement element) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 15);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public boolean isElementPresent(String LocatorName){

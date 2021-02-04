@@ -190,9 +190,9 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         By by = Locators.get("DashboardOnboardingPage.SubmitApplicationButtons");
         WebElement element = driver.findElement(by);
         moveToElement(element);
-        waitForClickAbleElement(by);
+        waitForClickAbleElement(element);
         element.click();
-        waitForElementNotPresence(by);
+        waitForElementNotPresence(element);
     }
 
 
