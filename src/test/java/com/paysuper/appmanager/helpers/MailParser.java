@@ -36,6 +36,8 @@ public class MailParser {
         Folder folder = null;
         Store store = null;
         Object content = null;
+        org.jsoup.nodes.Document html = null;
+        int GetMailCount = 3;
 
         Properties properties = new Properties();
         Properties props = System.getProperties();
@@ -43,30 +45,35 @@ public class MailParser {
 
 
         try {
-            Thread.sleep(5000);
-            Session session = Session.getDefaultInstance(props, null);
-            // session.setDebug(true);
-            store = session.getStore("imaps");
-            store.connect("imap.gmail.com", user_login_for_email, user_pass_for_email);
-            folder = store.getFolder("Inbox");
-            /* Others GMail folders :
-             * [Gmail]/All Mail   This folder contains all of your Gmail messages.
-             * [Gmail]/Drafts     Your drafts.
-             * [Gmail]/Sent Mail  Messages you sent to other people.
-             * [Gmail]/Spam       Messages marked as spam.
-             * [Gmail]/Starred    Starred messages.
-             * [Gmail]/Trash      Messages deleted from Gmail.
-             */
-            folder.open(Folder.READ_ONLY);
-            SearchTerm sender = new FromTerm(new InternetAddress(PaySuperSender));
-            SearchTerm subject = new SubjectTerm(EmailSubject);
-            SearchTerm recipient = new RecipientTerm(Message.RecipientType.TO, new InternetAddress(EmailRecipient));
-            Message[] messages = folder.search(new AndTerm(recipient, subject));
-            //Message[] messages = folder.search(recipient);
-            for (int i = 0; i < messages.length; ++i) {
-                MimeMessage msg = (MimeMessage) messages[i];
-                content = readHtmlContent(msg);
-            }
+            do {
+
+                Session session = Session.getDefaultInstance(props, null);
+                // session.setDebug(true);
+                store = session.getStore("imaps");
+                store.connect("imap.gmail.com", user_login_for_email, user_pass_for_email);
+                folder = store.getFolder("Inbox");
+                /* Others GMail folders :
+                 * [Gmail]/All Mail   This folder contains all of your Gmail messages.
+                 * [Gmail]/Drafts     Your drafts.
+                 * [Gmail]/Sent Mail  Messages you sent to other people.
+                 * [Gmail]/Spam       Messages marked as spam.
+                 * [Gmail]/Starred    Starred messages.
+                 * [Gmail]/Trash      Messages deleted from Gmail.
+                 */
+                folder.open(Folder.READ_ONLY);
+                SearchTerm sender = new FromTerm(new InternetAddress(PaySuperSender));
+                SearchTerm subject = new SubjectTerm(EmailSubject);
+                SearchTerm recipient = new RecipientTerm(Message.RecipientType.TO, new InternetAddress(EmailRecipient));
+                Message[] messages = folder.search(new AndTerm(recipient, subject));
+                //Message[] messages = folder.search(recipient);
+                for (int i = 0; i < messages.length; ++i) {
+                    MimeMessage msg = (MimeMessage) messages[i];
+                    content = readHtmlContent(msg);
+                }
+                GetMailCount--;
+                Thread.sleep(5000);
+            }while (content == null && GetMailCount > 0 );
+            html = Jsoup.parse((String) content);
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
         } catch (MessagingException e) {
@@ -76,7 +83,6 @@ public class MailParser {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        org.jsoup.nodes.Document html = Jsoup.parse((String) content);
         return html;
     }
 
