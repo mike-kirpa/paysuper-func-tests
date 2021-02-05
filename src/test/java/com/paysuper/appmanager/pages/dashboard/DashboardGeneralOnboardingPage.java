@@ -163,9 +163,11 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void clickOnSubmitBankingInfoButton(){
-        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton")));
-        driver.findElement(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton")).click();
-        waitForElementNotPresence(Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton"));
+        By by = Locators.get("DashboardOnboardingPage.BankingInfoSubmitButton");
+        WebElement element = driver.findElement(by);
+        moveToElement(element);
+        element.click();
+        waitForElementNotPresence(element);
     }
 
     public void clickOn5rdStepPaymentMethodsButton(){
@@ -186,11 +188,12 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         selectCheckbox(Locators.get("DashboardOnboardingPage.RiskLevelRadioButtons"), true);
     }
 
-    public void clickOnSubmitApplicationButton(){
+    public void clickOnSubmitApplicationButton() throws InterruptedException {
+        Thread.sleep(500);
         By by = Locators.get("DashboardOnboardingPage.SubmitApplicationButtons");
         WebElement element = driver.findElement(by);
         moveToElement(element);
-        waitForClickAbleElement(element);
+//        waitForClickAbleElement(element);
         element.click();
         waitForElementNotPresence(element);
     }
