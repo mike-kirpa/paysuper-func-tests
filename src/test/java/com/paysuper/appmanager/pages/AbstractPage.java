@@ -109,5 +109,10 @@ public class AbstractPage {
         } while (!textIsEqual && count < 5);
     }
 
+    public void clickOnElement(By by){
+        WebElement element = driver.findElement(by);
+        waitForClickAbleElement(by);
+        element.click();
+    }
 
 }

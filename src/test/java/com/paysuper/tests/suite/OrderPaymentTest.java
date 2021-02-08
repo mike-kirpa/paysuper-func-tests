@@ -2,8 +2,10 @@ package com.paysuper.tests.suite;
 
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.helpers.MailParser;
+import com.paysuper.appmanager.helpers.MockApi;
 import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.models.Order;
+import com.paysuper.appmanager.models.Webhook;
 import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardMainPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
@@ -22,14 +24,19 @@ public class OrderPaymentTest extends TestBase {
             description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp",
             groups = {"tst", "stg", "prod", "pay"})
     public void SimpleOrderSuccessPayTest() throws InterruptedException {
+        Webhook actualWebhook = new Webhook("null");
+        Webhook expectedWebhook = new Webhook("order.processed");
+        MockApi mockApi = new MockApi();
+
         Email email = new Email();
         Order order = new Order();
         String payment_form_url;
         String unixTime;
 
+
         order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
         order.setOrderAmount(app.getProperties.value("OrderAmount"));
-        order.setProjectId(app.getProperties.value("ProjectId"));
+        order.setProjectId(app.getProperties.value("ProjectWebhooksId"));
         email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
@@ -63,6 +70,12 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(email.getTransactionDate(), order.getToday());
         Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
         Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+
+        //Webhook assert
+
+        expectedWebhook.setObject_id(order.getUUID());
+        mockApi.checkAndCleatEvent(actualWebhook);
+        Assert.assertEquals(expectedWebhook, actualWebhook, "Actual webhook's data not equal:");
     }
 
     @Test(enabled = true,
@@ -182,8 +195,8 @@ public class OrderPaymentTest extends TestBase {
         dashboardTransactionsPage.clickOnStatusButton();
         dashboardTransactionsPage.clickOnFilterListItem("Processed");
         dashboardTransactionsPage.clickOnFilterButton();
-        Thread.sleep(1000);
         String lastOrderUrl = dashboardTransactionsPage.clickRefundOnLastTransaction();
+        System.out.println(lastOrderUrl);
         dashboardTransactionsPage.clickOnConfrimRefundButton();
         Thread.sleep(2000);
         app.driver.navigate().refresh();
