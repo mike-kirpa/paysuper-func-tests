@@ -24,7 +24,7 @@ public class MockApi {
 
     public  MockApi(){
         login();
-
+        resetAll();
     }
 
     public void login(){
@@ -94,13 +94,12 @@ public class MockApi {
                     .extract()
                     .response();
             count = Integer.parseInt(response.jsonPath().getString("resources[0].count"));
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             repeat--;
         }while (count < 1 && repeat > 0);
     }
 
     public void checkAndCleatEvent(Webhook webhook) throws InterruptedException {
-        resetAll();
         checkEvent();
         getLastWebhook(webhook);
         resetAll();

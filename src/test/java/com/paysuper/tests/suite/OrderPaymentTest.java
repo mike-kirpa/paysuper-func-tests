@@ -33,9 +33,10 @@ public class OrderPaymentTest extends TestBase {
         String payment_form_url;
         String unixTime;
 
+
         order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
         order.setOrderAmount(app.getProperties.value("OrderAmount"));
-        order.setProjectId(app.getProperties.value("ProjectId"));
+        order.setProjectId(app.getProperties.value("ProjectWebhooksId"));
         email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
@@ -68,17 +69,13 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(email.getTotal(), order.getTotalAmount());
         Assert.assertEquals(email.getTransactionDate(), order.getToday());
         Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        if(order.getCountry().equals("UA") | order.getCountry().equals("RU")){
-            Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNameMalta"));
-        }
-        else
-            Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+        Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
 
         //Webhook assert
 
         expectedWebhook.setObject_id(order.getUUID());
         mockApi.checkAndCleatEvent(actualWebhook);
-        Assert.assertEquals(expectedWebhook, actualWebhook, "Actual webhook's data not equal expected");
+        Assert.assertEquals(expectedWebhook, actualWebhook, "Actual webhook's data not equal:");
     }
 
     @Test(enabled = true,
@@ -228,11 +225,7 @@ public class OrderPaymentTest extends TestBase {
         org.testng.Assert.assertEquals(email.getTotal(), order.getGrossRevenue());
         org.testng.Assert.assertEquals(email.getTransactionDate(), order.getToday());
         org.testng.Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        if(order.getCountry().contains("Ukraine") | order.getCountry().contains("Russia ")){
-            org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNameMalta"));
-        }
-        else
-            org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+        org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
 
     }
 }

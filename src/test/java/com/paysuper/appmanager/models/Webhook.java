@@ -80,6 +80,35 @@ public class Webhook {
         return object_id;
     }
 
+    @Override
+    public String toString() {
+        return "Webhook{" +
+                "type='" + type + '\'' +
+                ", event='" + event + '\'' +
+                ", live='" + live + '\'' +
+                ", object_id='" + object_id + '\'' +
+                ", object_object='" + object_object + '\'' +
+                ", object_status='" + object_status + '\'' +
+                ", object_canceled=" + object_canceled +
+                ", object_cancellation='" + object_cancellation + '\'' +
+                ", object_refunded=" + object_refunded +
+                ", object_email='" + object_email + '\'' +
+                ", object_amount='" + object_amount + '\'' +
+                ", object_currency='" + object_currency + '\'' +
+                ", object_user_email='" + object_user_email + '\'' +
+                ", object_user_address_country='" + object_user_address_country + '\'' +
+                ", object_tax_type='" + object_tax_type + '\'' +
+                ", object_tax_rate='" + object_tax_rate + '\'' +
+                ", object_tax_amount='" + object_tax_amount + '\'' +
+                ", object_tax_currency='" + object_tax_currency + '\'' +
+                ", object_method_title='" + object_method_title + '\'' +
+                ", object_method_external_id='" + object_method_external_id + '\'' +
+                ", object_method_payment_system_id='" + object_method_payment_system_id + '\'' +
+                ", object_method_payment_type='" + object_method_payment_type + '\'' +
+                ", object_method_payment_saved=" + object_method_payment_saved +
+                '}';
+    }
+
     public void setObject_id(String object_id) {
         this.object_id = object_id;
     }
