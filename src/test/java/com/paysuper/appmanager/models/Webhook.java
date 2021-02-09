@@ -37,6 +37,14 @@ public class Webhook {
             object_cancellation = null;
             object_refunded = false;
         }
+        else if(type.equals("payment.cancel")){
+            event = "payment.cancel";
+            object_object = "order";
+            object_status = "rejected";
+            object_canceled = false;
+            object_cancellation = "[code:11, reason:Common decline by bank]";
+            object_refunded = false;
+        }
     }
 
     @Override

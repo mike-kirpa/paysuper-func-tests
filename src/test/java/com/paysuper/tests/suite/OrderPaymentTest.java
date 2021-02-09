@@ -228,4 +228,52 @@ public class OrderPaymentTest extends TestBase {
         org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
 
     }
+
+    @Test(enabled = true,
+            description="Decline 3DS simple payment",
+            groups = {"tst", "stg", "prod", "pay"})
+    public void SimpleOrder3DSDeclineTest() throws InterruptedException {
+        Webhook actualWebhook = new Webhook("null");
+        Webhook expectedWebhook = new Webhook("payment.cancel");
+        MockApi mockApi = new MockApi();
+        Email email = new Email();
+        Order order = new Order();
+        String payment_form_url;
+        String unixTime;
+
+
+        order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
+        order.setOrderAmount(app.getProperties.value("OrderAmount"));
+        order.setProjectId(app.getProperties.value("ProjectWebhooksId"));
+        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
+
+        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
+
+        payment_form_url = app.restAPI.createSimpleOrder(
+                app.getProperties.value("ApiUrlCheckout"),
+                order);
+        app.driver.get(payment_form_url);
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                app.getProperties.value("DefaultLanguage"),
+                app.getProperties.value("DefautCountry"));
+        Assert.assertEquals(app.driver.findElement(Locators.get("PayForm.OrderSummaryValue")).getText(), "€" + order.getOrderAmount());
+        payFormPage.inputBankCardNumber(app.getProperties.value("No3DSSPaymentDECLINED"));
+        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+        payFormPage.inputEmail(email.getEmailRecipient());
+        order.setTotalAmount(payFormPage.getTotalAmount());
+        app.restAPI.getOrderForPayForm(app.getProperties.value("ApiUrlCheckout"),
+                order);
+        payFormPage.clickPayButton();
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("UnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("UnSuccessPayText"));
+
+        //Webhook assert
+        expectedWebhook.setObject_id(order.getUUID());
+        mockApi.checkAndCleatEvent(actualWebhook);
+        Assert.assertEquals(expectedWebhook, actualWebhook, "Actual webhook's data not equal:");
+    }
+
+
 }
