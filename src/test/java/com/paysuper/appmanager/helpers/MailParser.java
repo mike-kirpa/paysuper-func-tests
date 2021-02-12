@@ -37,7 +37,7 @@ public class MailParser {
         Store store = null;
         Object content = null;
         org.jsoup.nodes.Document html = null;
-        int GetMailCount = 3;
+        int GetMailCount = 5;
 
         Properties properties = new Properties();
         Properties props = System.getProperties();
@@ -46,7 +46,7 @@ public class MailParser {
 
         try {
             do {
-
+                Thread.sleep(5000);
                 Session session = Session.getDefaultInstance(props, null);
                 // session.setDebug(true);
                 store = session.getStore("imaps");
@@ -71,7 +71,6 @@ public class MailParser {
                     content = readHtmlContent(msg);
                 }
                 GetMailCount--;
-                Thread.sleep(5000);
             }while (content == null && GetMailCount > 0 );
             html = Jsoup.parse((String) content);
         } catch (NoSuchProviderException e) {
