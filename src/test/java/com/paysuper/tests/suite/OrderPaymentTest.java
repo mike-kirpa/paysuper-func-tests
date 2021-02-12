@@ -20,14 +20,12 @@ import com.paysuper.tests.TestBase;
 
 public class OrderPaymentTest extends TestBase {
 
-    @Test(enabled = true,
-            description="success simple payment https://protocolone.tpondemand.com/entity/193560-web-payform-uspeshnaya-pokupka-simp",
+    @Test(description="success simple payment",
             groups = {"tst", "stg", "prod", "pay"})
     public void SimpleOrderSuccessPayTest() throws InterruptedException {
         Webhook actualWebhook = new Webhook("null");
         Webhook expectedWebhook = new Webhook("order.processed");
         MockApi mockApi = new MockApi();
-
         Email email = new Email();
         Order order = new Order();
         String payment_form_url;
@@ -78,8 +76,7 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(expectedWebhook, actualWebhook, "Actual webhook's data not equal:");
     }
 
-    @Test(enabled = true,
-            description="success product payment https://protocolone.tpondemand.com/entity/193318-web-payform-uspeshnaya-pokupka-product",
+    @Test(description="success product payment",
             groups = {"tst", "stg", "prod", "pay"})
     public void ProductOrderSuccessPayTest() {
         Email email = new Email();
@@ -113,8 +110,7 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
-    @Test(enabled = true,
-            description="success token payment https://protocolone.tpondemand.com/entity/193349-web-payform-uspeshnaya-pokupka-s-pomoshyu",
+    @Test(description="success token payment",
             groups = {"tst", "stg", "prod", "pay"})
     public void TokenOrderSuccessPayTest() {
         Email email = new Email();
@@ -146,7 +142,7 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
-    @Test(enabled = true, groups = {"tst", "stg", "prod", "pay"})
+    @Test(groups = {"tst", "stg", "prod", "pay"})
     public void ProductKeyOrderSuccessPayTest()  {
         Email email = new Email();
         Order order = new Order();
@@ -179,7 +175,7 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
-    @Test(enabled = true, description="Dashboard Refund From Order List",
+    @Test(description="Dashboard Refund From Order List",
             groups = {"tst", "stg", "prod"})
     public void RefundFromOrderListTest() throws InterruptedException {
         Email email = new Email();
@@ -229,8 +225,7 @@ public class OrderPaymentTest extends TestBase {
 
     }
 
-    @Test(enabled = true,
-            description="Decline 3DS simple payment",
+    @Test(description="Decline 3DS simple payment",
             groups = {"tst", "stg", "prod", "pay"})
     public void SimpleOrder3DSDeclineTest() throws InterruptedException {
         Webhook actualWebhook = new Webhook("null");
