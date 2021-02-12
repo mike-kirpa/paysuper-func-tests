@@ -4,8 +4,6 @@ import com.github.javafaker.Faker;
 import com.paysuper.appmanager.ApplicationManager;
 import org.testng.annotations.*;
 
-import java.io.Serializable;
-
 public class TestBase {
     public Faker faker = new Faker();
 
@@ -13,7 +11,6 @@ public class TestBase {
 
     @BeforeClass(alwaysRun = true)
     @org.testng.annotations.Parameters(value = { "config", "environment", "zone", "localrun"})
-    @SuppressWarnings("unchecked")
     public void setUp(String config_file, String environment, String zone, boolean localrun) throws Exception {
         app.init(config_file, environment, zone, localrun);
     }
