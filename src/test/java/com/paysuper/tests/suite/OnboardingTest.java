@@ -9,8 +9,8 @@ import com.paysuper.tests.TestBase;
 
 public class OnboardingTest extends TestBase {
 
-    @Test(enabled = true, groups = { "tst", "stg", "onboarding"})
-    public void OnboardingTest() throws Exception {
+    @Test(groups = { "tst", "stg", "onboarding"})
+    public void AllStepsOnboardingTest() throws Exception {
         Email email = new Email();
         String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         String generated_user_email = "autotest.protocolone+" + unixTime + "@gmail.com";
