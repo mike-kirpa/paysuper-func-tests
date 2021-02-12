@@ -1,22 +1,16 @@
 package com.paysuper.appmanager;
 
 import com.browserstack.local.Local;
-import com.paysuper.appmanager.helpers.File;
 import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.RestAPI;
-import com.paysuper.tests.TestBase;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
 import java.io.FileReader;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
