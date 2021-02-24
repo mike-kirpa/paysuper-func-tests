@@ -51,6 +51,7 @@ public class MailParser {
                 // session.setDebug(true);
                 store = session.getStore("imaps");
                 store.connect("imap.gmail.com", user_login_for_email, user_pass_for_email);
+                System.out.println(user_pass_for_email);
                 folder = store.getFolder("Inbox");
                 /* Others GMail folders :
                  * [Gmail]/All Mail   This folder contains all of your Gmail messages.
