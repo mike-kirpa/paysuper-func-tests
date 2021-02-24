@@ -20,9 +20,9 @@ import static com.paysuper.appmanager.helpers.File.getResource;
 public class ApplicationManager {
     public RemoteWebDriver driver;
     private Local l;
-    public GetProperties getProperties;
+//    public GetProperties getProperties;
     public RestAPI restAPI;
-    public String zone;
+    public static String zone;
 
     public void stop() throws InterruptedException {
         driver.quit();
@@ -32,7 +32,7 @@ public class ApplicationManager {
     }
 
     public void init(String config_file, String environment, String zone, boolean localrun) throws Exception {
-        this.zone = zone;
+        ApplicationManager.zone = zone;
         if (!localrun) {
             JSONParser parser = new JSONParser();
             JSONObject config = (JSONObject) parser.parse(new FileReader("src/test/resources/conf/" + config_file));
@@ -85,7 +85,7 @@ public class ApplicationManager {
             driver = new ChromeDriver();
         }
             driver.manage().window().maximize();
-            getProperties = new GetProperties(zone);
+//            getProperties = new GetProperties();
             restAPI = new RestAPI();
 
     }
