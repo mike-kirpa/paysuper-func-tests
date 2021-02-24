@@ -1,5 +1,6 @@
 package com.paysuper.tests.suite;
 
+import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.pages.dashboard.*;
 import org.testng.Assert;
@@ -16,8 +17,8 @@ public class OnboardingTest extends TestBase {
         String generated_user_email = "autotest.protocolone+" + unixTime + "@gmail.com";
         String generated_user_pass = "Q" + unixTime;
         email.setEmailRecipient(generated_user_email);
-        email.setSubject(app.getProperties.value("EmailVerificationSubject"));
-        app.driver.get(app.getProperties.value("DashboardUrl"));
+        email.setSubject(GetProperties.value("EmailVerificationSubject"));
+        app.driver.get(GetProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
         dashboardLoginPage.clickOnSignInButton();
         DashboardRegistrationPage dashboardRegistrationPage = dashboardLoginPage.clickOnSignUpButton();
@@ -30,7 +31,7 @@ public class OnboardingTest extends TestBase {
         DashboardVerifyEmailPage dashboardVerifyEmailPage
                 = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
         DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(
-                app.getProperties.value("user_login_for_email"),
+                GetProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
                 email);
         //1 step - Projects
@@ -80,7 +81,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.clickOnSubmitDocumentsButton();
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
         Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
-                app.getProperties.value("7Step"),
-                "Current name of step not equal:" + app.getProperties.value("7Step"));
+                GetProperties.value("7Step"),
+                "Current name of step not equal:" + GetProperties.value("7Step"));
     }
 }
