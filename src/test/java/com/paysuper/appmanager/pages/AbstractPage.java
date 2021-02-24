@@ -1,7 +1,10 @@
 package com.paysuper.appmanager.pages;
 
 import com.paysuper.appmanager.helpers.DataGenerator;
+import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
+import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
+import com.paysuper.tests.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class AbstractPage {
+public class AbstractPage extends TestBase {
     protected WebDriver driver;
     protected WebDriverWait webDriverWait;
 
@@ -90,16 +93,14 @@ public class AbstractPage {
     public void selectCheckbox(By checkboxes, boolean DefaultElement){
         List<WebElement> myElements = driver.findElements(checkboxes);
         int rnd = DataGenerator.getRandomNumberInRange(0,myElements.size()-1);
-        if(DefaultElement & rnd == 0) {
-
-        } else {
+        if(!DefaultElement & rnd != 0) {
             new Actions(driver).moveToElement(myElements.get(rnd)).perform();
             myElements.get(rnd).click();
         }
     }
 
     public void sendAndCheck(WebElement element, String text){
-        Boolean textIsEqual;
+        boolean textIsEqual;
         int count = 0;
         do {
             element.clear();
@@ -114,5 +115,11 @@ public class AbstractPage {
         waitForClickAbleElement(by);
         element.click();
     }
+
+    public DashboardTransactionsPage openTransactionPageWithFilter(String status){
+        driver.get(GetProperties.value("DashboardUrl")+"/transactions?sort%5B0%5D=-created_at&status%5B0%5D=" + status);
+        return new DashboardTransactionsPage(driver);
+    }
+
 
 }
