@@ -1,5 +1,6 @@
 package com.paysuper.appmanager.pages.dashboard;
 
+import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.pages.AbstractPage;
 import org.openqa.selenium.WebDriver;
