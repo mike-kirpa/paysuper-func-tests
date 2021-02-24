@@ -1,6 +1,7 @@
 package com.paysuper.appmanager.pages.dashboard;
 
 import com.paysuper.appmanager.helpers.DataGenerator;
+import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.models.Order;
@@ -20,14 +21,14 @@ public class DashboardTransactionsPage extends AbstractPage {
     }
 
     public String clickRefundOnLastTransaction(){
-        waitForClickAbleElement(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
+        waitForClickAbleElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
         List<WebElement> svgObject = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
         List<WebElement> lastOrder = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
-        String lastOrderUrl = lastOrder.get(3).getAttribute("pathname");
+        String lastOrderUrl = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionUrl")).get(2).getAttribute("pathname");
         Actions builder = new Actions(driver);
-        builder.moveToElement(svgObject.get(3)).build().perform();
+        builder.moveToElement(driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg")).get(2)).build().perform();
 //        builder.click(svgObject.get(0)).build().perform();
-        svgObject.get(3).click();
+        driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg")).get(2).click();
         return lastOrderUrl;
     }
     public void clickOnConfrimRefundButton(){
@@ -56,11 +57,17 @@ public class DashboardTransactionsPage extends AbstractPage {
         return new OrderPage(driver);
     }
 
-    public OrderPage clickOnFirstOrderIntable(){
-        waitForElementLoad(Locators.get("DashboardTransactionsPage.FirstOrderInTable"));
-        driver.findElement(Locators.get("DashboardTransactionsPage.FirstOrderInTable")).click();
+    public OrderPage openOrderByUrl(String url){
+        driver.get(url);
         return new OrderPage(driver);
     }
 
-
+    public OrderPage clickOnLastTransaction(){
+        By by = Locators.get("DashboardTransactionsPage.FirstOrderInTable");
+        WebElement element = driver.findElement(by);
+        waitForElementLoad(by);
+        System.out.println(element.getAttribute("pathname"));
+        driver.get(GetProperties.value("DashboardUrl") + element.getAttribute("pathname"));
+        return new OrderPage(driver);
+    }
 }
