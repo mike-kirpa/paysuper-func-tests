@@ -6,8 +6,7 @@ import org.testng.annotations.*;
 
 public class TestBase {
     public Faker faker = new Faker();
-
-    protected final ApplicationManager app = new ApplicationManager();
+    public final ApplicationManager app = new ApplicationManager();
 
     @BeforeClass(alwaysRun = true)
     @org.testng.annotations.Parameters(value = { "config", "environment", "zone", "localrun"})
