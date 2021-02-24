@@ -16,7 +16,7 @@ import static io.restassured.http.ContentType.JSON;
 public class MockApi {
 
     private String token;
-    private String url = "https://mockapi.io";
+    private final String url = "https://mockapi.io";
     private Response response;
     final private String mockapi_email = "autotest.protocolone@gmail.com";
     final private String mockapi_pass = "Pw,:Af44=8XN8)~:";
