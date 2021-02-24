@@ -1,5 +1,6 @@
 package com.paysuper.tests.suite;
 
+import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.helpers.MailParser;
 import com.paysuper.appmanager.helpers.MockApi;
@@ -32,42 +33,42 @@ public class OrderPaymentTest extends TestBase {
         String unixTime;
 
 
-        order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
-        order.setOrderAmount(app.getProperties.value("OrderAmount"));
-        order.setProjectId(app.getProperties.value("ProjectWebhooksId"));
-        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
+        order.setOrderCurrency(GetProperties.value("OrderCurrency"));
+        order.setOrderAmount(GetProperties.value("OrderAmount"));
+        order.setProjectId(GetProperties.value("ProjectWebhooksId"));
+        email.setSubject(GetProperties.value("EmailPurchaseCheckSubject"));
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
 
         payment_form_url = app.restAPI.createSimpleOrder(
-                app.getProperties.value("ApiUrlCheckout"),
+                GetProperties.value("ApiUrlCheckout"),
                 order);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
+                GetProperties.value("DefaultLanguage"),
+                GetProperties.value("DefautCountry"));
         Assert.assertEquals(app.driver.findElement(Locators.get("PayForm.OrderSummaryValue")).getText(), "€" + order.getOrderAmount());
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+        payFormPage.inputBankCardNumber(GetProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
         order.setTotalAmount(payFormPage.getTotalAmount());
-        app.restAPI.getOrderForPayForm(app.getProperties.value("ApiUrlCheckout"),
+        app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),
                 order);
         payFormPage.clickPayButton();
-        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"));
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
-        MailParser mailParser = new MailParser(app.getProperties.value("user_login_for_email"),
+        MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
                 email);
         mailParser.parsePurchaseCheck();
         Assert.assertEquals(email.getTransactionID(), order.getUUID());
         Assert.assertEquals(email.getTotal(), order.getTotalAmount());
         Assert.assertEquals(email.getTransactionDate(), order.getToday());
-        Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+        Assert.assertEquals(email.getMerchantName(), GetProperties.value("MerchantName"));
+        Assert.assertEquals(email.getPaymentPartner(), GetProperties.value("OperCompanyNAmeCyprus"));
 
         //Webhook assert
 
@@ -84,29 +85,29 @@ public class OrderPaymentTest extends TestBase {
         String payment_form_url;
         String unixTime;
 
-        order.setProjectId(app.getProperties.value("ProjectId"));
-        order.setProduct(app.getProperties.value("Product"));
-        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
+        order.setProjectId(GetProperties.value("ProjectId"));
+        order.setProduct(GetProperties.value("Product"));
+        email.setSubject(GetProperties.value("EmailPurchaseCheckSubject"));
 
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
 
         payment_form_url = app.restAPI.createProductOrder(
-                app.getProperties.value("ApiUrlCheckout"),
+                GetProperties.value("ApiUrlCheckout"),
                 "product",
                 order);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+                GetProperties.value("DefaultLanguage"),
+                GetProperties.value("DefautCountry"));
+        payFormPage.inputBankCardNumber(GetProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
         payFormPage.clickPayButton();
-        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessProductPayText"));
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessProductPayText"));
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
@@ -118,27 +119,27 @@ public class OrderPaymentTest extends TestBase {
         String payment_form_url;
         String unixTime;
 
-        order.setProjectId(app.getProperties.value("ProjectId"));
-        order.setSecret(app.getProperties.value("Secret"));
-        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
+        order.setProjectId(GetProperties.value("ProjectId"));
+        order.setSecret(GetProperties.value("Secret"));
+        email.setSubject(GetProperties.value("EmailPurchaseCheckSubject"));
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
 
         payment_form_url = app.restAPI.createTokenOrder(
-                app.getProperties.value("ApiUrl"),
+                GetProperties.value("ApiUrl"),
                 order,
                 email);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+                GetProperties.value("DefaultLanguage"),
+                GetProperties.value("DefautCountry"));
+        payFormPage.inputBankCardNumber(GetProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.clickPayButton();
-        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessSimplePayText"));
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"));
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
@@ -149,29 +150,29 @@ public class OrderPaymentTest extends TestBase {
         String payment_form_url;
         String unixTime;
 
-        order.setProjectId(app.getProperties.value("ProjectId"));
-        order.setProduct(app.getProperties.value("ProductKey"));
-        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
+        order.setProjectId(GetProperties.value("ProjectId"));
+        order.setProduct(GetProperties.value("ProductKey"));
+        email.setSubject(GetProperties.value("EmailPurchaseCheckSubject"));
 
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
 
         payment_form_url = app.restAPI.createProductOrder(
-                app.getProperties.value("ApiUrlCheckout"),
+                GetProperties.value("ApiUrlCheckout"),
                 "key",
                 order);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
-        payFormPage.inputBankCardNumber(app.getProperties.value("ValidNo3DSBankCard"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+                GetProperties.value("DefaultLanguage"),
+                GetProperties.value("DefautCountry"));
+        payFormPage.inputBankCardNumber(GetProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
         payFormPage.clickPayButton();
-        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("EnSuccessPayTitle"));
-        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("EnSuccessProductKeyPayText"));
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessProductKeyPayText"));
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
@@ -181,11 +182,11 @@ public class OrderPaymentTest extends TestBase {
         Email email = new Email();
         Order order = new Order();
 
-        email.setSubject(app.getProperties.value("EmailRefundSubject"));
+        email.setSubject(GetProperties.value("EmailRefundSubject"));
 
-        app.driver.get(app.getProperties.value("DashboardUrl"));
+        app.driver.get(GetProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
-        DashboardMainPage dashboardMainPage = dashboardLoginPage.login(app.getProperties.value("ValidEmail"), app.getProperties.value("Password"));
+        DashboardMainPage dashboardMainPage = dashboardLoginPage.login(GetProperties.value("ValidEmail"), GetProperties.value("Password"));
         DashboardTransactionsPage dashboardTransactionsPage = dashboardMainPage.clickOnTransactionSearchLink();
         dashboardTransactionsPage.clickOnFilterButton();
         dashboardTransactionsPage.clickOnStatusButton();
@@ -199,7 +200,7 @@ public class OrderPaymentTest extends TestBase {
         dashboardLoginPage.waitForElementLoad("DashboardTransactionsPage.HeaderText");
         Assert.assertFalse(dashboardLoginPage.isElementPresent(By.xpath("//a[@href='" + lastOrderUrl + "']/*/div[contains(@class, 'refund')]")));
 
-        OrderPage OrderPage = dashboardTransactionsPage.openOrderPageByLink(app.getProperties.value("DashboardUrl") + lastOrderUrl);
+        OrderPage OrderPage = dashboardTransactionsPage.openOrderPageByLink(GetProperties.value("DashboardUrl") + lastOrderUrl);
         email.setEmailRecipient(OrderPage.getEmail());
         order.setGrossRevenue(OrderPage.getTotalChargeSum());
         order.setCountry(OrderPage.getBillingAddress());
@@ -210,18 +211,18 @@ public class OrderPaymentTest extends TestBase {
         dashboardTransactionsPage.clickOnStatusButton();
         dashboardTransactionsPage.clickOnFilterListItem("Refunded");
         dashboardTransactionsPage.clickOnFilterButton();
-        OrderPage refundOrderPage = dashboardTransactionsPage.clickOnFirstOrderIntable();
+        OrderPage refundOrderPage = dashboardTransactionsPage.openOrderByUrl(GetProperties.value("DashboardUrl")+lastOrderUrl);
         refundOrderPage.getRefundOrderUid(order);
 
-        MailParser mailParser = new MailParser(app.getProperties.value("user_login_for_email"),
+        MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
                 System.getenv("autotest_email_pass"),
                 email);
         mailParser.parseRefundedCheck();
         org.testng.Assert.assertEquals(email.getTransactionID(), order.getUUID());
         org.testng.Assert.assertEquals(email.getTotal(), order.getGrossRevenue());
         org.testng.Assert.assertEquals(email.getTransactionDate(), order.getToday());
-        org.testng.Assert.assertEquals(email.getMerchantName(), app.getProperties.value("MerchantName"));
-        org.testng.Assert.assertEquals(email.getPaymentPartner(), app.getProperties.value("OperCompanyNAmeCyprus"));
+        org.testng.Assert.assertEquals(email.getMerchantName(), GetProperties.value("MerchantName"));
+        org.testng.Assert.assertEquals(email.getPaymentPartner(), GetProperties.value("OperCompanyNAmeCyprus"));
 
     }
 
@@ -237,32 +238,32 @@ public class OrderPaymentTest extends TestBase {
         String unixTime;
 
 
-        order.setOrderCurrency(app.getProperties.value("OrderCurrency"));
-        order.setOrderAmount(app.getProperties.value("OrderAmount"));
-        order.setProjectId(app.getProperties.value("ProjectWebhooksId"));
-        email.setSubject(app.getProperties.value("EmailPurchaseCheckSubject"));
+        order.setOrderCurrency(GetProperties.value("OrderCurrency"));
+        order.setOrderAmount(GetProperties.value("OrderAmount"));
+        order.setProjectId(GetProperties.value("ProjectWebhooksId"));
+        email.setSubject(GetProperties.value("EmailPurchaseCheckSubject"));
 
         unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
 
         payment_form_url = app.restAPI.createSimpleOrder(
-                app.getProperties.value("ApiUrlCheckout"),
+                GetProperties.value("ApiUrlCheckout"),
                 order);
         app.driver.get(payment_form_url);
         PayFormPage payFormPage =new PayFormPage(app.driver,
-                app.getProperties.value("DefaultLanguage"),
-                app.getProperties.value("DefautCountry"));
+                GetProperties.value("DefaultLanguage"),
+                GetProperties.value("DefautCountry"));
         Assert.assertEquals(app.driver.findElement(Locators.get("PayForm.OrderSummaryValue")).getText(), "€" + order.getOrderAmount());
-        payFormPage.inputBankCardNumber(app.getProperties.value("No3DSSPaymentDECLINED"));
-        payFormPage.inputBankCardExpired(app.getProperties.value("ValidExpiredDate"));
-        payFormPage.inputBankCardCVV(app.getProperties.value("ValidCVV"));
+        payFormPage.inputBankCardNumber(GetProperties.value("No3DSSPaymentDECLINED"));
+        payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
         order.setTotalAmount(payFormPage.getTotalAmount());
-        app.restAPI.getOrderForPayForm(app.getProperties.value("ApiUrlCheckout"),
+        app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),
                 order);
         payFormPage.clickPayButton();
-        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), app.getProperties.value("UnSuccessPayTitle"));
-        Assert.assertEquals(payFormPage.getFormTextAfterPay(), app.getProperties.value("UnSuccessPayText"));
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("UnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("UnSuccessPayText"));
 
         //Webhook assert
         expectedWebhook.setObject_id(order.getUUID());
