@@ -70,4 +70,8 @@ public class DashboardTransactionsPage extends AbstractPage {
         driver.get(GetProperties.value("DashboardUrl") + element.getAttribute("pathname"));
         return new OrderPage(driver);
     }
+
+    public void openFilteredOrderList(String filter){
+        driver.get(GetProperties.value("DashboardUrl") + GetProperties.value("FilteredOrderLink") + filter);
+    }
 }

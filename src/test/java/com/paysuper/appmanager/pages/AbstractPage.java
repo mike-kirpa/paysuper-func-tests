@@ -93,7 +93,7 @@ public class AbstractPage extends TestBase {
     public void selectCheckbox(By checkboxes, boolean DefaultElement){
         List<WebElement> myElements = driver.findElements(checkboxes);
         int rnd = DataGenerator.getRandomNumberInRange(0,myElements.size()-1);
-        if(!DefaultElement & rnd != 0) {
+        if(!DefaultElement) {
             new Actions(driver).moveToElement(myElements.get(rnd)).perform();
             myElements.get(rnd).click();
         }
@@ -119,6 +119,13 @@ public class AbstractPage extends TestBase {
     public DashboardTransactionsPage openTransactionPageWithFilter(String status){
         driver.get(GetProperties.value("DashboardUrl")+"/transactions?sort%5B0%5D=-created_at&status%5B0%5D=" + status);
         return new DashboardTransactionsPage(driver);
+    }
+
+    public void moveToElement(WebElement element){
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element);
+        actions.perform();
     }
 
 
