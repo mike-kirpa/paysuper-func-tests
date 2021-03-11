@@ -7,6 +7,7 @@ import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.models.Order;
 import com.paysuper.appmanager.pages.AbstractPage;
 import junit.framework.Assert;
+import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,11 +21,14 @@ public class DashboardTransactionsPage extends AbstractPage {
         waitForElementLoad("DashboardTransactionsPage.HeaderText");
     }
 
-    public String clickRefundOnLastTransaction(){
+    public String clickRefundOnLastTransaction(Order order){
         waitForClickAbleElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
         List<WebElement> svgObject = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
         List<WebElement> lastOrder = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
-        String lastOrderUrl = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionUrl")).get(2).getAttribute("pathname");
+        WebElement webElement = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionUrl")).get(2);
+        String lastOrderUrl = webElement.getAttribute("pathname");
+        String transactionId = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionID")).get(2).getText();
+        order.setTransactionID(transactionId);
         Actions builder = new Actions(driver);
         builder.moveToElement(driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg")).get(2)).build().perform();
 //        builder.click(svgObject.get(0)).build().perform();
@@ -59,6 +63,14 @@ public class DashboardTransactionsPage extends AbstractPage {
 
     public OrderPage openOrderByUrl(String url){
         driver.get(url);
+        return new OrderPage(driver);
+    }
+
+    public OrderPage clickOnOrderBytransactionId(String transactionid){
+        By by = Locators.get("DashboardTransactionsPage.orderByTransactionID", transactionid);
+        WebElement webElement = driver.findElement(by);
+        waitForClickAbleElement(webElement);
+        webElement.click();
         return new OrderPage(driver);
     }
 

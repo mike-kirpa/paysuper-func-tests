@@ -17,6 +17,16 @@ public class Order {
     private String Secret;
     private String product;
 
+    public String getTransactionID() {
+        return TransactionID;
+    }
+
+    public void setTransactionID(String transactionID) {
+        TransactionID = transactionID;
+    }
+
+    private String TransactionID;
+
     public String getProduct() {
         return product;
     }

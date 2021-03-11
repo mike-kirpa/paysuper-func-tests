@@ -1,7 +1,6 @@
 package com.paysuper.tests.suite;
 
 import com.paysuper.appmanager.helpers.GetProperties;
-import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.helpers.MailParser;
 import com.paysuper.appmanager.helpers.MockApi;
 import com.paysuper.appmanager.models.Email;
@@ -189,23 +188,24 @@ public class OrderPaymentTest extends TestBase {
         DashboardMainPage dashboardMainPage = dashboardLoginPage.login(GetProperties.value("ValidEmail"), GetProperties.value("Password"));
         DashboardTransactionsPage dashboardTransactionsPage = dashboardMainPage.clickOnTransactionSearchLink();
         dashboardTransactionsPage.openFilteredOrderList("processed");
-        String lastOrderUrl = dashboardTransactionsPage.clickRefundOnLastTransaction();
-        System.out.println(lastOrderUrl);
+        String lastOrderUrl = dashboardTransactionsPage.clickRefundOnLastTransaction(order);
         dashboardTransactionsPage.clickOnConfrimRefundButton();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         app.driver.navigate().refresh();
+        Thread.sleep(1000);
         dashboardLoginPage.waitForElementLoad("DashboardTransactionsPage.HeaderText");
         Assert.assertFalse(dashboardLoginPage.isElementPresent(By.xpath("//a[@href='" + lastOrderUrl + "']/*/div[contains(@class, 'refund')]")));
 
-        OrderPage OrderPage = dashboardTransactionsPage.openOrderPageByLink(GetProperties.value("DashboardUrl") + lastOrderUrl);
-        email.setEmailRecipient(OrderPage.getEmail());
-        order.setGrossRevenue(OrderPage.getTotalChargeSum());
-        order.setCountry(OrderPage.getBillingAddress());
-        order.setUUID(OrderPage.getOrderUid());
+        OrderPage orderPage = dashboardTransactionsPage.openOrderPageByLink(GetProperties.value("DashboardUrl") + lastOrderUrl);
+        email.setEmailRecipient(orderPage.getEmail());
+        order.setGrossRevenue(orderPage.getTotalChargeSum());
+        order.setCountry(orderPage.getBillingAddress());
+        order.setUUID(orderPage.getOrderUid());
 
         dashboardTransactionsPage = dashboardMainPage.clickOnTransactionSearchLink();
         dashboardTransactionsPage.openFilteredOrderList("refunded");
-        OrderPage refundOrderPage = dashboardTransactionsPage.openOrderByUrl(GetProperties.value("DashboardUrl")+lastOrderUrl);
+        Thread.sleep(3000);
+        OrderPage refundOrderPage = dashboardTransactionsPage.clickOnOrderBytransactionId(order.getTransactionID());
         refundOrderPage.getRefundOrderUid(order);
 
         MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
