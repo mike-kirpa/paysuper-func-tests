@@ -52,6 +52,7 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
+        payFormPage.inputZipCode(GetProperties.value("ZipCode"));
         order.setTotalAmount(payFormPage.getTotalAmount());
         app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),
                 order);
@@ -104,6 +105,7 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
+        payFormPage.inputZipCode(GetProperties.value("ZipCode"));
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessProductPayText"));
@@ -169,6 +171,7 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
+        payFormPage.inputZipCode(GetProperties.value("ZipCode"));
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessProductKeyPayText"));
@@ -252,6 +255,7 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
+        payFormPage.inputZipCode(GetProperties.value("ZipCode"));
         order.setTotalAmount(payFormPage.getTotalAmount());
         app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),
                 order);

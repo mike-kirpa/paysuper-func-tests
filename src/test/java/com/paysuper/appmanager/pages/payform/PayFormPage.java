@@ -78,6 +78,12 @@ public class PayFormPage extends AbstractPage {
         driver.findElement(Locators.get("PayForm.EmailField")).sendKeys(email);
     }
 
+    public void inputZipCode(String zip) {
+        if(isElementPresent(Locators.get("PayForm.ZipField"))) {
+            driver.findElement(Locators.get("PayForm.ZipField")).sendKeys(zip);
+        }
+    }
+
     public void clickPayButton(){
         driver.findElement(Locators.get("PayForm.PayButton")).click();
         waitForElementLoad("PayForm.formLayout");

@@ -8,8 +8,8 @@
 ## Running your tests
 
 * To run profile "suite" on tst env. in browserstack - mvn test -P suite -Dzone=tst -Dlocalrun=false
+* To run profile "suite" on stg env. on local browser - mvn test -P suite -Dzone=stg -Dlocalrun=false
 * To run profile "suite" on prod env. in browserstack  - mvn test -P suite -Dzone=prod -Dlocalrun=false
-* To run profile "suite" on tst env. on local browser - mvn test -P suite -Dzone=tst -Dlocalrun=true
 
  Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 
