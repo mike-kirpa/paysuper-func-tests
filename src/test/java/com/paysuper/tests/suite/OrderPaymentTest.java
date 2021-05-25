@@ -254,8 +254,8 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardNumber(GetProperties.value("No3DSSPaymentDECLINED"));
         payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
-        payFormPage.inputEmail(email.getEmailRecipient());
         payFormPage.inputZipCode(GetProperties.value("ZipCode"));
+        payFormPage.inputEmail(email.getEmailRecipient());
         order.setTotalAmount(payFormPage.getTotalAmount());
         app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),
                 order);
