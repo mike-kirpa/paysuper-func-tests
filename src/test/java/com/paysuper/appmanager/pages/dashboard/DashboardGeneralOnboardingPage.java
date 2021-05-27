@@ -158,6 +158,9 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void enterTextInBankAddressField(String BankAddress){
+        if(BankAddress.length() > 60){
+            BankAddress = BankAddress.substring(0, 60);
+        }
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.BankAddressField")));
         driver.findElement(Locators.get("DashboardOnboardingPage.BankAddressField")).sendKeys(BankAddress);
     }

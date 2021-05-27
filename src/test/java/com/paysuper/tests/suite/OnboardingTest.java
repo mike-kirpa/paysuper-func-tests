@@ -68,7 +68,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.selectAccountCurrency();
         dashboardGeneralOnboardingPage.enterTextInIbanField("DE89370400440532013000");
         dashboardGeneralOnboardingPage.enterTextInBankNameField(faker.funnyName().name().replaceAll("'",""));
-        dashboardGeneralOnboardingPage.enterTextInBankAddressField(faker.address().fullAddress().replaceAll("'","").substring(0, 60));
+        dashboardGeneralOnboardingPage.enterTextInBankAddressField(faker.address().fullAddress().replaceAll("'",""));
         dashboardGeneralOnboardingPage.clickOnSubmitBankingInfoButton();
         //5th step - Payment Methods
         dashboardGeneralOnboardingPage.clickOn5rdStepPaymentMethodsButton();

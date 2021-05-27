@@ -2,7 +2,6 @@ package com.paysuper.tests;
 
 
 import com.paysuper.appmanager.helpers.GetProperties;
-import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.helpers.MailParser;
 import com.paysuper.appmanager.helpers.MockApi;
 import com.paysuper.appmanager.models.Email;
@@ -47,6 +46,7 @@ public class SingleTest extends TestBase {
         payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputEmail(email.getEmailRecipient());
+        payFormPage.inputZipCode(GetProperties.value("ZipCode"));
         order.setTotalAmount(payFormPage.getTotalAmount());
         app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),
                 order);
