@@ -268,6 +268,50 @@ public class OrderPaymentTest extends TestBase {
         mockApi.checkAndCleatEvent(actualWebhook);
         Assert.assertEquals(expectedWebhook, actualWebhook, "Actual webhook's data not equal:");
     }
+    @Test(description="paylink payment",
+            groups = {"tst", "stg", "prod", "pay"})
+    public void PayLinkSuccessPayTest() {
+        Email email = new Email();
+        String unixTime;
+        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
 
+        app.driver.get(GetProperties.value("PayLinkURL") + GetProperties.value("PayLinkId"));
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                GetProperties.value("DefaultLanguage"),
+                GetProperties.value("DefautCountry"));
+        payFormPage.inputBankCardNumber(GetProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
+        payFormPage.inputZipCode(GetProperties.value("ZipCode"));
+        payFormPage.inputEmail(email.getEmailRecipient());
+        payFormPage.clickPayButton();
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessProductPayText"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
+    }
+
+    @Test(description="shortpaylink payment",
+            groups = {"tst", "stg", "prod", "pay"})
+    public void ShortPayLinkSuccessPayTest(){
+        Email email = new Email();
+        String unixTime;
+        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
+
+        app.driver.get(GetProperties.value("ShortPayLinkURL"));
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                GetProperties.value("DefaultLanguage"),
+                GetProperties.value("DefautCountry"));
+        payFormPage.inputBankCardNumber(GetProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
+        payFormPage.inputZipCode(GetProperties.value("ZipCode"));
+        payFormPage.inputEmail(email.getEmailRecipient());
+        payFormPage.clickPayButton();
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessProductPayText"));
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
+    }
 
 }
