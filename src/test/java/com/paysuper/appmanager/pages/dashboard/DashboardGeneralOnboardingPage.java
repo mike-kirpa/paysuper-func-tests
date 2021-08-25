@@ -177,6 +177,8 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
         waitForElementLoad("DashboardOnboardingPage.PaymentMethodsLink");
         moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")));
         driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")).click();
+        waitForElementLoad("DashboardOnboardingPage.PaymentMethodsButton");
+        driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsButton")).click();
     }
 
 
