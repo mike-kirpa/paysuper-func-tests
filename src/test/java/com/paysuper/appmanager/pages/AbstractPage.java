@@ -13,6 +13,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.List;
 
 public class AbstractPage extends TestBase {
@@ -103,10 +104,31 @@ public class AbstractPage extends TestBase {
         boolean textIsEqual;
         int count = 0;
         do {
-            element.clear();
+
+            if(!element.getAttribute("value").equals("")){
+                element.clear();
+            }
             element.sendKeys(text);
             textIsEqual = element.getAttribute("value").equals(text);
             count++;
+        } while (!textIsEqual && count < 5);
+    }
+
+    public void sendAndCheck(By by, String text){
+        WebElement element = driver.findElement(by);
+        boolean textIsEqual;
+        int count = 0;
+        do {
+
+            if(!element.getAttribute("value").equals("")){
+                element.clear();
+            }
+            element.sendKeys(text);
+            textIsEqual = element.getAttribute("value").equals(text);
+            System.out.println(textIsEqual);
+            System.out.println(element.getAttribute("value"));
+            count++;
+            System.out.println(count);
         } while (!textIsEqual && count < 5);
     }
 
@@ -129,4 +151,10 @@ public class AbstractPage extends TestBase {
     }
 
 
+    public void sendFilePath(String FileName, String locator){
+        File f = new File("src/test/resources/UploadFiles/" + FileName);
+        String path = f.getAbsolutePath();
+        waitForElementLoad("DashboardVirtualItemPage.ImageInput");
+        driver.findElement(Locators.get("DashboardVirtualItemPage.ImageInput")).sendKeys(path);
+    }
 }
