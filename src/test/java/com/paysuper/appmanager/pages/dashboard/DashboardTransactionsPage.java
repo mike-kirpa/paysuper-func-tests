@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DashboardTransactionsPage extends AbstractPage {
@@ -25,14 +26,17 @@ public class DashboardTransactionsPage extends AbstractPage {
         waitForClickAbleElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
         List<WebElement> svgObject = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg"));
         List<WebElement> lastOrder = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
-        WebElement webElement = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionUrl")).get(2);
+        WebElement webElement = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionUrl"));
         String lastOrderUrl = webElement.getAttribute("pathname");
-        String transactionId = driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionID")).get(2).getText();
+        String[] separated = lastOrderUrl.split("/");
+        lastOrderUrl = "/" + separated[1] + "/transactions/" + separated[2];
+        String transactionId = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionID")).getText();
         order.setTransactionID(transactionId);
+        System.out.println("transactionId:" + order.getTransactionID());
         Actions builder = new Actions(driver);
-        builder.moveToElement(driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg")).get(2)).build().perform();
+        builder.moveToElement(driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg"))).build().perform();
 //        builder.click(svgObject.get(0)).build().perform();
-        driver.findElements(Locators.get("DashboardTransactionsPage.LastTransactionSvg")).get(2).click();
+        driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg")).click();
         return lastOrderUrl;
     }
     public void clickOnConfrimRefundButton(){
@@ -70,7 +74,12 @@ public class DashboardTransactionsPage extends AbstractPage {
         By by = Locators.get("DashboardTransactionsPage.orderByTransactionID", transactionid);
         WebElement webElement = driver.findElement(by);
         waitForClickAbleElement(webElement);
-        webElement.click();
+
+        String lastOrderUrl = webElement.getAttribute("pathname");
+        String[] separated = lastOrderUrl.split("/");
+        lastOrderUrl = "/" + separated[1] + "/transactions/" + separated[2];
+        driver.get(GetProperties.value("DashboardUrl") + lastOrderUrl);
+        //webElement.click();
         return new OrderPage(driver);
     }
 
@@ -84,6 +93,6 @@ public class DashboardTransactionsPage extends AbstractPage {
     }
 
     public void openFilteredOrderList(String filter){
-        driver.get(GetProperties.value("DashboardUrl") + GetProperties.value("FilteredOrderLink") + filter);
+        driver.get(GetProperties.value("DashboardUrl") + "/" + GetProperties.value("merchant_id") + GetProperties.value("FilteredOrderLink") + filter);
     }
 }
