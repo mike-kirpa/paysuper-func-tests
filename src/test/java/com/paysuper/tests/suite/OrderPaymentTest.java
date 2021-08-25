@@ -179,7 +179,7 @@ public class OrderPaymentTest extends TestBase {
     }
 
     @Test(description="Dashboard Refund From Order List",
-            groups = {"tst", "stg", "prod"})
+            groups = {"tst", "stg", "prod", "refund"})
     public void RefundFromOrderListTest() throws InterruptedException {
         Email email = new Email();
         Order order = new Order();
@@ -204,6 +204,7 @@ public class OrderPaymentTest extends TestBase {
         order.setGrossRevenue(orderPage.getTotalChargeSum());
         order.setCountry(orderPage.getBillingAddress());
         order.setUUID(orderPage.getOrderUid());
+
 
         dashboardTransactionsPage = dashboardMainPage.clickOnTransactionSearchLink();
         dashboardTransactionsPage.openFilteredOrderList("refunded");
