@@ -27,7 +27,7 @@ jobs:
           with:
             username:  ${{ secrets.BROWSERSTACK_USERNAME }}
             access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-            autotest_email_pass: ${{ secrets.autotest_email_pass }}
+            autotest_email_pass: ${{ secrets.AUTOTEST_EMAIL_PASS }}
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Check out the repository
