@@ -2,7 +2,7 @@
 
 name: UI Tests
 env:
-  autotest_email_pass: ${{ secrets.AUTOTEST_EMAIL_PASS }}
+  AUTOTEST_EMAIL_PASS: ${{ secrets.AUTOTEST_EMAIL_PASS }}
 
 # Controls when the workflow will run
 on:
