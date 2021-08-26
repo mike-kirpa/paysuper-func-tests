@@ -213,7 +213,7 @@ public class OrderPaymentTest extends TestBase {
         refundOrderPage.getRefundOrderUid(order);
 
         MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
-                System.getenv("autotest_email_pass"),
+                System.getenv("AUTOTEST_EMAIL_PASS"),
                 email);
         mailParser.parseRefundedCheck();
         org.testng.Assert.assertEquals(email.getTransactionID(), order.getUUID());
