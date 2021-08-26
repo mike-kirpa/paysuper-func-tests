@@ -1,6 +1,8 @@
 # This is a basic workflow to help you get started with Actions
 
 name: UI Tests
+env:
+  autotest_email_pass: ${{ secrets.AUTOTEST_EMAIL_PASS }}
 
 # Controls when the workflow will run
 on:
@@ -27,7 +29,6 @@ jobs:
           with:
             username:  ${{ secrets.BROWSERSTACK_USERNAME }}
             access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-            autotest_email_pass: ${{ secrets.AUTOTEST_EMAIL_PASS }}
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Check out the repository
