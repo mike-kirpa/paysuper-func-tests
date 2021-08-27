@@ -38,5 +38,3 @@ jobs:
         - name: Run a multi-line script
           run: |
             mvn test -P suite -Dzone=tst -Dlocalrun=false -Dgroups=tst
-            mvn test -P suite -Dzone=stg -Dlocalrun=false -Dgroups=stg
-            mvn test -P suite -Dzone=prod -Dlocalrun=false -Dgroups=prod
