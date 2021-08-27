@@ -3,7 +3,6 @@
 name: UI Tests
 env:
   AUTOTEST_EMAIL_PASS: ${{ secrets.AUTOTEST_EMAIL_PASS }}
-  HELLO_WORLD: ${{ secrets.HELLO_WORLD }}
   
 # Controls when the workflow will run
 on:
@@ -35,7 +34,12 @@ jobs:
         - name: Check out the repository
           uses: actions/checkout@v2
 
-      # Runs a set of commands using the runners shell
-        - name: Run a multi-line script
-          run: |
-            mvn test -P single -Dzone=tst -Dlocalrun=false -Dgroups=tst
+      
+        - name: Run a test on tst env
+          run: mvn test -P suite -Dzone=tst -Dlocalrun=false -Dgroups=tst
+          
+        - name: Run a test on stg env
+          run: mvn test -P suite -Dzone=stg -Dlocalrun=false -Dgroups=stg
+          
+        - name: Run a test on prod env
+          run: mvn test -P suite -Dzone=prod -Dlocalrun=false -Dgroups=prod
