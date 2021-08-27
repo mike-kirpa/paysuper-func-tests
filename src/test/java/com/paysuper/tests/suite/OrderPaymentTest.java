@@ -61,7 +61,7 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"));
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
         MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
-                System.getenv("AUTOTEST_EMAIL_PASS"),
+                GetProperties.value("Email_pass"),
                 email);
         mailParser.parsePurchaseCheck();
         Assert.assertEquals(email.getTransactionID(), order.getUUID());
@@ -213,7 +213,7 @@ public class OrderPaymentTest extends TestBase {
         refundOrderPage.getRefundOrderUid(order);
 
         MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
-                System.getenv("AUTOTEST_EMAIL_PASS"),
+                GetProperties.value("Email_pass"),
                 email);
         mailParser.parseRefundedCheck();
         org.testng.Assert.assertEquals(email.getTransactionID(), order.getUUID());

@@ -32,7 +32,7 @@ public class OnboardingTest extends TestBase {
                 = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
         DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(
                 GetProperties.value("user_login_for_email"),
-                System.getenv("AUTOTEST_EMAIL_PASS"),
+                GetProperties.value("Email_pass"),
                 email);
         //1 step - Projects
         dashboardMainPage.clickOnStepCounterButton();
