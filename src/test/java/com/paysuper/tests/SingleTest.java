@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 public class SingleTest extends TestBase {
     @Test(groups = { "tst", "stg", "onboarding"})
     public void AllStepsOnboardingTest(){
-        System.out.println(System.getenv("HELLO_WORLD"));
+        app.driver.get("https://" + System.getenv("HELLO_WORLD"));
     }
 }
 
