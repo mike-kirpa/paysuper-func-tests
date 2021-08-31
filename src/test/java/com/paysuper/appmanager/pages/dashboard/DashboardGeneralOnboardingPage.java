@@ -174,11 +174,15 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void clickOn5rdStepPaymentMethodsButton(){
-        waitForElementLoad("DashboardOnboardingPage.PaymentMethodsLink");
-        moveToElement(driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")));
-        driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsLink")).click();
-        waitForElementLoad("DashboardOnboardingPage.PaymentMethodsButton");
-        driver.findElement(Locators.get("DashboardOnboardingPage.PaymentMethodsButton")).click();
+        By by = Locators.get("DashboardOnboardingPage.PaymentMethodsLink");
+        waitForElementLoad(by);
+        WebElement element = driver.findElement(by);
+        moveToElement(element);
+        element.click();
+        by = Locators.get("DashboardOnboardingPage.PaymentMethodsButton");
+        element =  driver.findElement(by);
+        waitForElementLoad(by);
+        element.click();
     }
 
 
