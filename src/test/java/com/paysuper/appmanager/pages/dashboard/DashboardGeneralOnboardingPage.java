@@ -174,6 +174,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
     }
 
     public void clickOn5rdStepPaymentMethodsButton(){
+        driver.navigate().refresh();
         By by = Locators.get("DashboardOnboardingPage.PaymentMethodsLink");
         waitForElementLoad(by);
         WebElement element = driver.findElement(by);
