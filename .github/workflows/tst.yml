@@ -36,12 +36,5 @@ jobs:
         - name: Check out the repository
           uses: actions/checkout@v2
 
-      
         - name: Run a test on tst env
           run: mvn test -P suite -Dzone=tst -Dlocalrun=false -Dgroups=tst
-          
-        - name: Run a test on stg env
-          run: mvn test -P suite -Dzone=stg -Dlocalrun=false -Dgroups=stg
-          
-        - name: Run a test on prod env
-          run: mvn test -P suite -Dzone=prod -Dlocalrun=false -Dgroups=prod
