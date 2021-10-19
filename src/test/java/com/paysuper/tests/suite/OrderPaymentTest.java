@@ -256,6 +256,11 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
         payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
         payFormPage.inputZipCode(GetProperties.value("ZipCode"));
+        payFormPage.inputCity(GetProperties.value("CustomerCity"));
+        payFormPage.inputAddress(GetProperties.value("SomeAddress"));
+        payFormPage.inputPhone(GetProperties.value("Phone"));
+        payFormPage.inputWorkPhone(GetProperties.value("Phone"));
+        payFormPage.inputHomePhone(GetProperties.value("Phone"));
         payFormPage.inputEmail(email.getEmailRecipient());
         order.setTotalAmount(payFormPage.getTotalAmount());
         app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),

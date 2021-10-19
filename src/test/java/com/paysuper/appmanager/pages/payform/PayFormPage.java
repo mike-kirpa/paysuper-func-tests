@@ -60,18 +60,15 @@ public class PayFormPage extends AbstractPage {
     }
 
     public void inputBankCardNumber(String pan){
-        WebElement element = driver.findElement(Locators.get("PayForm.BankCardNumberField"));
-        sendAndCheck(element, pan);
+        sendAndCheck(driver.findElement(Locators.get("PayForm.BankCardNumberField")), pan);
     }
 
     public void inputBankCardExpired(String date){
-        WebElement element = driver.findElement(Locators.get("PayForm.BankCardExpiredField"));
-        sendAndCheck(element, date);
+            sendAndCheck(driver.findElement(Locators.get("PayForm.BankCardExpiredField")), date);
     }
 
     public void inputBankCardCVV(String cvv){
-        WebElement element = driver.findElement(Locators.get("PayForm.BankCardCVVField"));
-        sendAndCheck(element, cvv);
+            sendAndCheck(driver.findElement(Locators.get("PayForm.BankCardCVVField")), cvv);
     }
 
     public void inputEmail(String email){
@@ -84,7 +81,38 @@ public class PayFormPage extends AbstractPage {
         }
     }
 
+    public void inputCity(String city) {
+        if(isElementPresent(Locators.get("PayForm.CityField"))) {
+            driver.findElement(Locators.get("PayForm.CityField")).sendKeys(city);
+        }
+    }
+
+    public void inputAddress(String address) {
+        if(isElementPresent(Locators.get("PayForm.AddressField"))) {
+            driver.findElement(Locators.get("PayForm.AddressField")).sendKeys(address);
+        }
+    }
+
+    public void inputPhone(String phone) {
+        if(isElementPresent(Locators.get("PayForm.PhoneField"))) {
+            driver.findElement(Locators.get("PayForm.PhoneField")).sendKeys(phone);
+        }
+    }
+
+    public void inputWorkPhone(String phone) {
+        if(isElementPresent(Locators.get("PayForm.WorkPhoneField"))) {
+            driver.findElement(Locators.get("PayForm.WorkPhoneField")).sendKeys(phone);
+        }
+    }
+
+    public void inputHomePhone(String phone) {
+        if(isElementPresent(Locators.get("PayForm.HomePhoneField"))) {
+            driver.findElement(Locators.get("PayForm.HomePhoneField")).sendKeys(phone);
+        }
+    }
+
     public void clickPayButton(){
+        moveToElement(driver.findElement(Locators.get("PayForm.PayButton")));
         driver.findElement(Locators.get("PayForm.PayButton")).click();
         waitForElementLoad("PayForm.formLayout");
     }

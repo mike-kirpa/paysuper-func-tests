@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.StaleElementReferenceException;
 
 import java.io.File;
 import java.util.List;
@@ -156,5 +157,20 @@ public class AbstractPage extends TestBase {
         String path = f.getAbsolutePath();
         waitForElementLoad("DashboardVirtualItemPage.ImageInput");
         driver.findElement(Locators.get("DashboardVirtualItemPage.ImageInput")).sendKeys(path);
+    }
+
+    public boolean retryingFindClick(By by) {
+        boolean result = false;
+        int attempts = 0;
+        while(attempts < 5) {
+            try {
+                driver.findElement(by).click();
+                result = true;
+                break;
+            } catch(StaleElementReferenceException e) {
+            }
+            attempts++;
+        }
+        return result;
     }
 }
