@@ -77,36 +77,42 @@ public class PayFormPage extends AbstractPage {
 
     public void inputZipCode(String zip) {
         if(isElementPresent(Locators.get("PayForm.ZipField"))) {
+            moveToElement(driver.findElement(Locators.get("PayForm.ZipField")));
             driver.findElement(Locators.get("PayForm.ZipField")).sendKeys(zip);
         }
     }
 
     public void inputCity(String city) {
         if(isElementPresent(Locators.get("PayForm.CityField"))) {
+            moveToElement(driver.findElement(Locators.get("PayForm.CityField")));
             driver.findElement(Locators.get("PayForm.CityField")).sendKeys(city);
         }
     }
 
     public void inputAddress(String address) {
         if(isElementPresent(Locators.get("PayForm.AddressField"))) {
+            moveToElement(driver.findElement(Locators.get("PayForm.AddressField")));
             driver.findElement(Locators.get("PayForm.AddressField")).sendKeys(address);
         }
     }
 
     public void inputPhone(String phone) {
         if(isElementPresent(Locators.get("PayForm.PhoneField"))) {
+            moveToElement(driver.findElement(Locators.get("PayForm.PhoneField")));
             driver.findElement(Locators.get("PayForm.PhoneField")).sendKeys(phone);
         }
     }
 
     public void inputWorkPhone(String phone) {
         if(isElementPresent(Locators.get("PayForm.WorkPhoneField"))) {
+            moveToElement(driver.findElement(Locators.get("PayForm.WorkPhoneField")));
             driver.findElement(Locators.get("PayForm.WorkPhoneField")).sendKeys(phone);
         }
     }
 
     public void inputHomePhone(String phone) {
         if(isElementPresent(Locators.get("PayForm.HomePhoneField"))) {
+            moveToElement(driver.findElement(Locators.get("PayForm.HomePhoneField")));
             driver.findElement(Locators.get("PayForm.HomePhoneField")).sendKeys(phone);
         }
     }
