@@ -32,7 +32,7 @@ public class DashboardTransactionsPage extends AbstractPage {
         lastOrderUrl = "/" + separated[1] + "/transactions/" + separated[2];
         String transactionId = driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionID")).getText();
         order.setTransactionID(transactionId);
-        System.out.println("transactionId:" + order.getTransactionID());
+        //System.out.println("transactionId:" + order.getTransactionID());
         Actions builder = new Actions(driver);
         builder.moveToElement(driver.findElement(Locators.get("DashboardTransactionsPage.LastTransactionSvg"))).build().perform();
 //        builder.click(svgObject.get(0)).build().perform();
