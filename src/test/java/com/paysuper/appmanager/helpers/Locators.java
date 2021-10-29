@@ -1,5 +1,6 @@
 package com.paysuper.appmanager.helpers;
 
+import com.paysuper.appmanager.ApplicationManager;
 import org.openqa.selenium.By;
 
 import java.io.InputStream;
@@ -14,7 +15,7 @@ public class Locators {
 
     static {
         locators = new Properties();
-        InputStream is = Locators.class.getResourceAsStream("/locators/locators.properties");
+        InputStream is = Locators.class.getResourceAsStream("/locators/" + ApplicationManager.zone + ".locators.properties");
         try {
             locators.load(is);
         } catch (Exception e) {
