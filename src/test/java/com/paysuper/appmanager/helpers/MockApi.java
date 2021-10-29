@@ -49,7 +49,7 @@ public class MockApi {
         response = given()
                 .header("token", token)
                 .when()
-                .get("/api/mocks/6007fe89309f8b0017ee51ca/resources/6007ff28309f8b0017ee51e9/data")
+                .get("/api/mocks/6007fe89309f8b0017ee51ca/resources/" + GetProperties.value("EndpointId") +"/data")
                 .then()
                 .contentType(JSON)
                 .assertThat()
