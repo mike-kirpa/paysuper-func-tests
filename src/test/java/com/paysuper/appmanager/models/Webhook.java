@@ -42,7 +42,7 @@ public class Webhook {
             object_object = "order";
             object_status = "rejected";
             object_canceled = false;
-            object_cancellation = "[code:11, reason:Common decline by bank]";
+            object_cancellation = "[code:06, reason:3-D Secure availability is unknown]";
             object_refunded = false;
         }
     }
