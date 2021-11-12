@@ -34,12 +34,9 @@ public class OnboardingTest extends TestBase {
                 GetProperties.value("user_login_for_email"),
                 GetProperties.value("Email_pass"),
                 email);
-        //1 step - Projects
-        dashboardMainPage.clickOnStepCounterButton();
-        ProjectPage projectPage = new ProjectPage(app.driver);
-        projectPage.createNewProject(unixTime);
-        //2 step - Account Info
-        dashboardMainPage = projectPage.clickOnHomeLogo();
+
+        //1 step - Account Info
+        //dashboardMainPage = projectPage.clickOnHomeLogo();
         dashboardMainPage.clickOnStepCounterButton();
         DashboardGeneralOnboardingPage dashboardGeneralOnboardingPage = new DashboardGeneralOnboardingPage(app.driver);
         dashboardGeneralOnboardingPage.enterTextInLegalnameField(faker.funnyName().name().replaceAll("'",""));
@@ -52,7 +49,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.enterTextInZipCodeField("12501");
         dashboardGeneralOnboardingPage.enterTextInAddress1Field(faker.address().fullAddress().replaceAll("'",""));
         dashboardGeneralOnboardingPage.clickOnAccountSubmitButton();
-        //3 step -Contacts
+        //2 step -Contacts
         dashboardGeneralOnboardingPage.clickOn3rdStepContactsButton();
         dashboardGeneralOnboardingPage.enterTextInNameRepresentativeField(faker.name().firstName().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInPositionRepresentativeField(faker.job().position());
@@ -62,7 +59,7 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.enterTextInEmailTechnicalField(generated_user_email);
         dashboardGeneralOnboardingPage.enterTextInPhoneTechnicalField(faker.regexify("[0-9]{10}"));
         dashboardGeneralOnboardingPage.clickOnSubmitContactsButton();
-        //4th step - Banking Info
+        //3th step - Banking Info
         dashboardGeneralOnboardingPage.clickOn4rdStepBankingInfoButton();
         dashboardGeneralOnboardingPage.enterTextInSwiftField("COBADEFF");
         dashboardGeneralOnboardingPage.selectAccountCurrency();
@@ -70,15 +67,20 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.enterTextInBankNameField(faker.funnyName().name().replaceAll("'",""));
         dashboardGeneralOnboardingPage.enterTextInBankAddressField(faker.address().fullAddress().replaceAll("'",""));
         dashboardGeneralOnboardingPage.clickOnSubmitBankingInfoButton();
-        //5th step - Payment Methods
+        //4th step - Payment Methods
         dashboardGeneralOnboardingPage.clickOn5rdStepPaymentMethodsButton();
         dashboardGeneralOnboardingPage.selectTheMainSalesRegion();
         dashboardGeneralOnboardingPage.clickOnSubmitApplicationButton();
-        //6th step - Company Documents
+        //5th step - Company Documents
         dashboardGeneralOnboardingPage.clickOn6thStepCompanyDocumentsButton();
         dashboardGeneralOnboardingPage.sendFilePath();
         dashboardGeneralOnboardingPage.typeFileTextInField(faker.regexify("[a-z]{10}"));
         dashboardGeneralOnboardingPage.clickOnSubmitDocumentsButton();
+        //6 step - Projects
+        dashboardMainPage.clickOnStepCounterButton();
+        ProjectPage projectPage = new ProjectPage(app.driver);
+        projectPage.createNewProject(unixTime);
+        projectPage.clickOnHomeLogo();
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
         Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
                 GetProperties.value("7Step"),

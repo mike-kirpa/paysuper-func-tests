@@ -10,7 +10,7 @@ import com.paysuper.tests.TestBase;
 public class DashboardPaySuper extends TestBase {
 
     @Test(description="Dashboard Login-Logout",
-            groups = {"tst", "stg", "prod"})
+            groups = {"tst", "stg", "prod", "login"})
     public void LoginSuccess() {
         app.driver.get(GetProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
