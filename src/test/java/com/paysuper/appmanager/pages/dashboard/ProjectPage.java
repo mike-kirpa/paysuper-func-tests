@@ -29,6 +29,10 @@ public class ProjectPage extends AbstractPage {
         waitForElementLoad(Locators.get(String.format("DashboardProjectPage.ProjectNameText"), projectName));
     }
 
+    public boolean isProjectExist(String projectName){
+        return isElementPresent(Locators.get(String.format("DashboardProjectPage.ProjectNameInListText"), projectName));
+    }
+
 
     public void createNewProject(String projectName){
         clickOnCreateProjectButton();

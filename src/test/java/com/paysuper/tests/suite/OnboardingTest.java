@@ -77,10 +77,10 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.typeFileTextInField(faker.regexify("[a-z]{10}"));
         dashboardGeneralOnboardingPage.clickOnSubmitDocumentsButton();
         //6 step - Projects
-        dashboardMainPage.clickOnStepCounterButton();
-        ProjectPage projectPage = new ProjectPage(app.driver);
-        projectPage.createNewProject(unixTime);
+
+        ProjectPage projectPage = dashboardMainPage.clickOnProjectLink();
         projectPage.clickOnHomeLogo();
+        Assert.assertTrue(projectPage.isProjectExist(GetProperties.value("Default project")));
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
         Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
                 GetProperties.value("7Step"),
