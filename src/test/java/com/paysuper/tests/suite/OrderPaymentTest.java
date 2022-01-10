@@ -21,7 +21,7 @@ import com.paysuper.tests.TestBase;
 public class OrderPaymentTest extends TestBase {
 
     @Test(description="success simple payment",
-            groups = {"tst", "stg", "prod", "pay"})
+            groups = {"tst", "stg", "prod", "pay", "simple-pay"})
     public void SimpleOrderSuccessPayTest() throws InterruptedException {
         Webhook actualWebhook = new Webhook("null");
         Webhook expectedWebhook = new Webhook("order.processed");
