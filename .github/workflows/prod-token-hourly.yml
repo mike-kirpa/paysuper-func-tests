@@ -33,4 +33,4 @@ jobs:
           uses: actions/checkout@v2
           
         - name: Run a test on prod env
-          run: mvn test -P suite -Dzone=prod -Dlocalrun=false -Dgroups=prod
+          run: mvn test -P suite -Dzone=prod -Dlocalrun=false -Dgroups=simple-pay
