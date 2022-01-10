@@ -74,6 +74,7 @@ public class ApplicationManager {
                 l.start(options);
             }
             capabilities.setCapability("resolution", "1920x1080");
+            capabilities.setCapability("browserstack.idleTimeout", "300");
             //capabilities.setCapability("browserstack.geoLocation", "DE");
             driver = new RemoteWebDriver(
                     new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
