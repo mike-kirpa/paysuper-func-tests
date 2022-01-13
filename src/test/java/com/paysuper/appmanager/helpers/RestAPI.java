@@ -33,6 +33,41 @@ public class RestAPI {
         return response.then().extract().path("payment_form_url");
     }
 
+    public String createPayment(String apiURL, Order order) {
+        RestAssured.baseURI = apiURL;
+        RequestSpecification request = given();
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("project", order.getProjectId());
+        requestParams.put("amount", Double.parseDouble(order.getOrderAmount()));
+        requestParams.put("currency", order.getOrderCurrency());
+        requestParams.put("type", "simple");
+        request.header("Content-Type", "application/json");
+        request.body(requestParams.toJSONString());
+        response = request.post("/order");
+        order.setUUID((String) response.then().extract().path("id"));
+
+        RequestSpecification request2 = given();
+        JSONObject requestParams2 = new JSONObject();
+        requestParams2.put("email", "michael.kirpa@gmail.com");
+        requestParams2.put("cvv", "222");
+        requestParams2.put("month", "02");
+        requestParams2.put("year", "22");
+        requestParams2.put("pan", "4000000000000002");
+        requestParams2.put("card_holder", "Cardholder");
+        requestParams2.put("order_id", order.getUUID());
+        requestParams2.put("payment_method_id", "5be2d0b4b0b30d0007383ce6");
+        requestParams2.put("store_data", false);
+        requestParams2.put("country", "AT");
+        requestParams2.put("recurring_plan_id", null);
+        request2.header("Content-Type", "application/json");
+        request2.body(requestParams2.toJSONString());
+        response = request2.post("/payment");
+        response.getStatusCode();
+
+        return response.then().extract().path("payment_form_url");
+    }
+
+
     public String createProductOrder(String apiURL, String type, Order order)
     {
         RestAssured.baseURI = apiURL;

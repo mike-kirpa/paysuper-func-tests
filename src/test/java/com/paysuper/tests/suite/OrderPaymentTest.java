@@ -320,4 +320,56 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
     }
 
+    @Test(description="success payment with a saved card",
+            groups = {"tst", "stg", "prod", "pay", "pay-with-saved-card"})
+    public void SimpleOrderSavedCardSuccessPayTest() throws InterruptedException {
+        Webhook actualWebhook = new Webhook("null");
+        Webhook expectedWebhook = new Webhook("order.processed");
+        MockApi mockApi = new MockApi();
+        Email email = new Email();
+        Order order = new Order();
+        String payment_form_url;
+        String unixTime;
+
+
+        order.setOrderCurrency(GetProperties.value("OrderCurrency"));
+        order.setOrderAmount(GetProperties.value("OrderAmount"));
+        order.setProjectId(GetProperties.value("ProjectId"));
+        email.setSubject(GetProperties.value("EmailPurchaseCheckSubject"));
+
+        unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        email.setEmailRecipient("autotest.protocolone+" + unixTime + "@gmail.com");
+
+        payment_form_url = app.restAPI.createSimpleOrder(
+                GetProperties.value("ApiUrlCheckout"),
+                order);
+        app.driver.get(payment_form_url);
+        PayFormPage payFormPage =new PayFormPage(app.driver,
+                GetProperties.value("DefaultLanguage"),
+                GetProperties.value("DefautCountry"));
+//        Assert.assertEquals(app.driver.findElement(Locators.get("PayForm.OrderSummaryValue")).getText(), "€" + order.getOrderAmount());
+        payFormPage.inputBankCardNumber(GetProperties.value("ValidNo3DSBankCard"));
+        payFormPage.inputBankCardExpired(GetProperties.value("ValidExpiredDate"));
+        payFormPage.inputBankCardCVV(GetProperties.value("ValidCVV"));
+        payFormPage.inputZipCode(GetProperties.value("ZipCode"));
+        payFormPage.inputEmail(email.getEmailRecipient());
+        order.setTotalAmount(payFormPage.getTotalAmount());
+        app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),
+                order);
+        payFormPage.clickRememberMeCheckbox();
+        payFormPage.clickPayButton();
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"), "Incorrect title of payform after paid:");
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"), "Incorrect message in payform after paid:");
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient(), "Incorrect customer email in payform after paid:");
+
+        payment_form_url = app.restAPI.createSimpleOrder(GetProperties.value("ApiUrlCheckout"), order);
+        app.driver.get(payment_form_url);
+        payFormPage =new PayFormPage(app.driver, GetProperties.value("DefaultLanguage"), GetProperties.value("DefautCountry"));
+        Assert.assertEquals(payFormPage.getSavedBankCardNumber(), GetProperties.value("ValidNo3DSBankCardMasked"), "Incorrect saved card number in payform:");
+        payFormPage.inputEmail(email.getEmailRecipient());
+        payFormPage.clickPayButton();
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"), "Incorrect title of payform after paid:");
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"), "Incorrect message in payform after paid:");
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient(), "Incorrect customer email in payform after paid:");
+    }
 }

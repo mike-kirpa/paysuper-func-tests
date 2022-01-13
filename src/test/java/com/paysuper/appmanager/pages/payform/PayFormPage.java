@@ -141,4 +141,13 @@ public class PayFormPage extends AbstractPage {
         return getTextOfElement("PayForm.EmailAfterPay");
     }
 
+    public  void clickRememberMeCheckbox(){
+        moveToElement(driver.findElement(Locators.get("PayForm.RememberMeCheckbox")));
+        driver.findElement(Locators.get("PayForm.RememberMeCheckbox")).click();
+    }
+    public String getSavedBankCardNumber(){
+        waitForElementLoad("PayForm.SavedBankCardField");
+        return  getTextOfElement("PayForm.SavedBankCardField");
+    }
+
 }
