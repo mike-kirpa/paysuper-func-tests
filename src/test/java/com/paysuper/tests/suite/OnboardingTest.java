@@ -80,7 +80,7 @@ public class OnboardingTest extends TestBase {
 
         ProjectPage projectPage = dashboardMainPage.clickOnProjectLink();
 
-        Assert.assertTrue(projectPage.isProjectExist(GetProperties.value("DefaultProject")));
+        Assert.assertTrue(projectPage.isProjectExist(GetProperties.value("DefaultProject")), "Default project not created");
         projectPage.clickOnHomeLogo();
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
         Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
