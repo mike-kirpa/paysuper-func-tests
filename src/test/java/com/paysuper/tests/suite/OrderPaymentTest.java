@@ -360,12 +360,12 @@ public class OrderPaymentTest extends TestBase {
         payment_form_url = app.restAPI.createSimpleOrder(GetProperties.value("ApiUrlCheckout"), order);
         for(int i = 0; i < 5; i++){
             app.driver.get(payment_form_url);
+            payFormPage =new PayFormPage(app.driver, GetProperties.value("DefaultLanguage"), GetProperties.value("DefautCountry"));
             if (payFormPage.isElementPresent("PayForm.SavedBankCardField")){
                 break;
             }
-            Thread.sleep(1000);
+            Thread.sleep(500);
         }
-        payFormPage =new PayFormPage(app.driver, GetProperties.value("DefaultLanguage"), GetProperties.value("DefautCountry"));
         Assert.assertEquals(payFormPage.getSavedBankCardNumber(), GetProperties.value("ValidNo3DSBankCardMasked"), "Incorrect saved card number in payform:");
         payFormPage.inputEmail(email.getEmailRecipient());
         payFormPage.clickPayButton();
