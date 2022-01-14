@@ -150,4 +150,13 @@ public class PayFormPage extends AbstractPage {
         return  getTextOfElement("PayForm.SavedBankCardField");
     }
 
+    public void clickOnDeleteCardButton(){
+        driver.findElement(Locators.get("PayForm.DeleteCardButton")).click();
+        try {
+            Thread.sleep(5500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

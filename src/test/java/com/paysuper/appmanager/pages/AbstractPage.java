@@ -72,8 +72,8 @@ public class AbstractPage extends TestBase {
         }
     }
 
-
     public String getTextOfElement(String LocatorName){
+        waitForElementLoad(LocatorName);
         return driver.findElement(Locators.get(LocatorName)).getText();
     }
 

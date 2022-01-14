@@ -57,9 +57,9 @@ public class OrderPaymentTest extends TestBase {
         app.restAPI.getOrderForPayForm(GetProperties.value("ApiUrlCheckout"),
                 order);
         payFormPage.clickPayButton();
-        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"));
-        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"));
-        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient());
+        Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"), "Incorrect title of payform after paid:");
+        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"), "Incorrect message in payform after paid:");
+        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient(), "Incorrect customer email in payform after paid:");
         MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
                 GetProperties.value("Email_pass"),
                 email);
@@ -323,14 +323,11 @@ public class OrderPaymentTest extends TestBase {
     @Test(description="success payment with a saved card",
             groups = {"tst", "stg", "prod", "pay", "pay-with-saved-card"})
     public void SimpleOrderSavedCardSuccessPayTest() throws InterruptedException {
-        Webhook actualWebhook = new Webhook("null");
-        Webhook expectedWebhook = new Webhook("order.processed");
-        MockApi mockApi = new MockApi();
+
         Email email = new Email();
         Order order = new Order();
         String payment_form_url;
         String unixTime;
-
 
         order.setOrderCurrency(GetProperties.value("OrderCurrency"));
         order.setOrderAmount(GetProperties.value("OrderAmount"));
@@ -359,11 +356,15 @@ public class OrderPaymentTest extends TestBase {
         payFormPage.clickRememberMeCheckbox();
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"), "Incorrect title of payform after paid:");
-        Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"), "Incorrect message in payform after paid:");
-        Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient(), "Incorrect customer email in payform after paid:");
 
         payment_form_url = app.restAPI.createSimpleOrder(GetProperties.value("ApiUrlCheckout"), order);
-        app.driver.get(payment_form_url);
+        for(int i = 0; i < 5; i++){
+            app.driver.get(payment_form_url);
+            if (payFormPage.isElementPresent("PayForm.SavedBankCardField")){
+                break;
+            }
+            Thread.sleep(1000);
+        }
         payFormPage =new PayFormPage(app.driver, GetProperties.value("DefaultLanguage"), GetProperties.value("DefautCountry"));
         Assert.assertEquals(payFormPage.getSavedBankCardNumber(), GetProperties.value("ValidNo3DSBankCardMasked"), "Incorrect saved card number in payform:");
         payFormPage.inputEmail(email.getEmailRecipient());
@@ -371,5 +372,11 @@ public class OrderPaymentTest extends TestBase {
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"), "Incorrect title of payform after paid:");
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"), "Incorrect message in payform after paid:");
         Assert.assertEquals(payFormPage.getFormEmailAfterPay(), email.getEmailRecipient(), "Incorrect customer email in payform after paid:");
+
+        payment_form_url = app.restAPI.createSimpleOrder(GetProperties.value("ApiUrlCheckout"), order);
+        app.driver.get(payment_form_url);
+        payFormPage =new PayFormPage(app.driver, GetProperties.value("DefaultLanguage"), GetProperties.value("DefautCountry"));
+        payFormPage.clickOnDeleteCardButton();
+        Assert.assertTrue(payFormPage.isElementNotPresent("PayForm.SavedBankCardField"), "Saved card number is present");
     }
 }
