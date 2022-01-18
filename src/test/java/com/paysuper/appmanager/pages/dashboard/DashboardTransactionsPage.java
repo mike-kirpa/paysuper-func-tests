@@ -72,8 +72,9 @@ public class DashboardTransactionsPage extends AbstractPage {
 
     public OrderPage clickOnOrderBytransactionId(String transactionid){
         By by = Locators.get("DashboardTransactionsPage.orderByTransactionID", transactionid);
+        waitForClickAbleElement(by);
         WebElement webElement = driver.findElement(by);
-        waitForClickAbleElement(webElement);
+
 
         String lastOrderUrl = webElement.getAttribute("pathname");
         String[] separated = lastOrderUrl.split("/");
