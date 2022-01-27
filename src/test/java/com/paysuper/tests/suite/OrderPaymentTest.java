@@ -367,7 +367,7 @@ public class OrderPaymentTest extends TestBase {
             Thread.sleep(500);
         }
         Assert.assertEquals(payFormPage.getSavedBankCardNumber(), GetProperties.value("ValidNo3DSBankCardMasked"), "Incorrect saved card number in payform:");
-        payFormPage.inputEmail(email.getEmailRecipient());
+        //payFormPage.inputEmail(email.getEmailRecipient());
         payFormPage.clickPayButton();
         Assert.assertEquals(payFormPage.getFormTitleAfterPay(), GetProperties.value("EnSuccessPayTitle"), "Incorrect title of payform after paid:");
         Assert.assertEquals(payFormPage.getFormTextAfterPay(), GetProperties.value("EnSuccessSimplePayText"), "Incorrect message in payform after paid:");
