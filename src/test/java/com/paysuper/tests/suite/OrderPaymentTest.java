@@ -179,7 +179,7 @@ public class OrderPaymentTest extends TestBase {
     }
 
     @Test(description="Dashboard Refund From Order List",
-            groups = {"tst", "stg", "prod", "refund"})
+            groups = {"refund"})
     public void RefundFromOrderListTest() throws InterruptedException {
         Email email = new Email();
         Order order = new Order();
