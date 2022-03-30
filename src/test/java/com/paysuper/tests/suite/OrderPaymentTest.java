@@ -225,7 +225,7 @@ public class OrderPaymentTest extends TestBase {
     }
 
     @Test(description="Decline 3DS simple payment",
-            groups = {"tst", "stg", "prod", "pay"})
+            groups = {"tst", "prod", "pay"})
     public void SimpleOrder3DSDeclineTest() throws InterruptedException {
         Webhook actualWebhook = new Webhook("null");
         Webhook expectedWebhook = new Webhook("payment.cancel");
