@@ -18,7 +18,7 @@ public class MockApi {
     private String token;
     private final String url = "https://mockapi.io";
     private Response response;
-    final private String mockapi_email = "autotest.protocolone@gmail.com";
+    final private String mockapi_email = "m.kirpa@unlimint.com";
     final private String mockapi_pass = "Pw,:Af44=8XN8)~:";
 
 
