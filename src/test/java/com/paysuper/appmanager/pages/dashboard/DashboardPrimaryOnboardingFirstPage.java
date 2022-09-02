@@ -28,11 +28,6 @@ public class DashboardPrimaryOnboardingFirstPage extends AbstractPage {
         driver.findElement(Locators.get("DashboardPrimaryOnboardingFirstPage.LastNameField")).sendKeys(LastName);
     }
 
-    private void clickOnNextButton(){
-        waitForClickAbleElement(Locators.get("DashboardPrimaryOnboarding.NextButton"));
-        driver.findElement(Locators.get("DashboardPrimaryOnboarding.NextButton")).click();
-    }
-
     public void selectPosition(){
         waitForClickAbleElement(Locators.get("DashboardPrimaryOnboardingFirstPage.PositionField"));
         dropDownSelect(Locators.get("DashboardPrimaryOnboardingFirstPage.PositionField"), Locators.get("DashboardPrimaryOnboardingPage.SelectOptions"), false, 0);

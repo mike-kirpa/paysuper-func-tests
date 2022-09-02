@@ -173,4 +173,9 @@ public class AbstractPage extends TestBase {
         }
         return result;
     }
+
+    public void clickOnNextButton(){
+        waitForClickAbleElement(Locators.get("DashboardPrimaryOnboarding.NextButton"));
+        driver.findElement(Locators.get("DashboardPrimaryOnboarding.NextButton")).click();
+    }
 }
