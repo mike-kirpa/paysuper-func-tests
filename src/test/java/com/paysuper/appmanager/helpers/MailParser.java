@@ -98,7 +98,7 @@ public class MailParser {
     public void parsePurchaseCheck(){
         org.jsoup.nodes.Document html = getMail(email.getSubject());
         //Get "Total" from email and set in Email
-        email.setTotal(html.selectFirst("td:nth-child(2)>b").text());
+        email.setTotal(html.selectFirst("tr:nth-child(8) > td:nth-child(2) > b").text());
         //Get "Transaction Date" from email and set in Email
         email.setTransactionDate(html.selectFirst("tr:nth-child(3) > td:nth-child(2) > table > tbody > tr > td:nth-child(2)").text());
         //Get "Transaction ID" from email and set in Email

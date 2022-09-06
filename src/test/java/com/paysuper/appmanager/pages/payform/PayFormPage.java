@@ -130,7 +130,7 @@ public class PayFormPage extends AbstractPage {
     }
 
     public String getTotalAmount(){
-        return driver.findElement(Locators.get("PayForm.TotalAmountFromPAyForm")).getText();
+        return driver.findElement(Locators.get("PayForm.TotalAmountFromPAyForm")).getAttribute("title");
     }
 
     public String getFormTextAfterPay(){
