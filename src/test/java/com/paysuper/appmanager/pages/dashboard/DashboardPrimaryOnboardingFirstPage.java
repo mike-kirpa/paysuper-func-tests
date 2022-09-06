@@ -1,15 +1,8 @@
 package com.paysuper.appmanager.pages.dashboard;
 
-import com.paysuper.appmanager.helpers.DataGenerator;
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.pages.AbstractPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-
-import java.util.List;
-import java.util.Random;
 
 public class DashboardPrimaryOnboardingFirstPage extends AbstractPage {
     public DashboardPrimaryOnboardingFirstPage(WebDriver driver) {

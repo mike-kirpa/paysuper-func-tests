@@ -18,6 +18,7 @@ public class OnboardingTest extends TestBase {
         String generated_user_pass = "Q" + unixTime;
         email.setEmailRecipient(generated_user_email);
         email.setSubject(GetProperties.value("EmailVerificationSubject"));
+
         app.driver.get(GetProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
         dashboardLoginPage.clickOnSignInButton();
@@ -28,17 +29,14 @@ public class OnboardingTest extends TestBase {
                 = dashboardPrimaryOnboardingFirstPage.successFirstStepPrimaryOnboarding(faker.name().firstName().replaceAll("'",""), faker.name().lastName().replaceAll("'",""));
         DashboardPrimaryOnboardingThirdPage dashboardPrimaryOnboardingThirdPage
                 = dashboardPrimaryOnboardingSecondPage.successSecondPagePrimaryOnboarding();
-        DashboardPrimaryOnboardingFourthPage dashboardPrimaryOnboardingFourthPage
-                = dashboardPrimaryOnboardingThirdPage.successFouthPagePrimaryOnboarding();
         DashboardVerifyEmailPage dashboardVerifyEmailPage
-                = dashboardPrimaryOnboardingFourthPage.successFouthPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
+                = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
         DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(
                 GetProperties.value("user_login_for_email"),
                 GetProperties.value("Email_pass"),
                 email);
 
         //1 step - Account Info
-        //dashboardMainPage = projectPage.clickOnHomeLogo();
         dashboardMainPage.clickOnStepCounterButton();
         DashboardGeneralOnboardingPage dashboardGeneralOnboardingPage = new DashboardGeneralOnboardingPage(app.driver);
         dashboardGeneralOnboardingPage.enterTextInLegalnameField(faker.funnyName().name().replaceAll("'",""));
@@ -79,11 +77,10 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.typeFileTextInField(faker.regexify("[a-z]{10}"));
         dashboardGeneralOnboardingPage.clickOnSubmitDocumentsButton();
         //6 step - Projects
-
         ProjectPage projectPage = dashboardMainPage.clickOnProjectLink();
-
         Assert.assertTrue(projectPage.isProjectExist(GetProperties.value("DefaultProject")), "Default project not created");
         projectPage.clickOnHomeLogo();
+
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
         Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
                 GetProperties.value("7Step"),
