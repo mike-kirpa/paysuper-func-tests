@@ -3,6 +3,7 @@ package com.paysuper.appmanager.pages;
 import com.paysuper.appmanager.helpers.DataGenerator;
 import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
+import com.paysuper.appmanager.pages.dashboard.DashboardLoginPage;
 import com.paysuper.appmanager.pages.dashboard.DashboardTransactionsPage;
 import com.paysuper.tests.TestBase;
 import org.openqa.selenium.By;
@@ -177,5 +178,14 @@ public class AbstractPage extends TestBase {
     public void clickOnNextButton(){
         waitForClickAbleElement(Locators.get("DashboardPrimaryOnboarding.NextButton"));
         driver.findElement(Locators.get("DashboardPrimaryOnboarding.NextButton")).click();
+    }
+
+    public void clickOnProfileIcon(){
+        driver.findElement(Locators.get("DashboardMainPage.ProfileIcon")).click();
+    }
+
+    public DashboardLoginPage clickOnLogoutInProfileMenu(){
+        driver.findElement(Locators.get("DashboardMainPage.LogoutInProfileIcon")).click();
+        return new DashboardLoginPage(driver);
     }
 }

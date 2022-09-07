@@ -26,14 +26,7 @@ public class DashboardMainPage extends AbstractPage {
         driver.findElement(Locators.get("DashboardMainPage.StepCounterButton")).click();
     }
 
-    public void clickOnProfileIcon(){
-        driver.findElement(Locators.get("DashboardMainPage.ProfileIcon")).click();
-    }
 
-    public DashboardLoginPage clickOnLogoutInProfileMenu(){
-            driver.findElement(Locators.get("DashboardMainPage.LogoutInProfileIcon")).click();
-            return new DashboardLoginPage(driver);
-    }
 
     public ProjectPage clickOnProjectLink(){
         waitForClickAbleElement(Locators.get("DashboardMainPage.ProjectLink"));

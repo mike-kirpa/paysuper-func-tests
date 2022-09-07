@@ -240,7 +240,7 @@ public class DashboardGeneralOnboardingPage extends AbstractPage {
 
     public String getCurrentNameOfTheStep(){
         waitForElementLoad(Locators.get("DashboardOnboardingPage.CurrentNameOfStepText"));
-        return driver.findElement(Locators.get("DashboardOnboardingPage.CurrentNameOfStepText")).getText();
+        return driver.findElement(Locators.get("DashboardOnboardingPage.CurrentNameOfStepText")).getText().substring(1).replaceFirst(".$","");
     }
 
 

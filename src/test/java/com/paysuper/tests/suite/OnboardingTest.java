@@ -6,7 +6,6 @@ import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.pages.dashboard.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import com.paysuper.tests.TestBase;
 
 public class OnboardingTest extends TestBase {
@@ -88,12 +87,12 @@ public class OnboardingTest extends TestBase {
         projectPage.clickOnHomeLogo();
 
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
-        Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
-                GetProperties.value("6Step"),
-                "Current name of step not equal:" + GetProperties.value("6Step"));
+        Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep(),
+                GetProperties.value("WaitForApprove"),
+                "Current name of step not equal:" + GetProperties.value("WaitForApprove"));
     }
 
-    @Test(groups = { "tst", "stg", "tst-crypto", "onboarding", "crypto"})
+    @Test(groups = { "tst", "stg", "tst-crypto", "onboarding"})
     public void CryptoOnboardingTest() throws Exception {
         Email email = new Email();
         String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
@@ -135,8 +134,8 @@ public class OnboardingTest extends TestBase {
         projectPage.clickOnHomeLogo();
 
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
-        Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
-                GetProperties.value("6Step"),
-                "Current name of step not equal:" + GetProperties.value("6Step"));
+        Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep(),
+                GetProperties.value("WaitForApprove"),
+                "Current name of step not equal:" + GetProperties.value("WaitForApprove"));
     }
 }
