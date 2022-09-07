@@ -24,6 +24,14 @@ public class MailParser {
     private String EmailRecipient;
 
 
+
+    public Email getEmail() {
+        return email;
+    }
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
     public MailParser(String user_login_for_email, String user_pass_for_email, Email email) {
     this.user_login_for_email = user_login_for_email;
     this.user_pass_for_email = user_pass_for_email;
@@ -90,7 +98,7 @@ public class MailParser {
     }
 
     public void parseVerifyEmail(){
-        org.jsoup.nodes.Document html = getMail(email.getSubject());
+        org.jsoup.nodes.Document html = getMail(GetProperties.value("EmailVerificationSubject"));
         Element link = html.selectFirst("a:contains(Verify My Email)");
         email.setVerifyHref(link.attr("href"));
     }
@@ -109,6 +117,21 @@ public class MailParser {
         email.setPaymentPartner(html.selectFirst("td:nth-child(2) > table > tbody > tr:nth-child(3) > td:nth-child(2)").text());
         //Get "WebCheckUrl" from email and set in Email
         email.setWebCheckUrl(html.selectFirst("a:contains(link)").attr("href"));
+    }
+
+
+    public void parseKYCEmail(){
+        org.jsoup.nodes.Document html = getMail(GetProperties.value("EmailKYCSubject"));
+        Element link = html.selectFirst("a:contains(Go to dashboard)");
+        email.setUrl(link.attr("href"));
+    }
+
+    public boolean isEmailExist(String subject){
+        org.jsoup.nodes.Document html = getMail(subject);
+        if (html == null){
+            return false;
+        }
+        return true;
     }
 
     public void parseRefundedCheck(){

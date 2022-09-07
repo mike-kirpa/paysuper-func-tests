@@ -1,6 +1,7 @@
 package com.paysuper.tests.suite;
 
 import com.paysuper.appmanager.helpers.GetProperties;
+import com.paysuper.appmanager.helpers.MailParser;
 import com.paysuper.appmanager.models.Email;
 import com.paysuper.appmanager.pages.dashboard.*;
 import org.testng.Assert;
@@ -10,14 +11,16 @@ import com.paysuper.tests.TestBase;
 
 public class OnboardingTest extends TestBase {
 
-    @Test(groups = { "tst", "stg", "onboarding"})
-    public void AllStepsOnboardingTest() throws Exception {
+    @Test(groups = { "tst", "stg", "tst-crypto", "onboarding"})
+    public void FiatOnboardingTest() throws Exception {
         Email email = new Email();
         String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
         String generated_user_email = "autotest.protocolone+" + unixTime + "@gmail.com";
         String generated_user_pass = "Q" + unixTime;
         email.setEmailRecipient(generated_user_email);
-        email.setSubject(GetProperties.value("EmailVerificationSubject"));
+        MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
+                GetProperties.value("Email_pass"),
+                email);
 
         app.driver.get(GetProperties.value("DashboardUrl"));
         DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
@@ -31,10 +34,7 @@ public class OnboardingTest extends TestBase {
                 = dashboardPrimaryOnboardingSecondPage.successSecondPagePrimaryOnboarding();
         DashboardVerifyEmailPage dashboardVerifyEmailPage
                 = dashboardPrimaryOnboardingThirdPage.successThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
-        DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(
-                GetProperties.value("user_login_for_email"),
-                GetProperties.value("Email_pass"),
-                email);
+        DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(mailParser);
 
         //1 step - Account Info
         dashboardMainPage.clickOnStepCounterButton();
@@ -71,19 +71,72 @@ public class OnboardingTest extends TestBase {
         dashboardGeneralOnboardingPage.clickOn5rdStepPaymentMethodsButton();
         dashboardGeneralOnboardingPage.selectTheMainSalesRegion();
         dashboardGeneralOnboardingPage.clickOnSubmitApplicationButton();
+        Assert.assertTrue(mailParser.isEmailExist(GetProperties.value("EmailRequestSubject")));
+
         //5th step - Company Documents
         dashboardGeneralOnboardingPage.clickOn6thStepCompanyDocumentsButton();
         dashboardGeneralOnboardingPage.sendFilePath();
         dashboardGeneralOnboardingPage.typeFileTextInField(faker.regexify("[a-z]{10}"));
         dashboardGeneralOnboardingPage.clickOnSubmitDocumentsButton();
-        //6 step - Projects
+
+        mailParser.parseKYCEmail();
+        app.driver.get(email.getUrl());
+
+        //Projects
         ProjectPage projectPage = dashboardMainPage.clickOnProjectLink();
         Assert.assertTrue(projectPage.isProjectExist(GetProperties.value("DefaultProject")), "Default project not created");
         projectPage.clickOnHomeLogo();
 
 //        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
         Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
-                GetProperties.value("7Step"),
-                "Current name of step not equal:" + GetProperties.value("7Step"));
+                GetProperties.value("6Step"),
+                "Current name of step not equal:" + GetProperties.value("6Step"));
+    }
+
+    @Test(groups = { "tst", "stg", "tst-crypto", "onboarding", "crypto"})
+    public void CryptoOnboardingTest() throws Exception {
+        Email email = new Email();
+        String unixTime = String.valueOf(System.currentTimeMillis() / 1000L);
+        String generated_user_email = "autotest.protocolone+" + unixTime + "@gmail.com";
+        String generated_user_pass = "Q" + unixTime;
+        email.setEmailRecipient(generated_user_email);
+        MailParser mailParser = new MailParser(GetProperties.value("user_login_for_email"),
+                GetProperties.value("Email_pass"),
+                email);
+
+        app.driver.get(GetProperties.value("DashboardUrl"));
+        DashboardLoginPage dashboardLoginPage = new DashboardLoginPage(app.driver);
+        dashboardLoginPage.clickOnSignInButton();
+        DashboardRegistrationPage dashboardRegistrationPage = dashboardLoginPage.clickOnSignUpButton();
+        DashboardPrimaryOnboardingFirstPage dashboardPrimaryOnboardingFirstPage
+                = dashboardRegistrationPage.successRegistration(generated_user_email, generated_user_pass);
+        DashboardPrimaryOnboardingSecondPage dashboardPrimaryOnboardingSecondPage
+                = dashboardPrimaryOnboardingFirstPage.successFirstStepPrimaryOnboarding(faker.name().firstName().replaceAll("'",""), faker.name().lastName().replaceAll("'",""));
+        DashboardPrimaryOnboardingThirdPage dashboardPrimaryOnboardingThirdPage
+                = dashboardPrimaryOnboardingSecondPage.successDAOSecondPagePrimaryOnboarding();
+        DashboardVerifyEmailPage dashboardVerifyEmailPage
+                = dashboardPrimaryOnboardingThirdPage.successDAOThirdPagePrimaryOnboarding(faker.funnyName().name().replaceAll("'",""), faker.company().url());
+        DashboardMainPage dashboardMainPage = dashboardVerifyEmailPage.VerifyEmail(mailParser);
+        //1 step - Account Info
+        dashboardMainPage.clickOnStepCounterButton();
+        DashboardGeneralOnboardingPage dashboardGeneralOnboardingPage = new DashboardGeneralOnboardingPage(app.driver);
+        //5th step - Company Documents
+        dashboardGeneralOnboardingPage.clickOn6thStepCompanyDocumentsButton();
+        dashboardGeneralOnboardingPage.sendFilePath();
+        dashboardGeneralOnboardingPage.typeFileTextInField(faker.regexify("[a-z]{10}"));
+        dashboardGeneralOnboardingPage.clickOnSubmitDocumentsButton();
+
+        mailParser.parseKYCEmail();
+        app.driver.get(email.getUrl());
+
+        //Projects
+        ProjectPage projectPage = dashboardMainPage.clickOnProjectLink();
+        Assert.assertTrue(projectPage.isProjectExist(GetProperties.value("DefaultProject")), "Default project not created");
+        projectPage.clickOnHomeLogo();
+
+//        Assert.assertTrue(DashboardGeneralOnboardingPage.isIncompletetStepNotPresense(), "There is incomplete onboarding step");
+        Assert.assertEquals(dashboardGeneralOnboardingPage.getCurrentNameOfTheStep().substring(1).replaceFirst(".$",""),
+                GetProperties.value("6Step"),
+                "Current name of step not equal:" + GetProperties.value("6Step"));
     }
 }

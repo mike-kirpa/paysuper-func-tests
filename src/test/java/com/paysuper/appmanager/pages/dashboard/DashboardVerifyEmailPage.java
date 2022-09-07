@@ -12,10 +12,9 @@ public class DashboardVerifyEmailPage extends AbstractPage {
         waitForElementLoad("DashboardVerifyEmailPage.Text");
     }
 
-    public DashboardMainPage VerifyEmail(String user_login_for_email, String autotest_email_pass, Email email) throws InterruptedException {
-        MailParser mailParser = new MailParser(user_login_for_email, autotest_email_pass, email);
+    public DashboardMainPage VerifyEmail(MailParser mailParser) throws InterruptedException {
         mailParser.parseVerifyEmail();
-        driver.get(email.getVerifyHref());
+        driver.get(mailParser.getEmail().getVerifyHref());
         return new DashboardMainPage(driver);
     }
 }

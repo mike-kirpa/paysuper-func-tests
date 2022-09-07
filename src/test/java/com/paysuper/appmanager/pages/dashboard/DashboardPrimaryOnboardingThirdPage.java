@@ -1,5 +1,6 @@
 package com.paysuper.appmanager.pages.dashboard;
 
+import com.paysuper.appmanager.helpers.GetProperties;
 import com.paysuper.appmanager.helpers.Locators;
 import com.paysuper.appmanager.pages.AbstractPage;
 import org.openqa.selenium.By;
@@ -13,6 +14,14 @@ public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
     }
     public void enterCompanyName(String CompanyName){
         By by = Locators.get("DashboardPrimaryOnboardingFourthPage.CompanyNameField");
+        WebElement webElement = driver.findElement(by);
+        moveToElement(webElement);
+        waitForClickAbleElement(webElement);
+        webElement.sendKeys(CompanyName);
+    }
+
+    public void enterBrandName(String CompanyName){
+        By by = Locators.get("DashboardPrimaryOnboardingFourthPage.BrandNameField");
         WebElement webElement = driver.findElement(by);
         moveToElement(webElement);
         waitForClickAbleElement(webElement);
@@ -67,15 +76,29 @@ public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
         selectCheckbox(Locators.get("DashboardPrimaryOnboardingFourthPage.SupportedPlatformsCheckboxes"), false);
     }
 
-    public void clickOnDoneButton(){
-        By by = Locators.get("DashboardPrimaryOnboardingFourthPage.DoneButton");
+    public void selectCryptoNetwork(){
+        By by = Locators.get("DashboardPrimaryOnboardingFourthPage.CryptoNetworkField");
         WebElement webElement = driver.findElement(by);
         moveToElement(webElement);
         waitForClickAbleElement(webElement);
-        webElement.click();
+        dropDownSelect(by, Locators.get("DashboardPrimaryOnboardingFourthPage.CryptoNetworkOption"), false, 0);
     }
 
+    public void selectCountry(){
+        By by = Locators.get("DashboardPrimaryOnboardingFourthPage.CountryField");
+        WebElement webElement = driver.findElement(by);
+        moveToElement(webElement);
+        waitForClickAbleElement(webElement);
+        dropDownSelect(Locators.get("DashboardPrimaryOnboardingFourthPage.CountryField"), By.className("option"), false, 0);
+    }
 
+    public void enterSmartContractAddress(String SmartContractAddress){
+        By by = Locators.get("DashboardPrimaryOnboardingFourthPage.SmartContractAddressField");
+        WebElement webElement = driver.findElement(by);
+        moveToElement(webElement);
+        waitForClickAbleElement(webElement);
+        webElement.sendKeys(SmartContractAddress);
+    }
 
     public DashboardVerifyEmailPage successThirdPagePrimaryOnboarding(String CompanyName, String WebsiteName) throws InterruptedException {
         enterCompanyName(CompanyName);
@@ -85,6 +108,16 @@ public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
         clickOnTypeOfBusiness();
         clickOnBusinessModel();
         clickOnSupportedPlatforms();
+        clickOnNextButton();
+        return new DashboardVerifyEmailPage(driver);
+    }
+
+    public DashboardVerifyEmailPage successDAOThirdPagePrimaryOnboarding(String CompanyName, String WebsiteName) throws InterruptedException {
+        enterBrandName(CompanyName);
+        enterWebsiteName(WebsiteName);
+        selectCountry();
+        selectCryptoNetwork();
+        enterSmartContractAddress(GetProperties.value("ETHSmartContractAddress"));
         clickOnNextButton();
         return new DashboardVerifyEmailPage(driver);
     }

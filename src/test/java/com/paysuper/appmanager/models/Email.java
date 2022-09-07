@@ -16,6 +16,15 @@ public class Email {
     private String MerchantName;
     private String WebCheckUrl;
     private String Subject;
+    private String Url;
+
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
+    }
 
     public String getSubject() {
         return Subject;
