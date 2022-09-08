@@ -18,7 +18,9 @@ public class TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void clear(){
-        ((JavascriptExecutor) app.driver).executeScript("window.localStorage.clear();");
+        //((JavascriptExecutor) app.driver).executeScript("window.localStorage.clear();");
+        app.driver.executeScript("window.localStorage.clear();");
+        app.driver.manage().deleteAllCookies();
     }
 
     @AfterClass(alwaysRun = true)
