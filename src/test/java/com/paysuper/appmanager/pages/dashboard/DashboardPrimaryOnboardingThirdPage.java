@@ -7,7 +7,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
+
 public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
+    private final String FileName = "eosio.system.abi";
+
     public DashboardPrimaryOnboardingThirdPage(WebDriver driver) {
         super(driver);
         waitForElementLoad("DashboardPrimaryOnboardingFourthPage.StepCounterText");
@@ -91,6 +95,21 @@ public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
         waitForClickAbleElement(webElement);
         dropDownSelect(Locators.get("DashboardPrimaryOnboardingFourthPage.CountryField"), By.className("option"), false, 0);
     }
+    public void selectSubnet(){
+        By by = Locators.get("DashboardPrimaryOnboardingFourthPage.CryptoSubnetworkField");
+        WebElement webElement = driver.findElement(by);
+        moveToElement(webElement);
+        waitForClickAbleElement(webElement);
+        dropDownSelect(by, Locators.get("DashboardPrimaryOnboardingFourthPage.CryptoSubnetworOption"), false, 0);
+    }
+
+    public void sendAbiFile(){
+            File f = new File("src/test/resources/UploadFiles/" + FileName);
+            String path = f.getAbsolutePath();
+            By by = Locators.get("DashboardPrimaryOnboardingFourthPage.FileUploadFiled");
+            waitForElementLoad(by);
+            driver.findElement(by).sendKeys(path);
+    }
 
     public void enterSmartContractAddress(String SmartContractAddress){
         By by = Locators.get("DashboardPrimaryOnboardingFourthPage.SmartContractAddressField");
@@ -117,7 +136,9 @@ public class DashboardPrimaryOnboardingThirdPage extends AbstractPage {
         enterWebsiteName(WebsiteName);
         selectCountry();
         selectCryptoNetwork();
+        selectSubnet();
         enterSmartContractAddress(GetProperties.value("ETHSmartContractAddress"));
+        sendAbiFile();
         clickOnNextButton();
         return new DashboardVerifyEmailPage(driver);
     }
