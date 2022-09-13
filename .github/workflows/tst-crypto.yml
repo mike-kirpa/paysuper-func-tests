@@ -25,13 +25,14 @@ jobs:
         - name: 'BrowserStack Env Setup'
           uses: 'browserstack/github-actions/setup-env@master'
           with:
-            ref: crypto
             username:  ${{ secrets.BROWSERSTACK_USERNAME }}
             access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Check out the repository
           uses: actions/checkout@v3
+          with:
+            ref: crypto
 
         - name: Run a test on tst env
           run: mvn test -P suite -Dzone=tst-crypto -Dlocalrun=false -Dgroups=onboarding
