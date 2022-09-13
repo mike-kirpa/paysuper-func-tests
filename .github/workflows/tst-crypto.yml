@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
         - name: 'BrowserStack Env Setup'
-          uses: 'browserstack/github-actions/setup-env@crypto'
+          uses: 'browserstack/github-actions/setup-env@master'
           with:
             ref: crypto
             username:  ${{ secrets.BROWSERSTACK_USERNAME }}
