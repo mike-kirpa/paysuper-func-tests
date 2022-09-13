@@ -25,7 +25,7 @@ jobs:
         - name: 'BrowserStack Env Setup'
           uses: 'browserstack/github-actions/setup-env@master'
           with:
-            ref: 'crypto'
+            ref: crypto
             username:  ${{ secrets.BROWSERSTACK_USERNAME }}
             access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
